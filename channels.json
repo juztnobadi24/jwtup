@@ -1,0 +1,718 @@
+[
+    {
+    "name": "Abante Radyo",
+    "type": "TV",
+    "logo": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
+    "category": "News",
+    "streamUrl": "https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8"
+  },
+    {
+    "name": "Action Hollywood Movies HD",
+    "type": "TV",
+    "logo": "https://static.wixstatic.com/media/87eafa_cbc7786c484941c585ed9d7afe64c8e1~mv2.png/v1/fill/w_854,h_480,fp_0.50_0.50/87eafa_cbc7786c484941c585ed9d7afe64c8e1~mv2.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8"
+  },
+     {
+    "name": "AFV",
+    "type": "TV",
+    "logo": "https://logodix.com/logo/1992247.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://linear-12.frequency.stream/dist/plex/12/hls/master/playlist.m3u8"
+  },
+     {
+    "name": "Alien Nation",
+    "type": "TV",
+    "logo": "https://cdn.creativefabrica.com/2023/05/31/Alien-Nation-SVG-Print-Alien-UFO-logo-Graphics-70778983.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8"
+  },
+      {
+    "name": "All Weddings We TV",
+    "type": "TV",
+    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/ALLWED/large_dark.png?auto=webp&ver=1",
+    "category": "Entertainment",
+    "streamUrl": "https://amc-allweddings-1-us.xumo.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "AMC Thrillers",
+    "type": "TV",
+    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/AMCRSH/large_dark.png?auto=webp&ver=1",
+    "category": "Thriller & Crime",
+    "streamUrl": "https://amc-rushbyamc-1-us.vizio.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "American Crimes",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/e/e0/NBC_American_Crimes.svg/revision/latest/scale-to-width-down/250?cb=20240904000846",
+    "category": "Documentary",
+    "streamUrl": "https://xumo-xumoent-vc-113-at8kn.fast.nbcuni.com/live/master.m3u8"
+  },
+  {
+    "name": "American Ninja Warrior",
+    "type": "TV",
+    "logo": "https://vectorified.com/image/american-ninja-warrior-logo-vector-14.png",
+    "category": "Entertainment",
+    "streamUrl": "https://xumo-drct-ch812-n4996.fast.nbcuni.com/live/master.m3u8"
+  },
+  {
+    "name": "Angry Bird",
+    "type": "TV",
+    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2077a187-7b99-4db1-b092-ca4f7f1fc316/djtshgh-1379ba2a-2b3d-4a89-925a-71a269e77d0a.png/v1/fill/w_1280,h_721/cartoon_network_s_angry_birds_toons_logo__wm_au__by_danieltubeisback_djtshgh-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIxIiwicGF0aCI6Ii9mLzIwNzdhMTg3LTdiOTktNGRiMS1iMDkyLWNhNGY3ZjFmYzMxNi9kanRzaGdoLTEzNzliYTJhLTJiM2QtNGE4OS05MjVhLTcxYTI2OWU3N2QwYS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.7RTsDIlH6eSUgR1wFJ_DO-koxXKub04U7aWEiFZ3j94",
+    "category": "Kids and Animation",
+    "streamUrl": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=547"
+  },
+     {
+    "name": "Animal Planet",
+    "type": "TV",
+    "logo": "https://vectorseek.com/wp-content/uploads/2023/05/Animal-Planet-2019-Logo-Vector-600x600.jpg",
+    "category": "Documentary",
+    "streamUrl": "https://d1g8wgjurz8via.cloudfront.net/bpk-tv/Animalplanethd2/default/index.mpd",
+    "drm": {
+      "df81f15150f74c799fdde64ef49dfb75": "05794a012ae74d77953f2b9fae6804c7"
+    }
+  },
+    
+  {
+    "name": "Anime X Hidive",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/3/34/Anime_x_HIDIVE_(White).png/revision/latest?cb=20251205045808",
+    "category": "Kids and Animation",
+    "streamUrl": "https://amc-anime-x-hidive-1-us.tablo.wurl.tv/playlist.m3u8"
+  },
+      {
+    "name": "Anime X HiDive2",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/3/34/Anime_x_HIDIVE_(White).png/revision/latest?cb=20251205045808",
+    "category": "Anime",
+    "streamUrl": "https://amc-anime-x-hidive-1-us.tablo.wurl.tv/3000.m3u8"
+  },
+  {
+    "name": "Aniplus",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/42/1/aniplus-logo-png_seeklogo-428978.png",
+    "category": "Kids and Animation",
+    "streamUrl": "https://amg18481-amg18481c1-amgplt0352.playout.now3.amagi.tv/ts-eu-w1-n2/playlist/amg18481-amg18481c1-amgplt0352/playlist.m3u8"
+  },
+      {
+    "name": "AniPlus 2",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/42/1/aniplus-logo-png_seeklogo-428978.png",
+    "category": "Anime",
+    "streamUrl": "https://amg18481-amg18481c1-amgplt0352.playout.now3.amagi.tv/playlist/amg18481-amg18481c1-amgplt0352/playlist.m3u8"
+  },
+
+      {
+    "name": "Ani-blast",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_ani_blast.webp",
+    "category": "Anime",
+    "streamUrl": "https://amg19223-amg19223c9-amgplt0019.playout.now3.amagi.tv/playlist/amg19223-amg19223c9-amgplt0019/playlist.m3u8"
+  },
+ {
+    "name": "Ani-One",
+    "type": "TV",
+    "logo": "https://storage.googleapis.com/cdn.vcgamers.com/news/wp-content/uploads/2024/05/Ani-One-Asia.webp",
+    "category": "Kids and Animation",
+    "streamUrl": "https://amg19223-amg19223c9-amgplt0019.playout.now3.amagi.tv/playlist/amg19223-amg19223c9-amgplt0019/playlist.m3u8"
+  },
+  {
+    "name": "Antiques Road Trip",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.PB_0V_n4O4Yp2meHNuCGDwHaHa?pid=Api&h=220&P=0",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://aegis-cloudfront-1.tubi.video/b42ac280-5300-4db0-8a63-2ec2e52c5b5c/720p-cc/index.m3u8"
+  },
+  {
+    "name": "Arirang",
+    "type": "TV",
+    "logo": "https://logowiki.net/wp-content/uploads/imgp/Arirang-Logo-1-9664.png",
+    "category": "International",
+    "streamUrl": "https://amdlive-ch01-ctnd-com.akamaized.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8"
+  },
+ {
+    "name": "Arirang Korea",
+    "type": "TV",
+    "logo": "https://logowiki.net/wp-content/uploads/imgp/Arirang-Logo-1-9664.png",
+    "category": "News",
+    "streamUrl": "https://amdlive-ch03-ctnd-com.akamaized.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8"
+  },
+      {
+    "name": "Asian Box",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.5Po2opMZh-a9eieA3wB9hQHaHa?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://cdn4.skygo.mn/live/disk1/AsianBOX/HLSv3-FTA/AsianBOX.m3u8"
+  },
+      {
+    "name": "Astro Awani",
+    "type": "TV",
+    "logo": "https://i0.wp.com/lushiglobal.com/wp-content/uploads/2020/01/Newspaper-Logo-Astro-Awani.png?w=900&ssl=1",
+    "category": "News",
+    "streamUrl": "https://d2idp3hzkhjpih.cloudfront.net/out/v1/4b85d9c2bf97413eb0c9fd875599b837/index_3.m3u8"
+  },
+  {
+    "name": "Authentic History",
+    "type": "TV",
+    "category": "Documentary",
+    "streamUrl": "https://c79f98a182af4cd79e0afe576c99cde9.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG-au_AutenticHistory/playlist.m3u8"
+  },
+  {
+    "name": "Authentic Travel",
+    "type": "TV",
+    "category": "Documentary",
+    "streamUrl": "https://2d1ef59f0ad34d14888d8abce1b99264.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG-au_AutenticTravel/playlist.m3u8"
+  },
+  {
+    "name": "AVA Family",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.rSq_MfMvkmyVU30Vdtg-1AHaHa?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://familyhls.avatv.live/hls/stream.m3u8"
+  },
+  {
+    "name": "AVA Series",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.5D0NiVN4LlXjuFbqsKbkTQAAAA?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://avaserieshls.wns.live/hls/stream.m3u8"
+  },
+  {
+    "name": "AWE Plus",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.kZwVrjAGRhuziLhTGn8_JwHaEL?pid=Api&h=220&P=0",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00450-herringnetwork-awe-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.appstoreurl=[APP_STORE_URL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Azteca International",
+    "type": "TV",
+    "logo": "https://tvazteca.brightspotcdn.com/6b/68/81ba31064811b3aaddf9f576682f/ainternacional-color.png",
+    "category": "Drama",
+    "streamUrl": "https://azt-mun.otteravision.com/azt/mun/mun_1080p.m3u8"
+  },
+  {
+    "name": "Bilyonaryo News Channel",
+    "type": "TV",
+    "logo": "https://www.lyngsat.com/logo/tv/bb/bilyonaryo-news-channel-ph.png",
+    "category": "News",
+    "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
+  },
+
+  {
+    "name": "Cinema One Global",
+    "type": "TV",
+    "logo": "https://s.pngkit.com/png/small/357-3578647_cinema-one-logo-cinema-one-logo-png.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemaone-dash-abscbnono/index.mpd",
+    "drm": {
+      "58d0e56991194043b8fb82feb4db7276": "c116c612201e178193693eced13d7319"
+    }
+  },
+  {
+    "name": "Cinemo Global",
+    "type": "TV",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd",
+    "drm": {
+      "aa8aebe35ccc4541b7ce6292efcb1bfb": "f06b6031a3604cc6708c14d83f1a1b27"
+    }
+  },
+    {
+    "name": "CNA",
+    "type": "TV",
+    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
+  },
+    {
+    "name": "DAZN Combat",
+    "type": "TV",
+    "logo": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
+    "category": "Sports",
+    "streamUrl": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8"
+  },
+  {
+    "name": "DAZN Ringside",
+    "type": "TV",
+    "logo": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+    "category": "Sports",
+    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8"
+  },
+  {
+    "name": "Disney Channel",
+    "type": "TV",
+    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/eef93b81-b587-483c-a748-9745913f9219/dglo29x-d8ced47b-f36c-4e21-b4f7-b50df1cd01e9.png/v1/fill/w_955,h_836/disney_channel_my_concept_for_new_logo_2_by_kh111111_dglo29x-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTExOSIsInBhdGgiOiJcL2ZcL2VlZjkzYjgxLWI1ODctNDgzYy1hNzQ4LTk3NDU5MTNmOTIxOVwvZGdsbzI5eC1kOGNlZDQ3Yi1mMzZjLTRlMjEtYjRmNy1iNTBkZjFjZDAxZTkucG5nIiwid2lkdGgiOiI8PTEyNzgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gOX0b8qqaMbYLbwGYuUsRPxGc8owawSigeqQ0ebdl_w",
+    "category": "Kids",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_channel_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
+  },
+  {
+    "name": "Disney Jr.",
+    "type": "TV",
+    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a9e9425-78dc-4ba0-8cf0-74c8eb23f673/dhiz5f7-24d48289-65a3-42e2-91e1-ce03fd872060.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNhOWU5NDI1LTc4ZGMtNGJhMC04Y2YwLTc0YzhlYjIzZjY3M1wvZGhpejVmNy0yNGQ0ODI4OS02NWEzLTQyZTItOTFlMS1jZTAzZmQ4NzIwNjAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uwIQACD8Am2JqUtDmndKy76AIOfLt6-mAoHCY8JeN9o",
+    "category": "Kids",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_jr_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
+  },
+
+    {
+    "name": "DZMM Teleradyo",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/russel/images/0/0d/DZMM_TeleRadyo_Logo_2025.png/revision/latest/scale-to-width-down/1200?cb=20250619152431",
+    "category": "News",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
+    "drm": {
+      "47c093e0c9fd4f80839a0337da3dd876": "603248b858276f533a13e17f2f48c711"
+    }
+  },
+    {
+    "name": "Eurosport 1",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561802/index.mpd",
+    "drm": {
+      "01a665d487aa4c1c898c9eb0ff1a21df": "a0b9df5f92e6b218ddb6aa40a2cd996d"
+    }
+  },
+  {
+    "name": "Eurosport 2",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561705/index.mpd",
+    "drm": {
+      "657707bbd1e240e08bd6969df27fef7c": "364e00581c1432f4175e4a2e8e0cd57e"
+    }
+  },
+  {
+    "name": "FIFA+",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.pngs",
+    "category": "Sports",
+    "streamUrl": "https://ca333c39.wurl.com/v1/sysdata_s_p_a_fifa_6/ohlscdn_us/latest/main/hls/playlist.m3u8"
+  },
+  {
+    "name": "Fight+",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg19223-amg19223c6-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c6-amgplt0351/playlist.m3u8"
+  },
+
+    {
+    "name": "F1 TV (1)",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "dateAdded": "2026-03-21",
+    "streamUrl": "https://a184aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/5fjow0mrvw/out/v1/f870533ee24b4f3bb98d2afe4b1e1bac/cenc.mpd",
+    "drm": {
+      "505616380de706936e493fdd1c25d0b6": "5b313f49c63c682236eab3357400e216"
+    }
+  },
+  {
+    "name": "F1 TV (2)",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "dateAdded": "2026-03-21",
+    "streamUrl": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/duqbirmk0d/out/v1/40f53c7cbc95498db3afd081c377d776/cenc.mpd",
+    "drm": {
+      "609d795905904705028ef54653019af7": "2c791eb611e57a7d7f203022bc1b9ba3"
+    }
+  },
+  {
+    "name": "Game Show Network",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_game_show_network.webp",
+    "category": "Entertainment",
+    "streamUrl": "https://a-cdn.klowdtv.com/live2/gsn_720p/chunks.m3u8"
+  },
+  {
+    "name": "GMA Life TV",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_gma_life_tv.webp",
+    "category": "Entertainment",
+    "dateAdded": "2026-03-19",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/glife3/manifest.mpd",
+    "drm": {
+      "5d308ef487f54107b7da758e195ecbd3": "9d4004d4c065dd4b85ad5bd12c35386f"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+  {
+    "name": "GMA News TV",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_gma_news_tv.webp",
+    "category": "Entertainment",
+    "dateAdded": "2026-03-19",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gnews3/manifest.mpd",
+    "drm": {
+      "d5d848730e4a4f9b962290039dd2b96b": "c959dc12f1bff5a66d030117fb7e9855"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+    {
+    "name": "GMA Pinoy TV",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_gma_pinoy_tv.webp",
+    "category": "Entertainment",
+    "dateAdded": "2026-03-19",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gmapt3/manifest.mpd",
+    "drm": {
+      "7b5d15a7385546768aca9fd505ad5e16": "f534393c84c1a9c17fa36bc3a4380981"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+
+  {
+    "name": "HBO Family",
+    "type": "TV",
+    "logo": "https://logospng.org/download/hbo-family/logo-hbo-family-512.png",
+    "category": "Movies",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbofam/default/index.mpd",
+    "drm": {
+      "872910c843294319800d85f9a0940607": "f79fd895b79c590708cf5e8b5c6263be"
+    }
+  },
+    {
+    "name": "HBO Hits",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/0/04/HBO_HiTS.svg/revision/latest/scale-to-width-down/250?cb=20100511073403",
+    "category": "Movies",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbohits/default/index.mpd",
+    "drm": {
+      "b04ae8017b5b4601a5a0c9060f6d5b7d": "a8795f3bdb8a4778b7e888ee484cc7a1"
+    }
+  },
+
+  {
+    "name": "HBO Signature",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.PNcaEsDsK8CX97tCTst7_gHaDw?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbosign/default/index.mpd",
+    "drm": {
+      "a06ca6c275744151895762e0346380f5": "559da1b63eec77b5a942018f14d3f56f"
+    }
+  },
+    {
+    "name": "Jeepney TV",
+    "type": "TV",
+    "logo": "https://4.bp.blogspot.com/-URloFZ0yglM/UIFMSDxlcrI/AAAAAAAASMg/sRS0K4aJmC8/s1600/Jeepney-TV-Logo.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2027618/jeepneytv/manifest.mpd",
+    "drm": {
+      "dc9fec234a5841bb8d06e92042c741ec": "225676f32612dc803cb4d0f950d063d0"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+    {
+    "name": "Kartoon Channel!",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_kartoon_channel.webp",
+    "category": "Kids",
+    "streamUrl": "https://live-manifest.production-public.tubi.io/live/ede882c2-43d6-4eca-9351-ea29e84dc217/playlist.m3u8"
+  },
+
+  {
+    "name": "MovieSphere",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.OH6KANOcVN-rpIennsy6MgHaEK?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://amg00353-lionsgatestudio-moviesphere-xumo-zh5u0.amagi.tv/playlist.m3u8"
+  },
+
+    {
+    "name": "Movies Now",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.lveOGtLiClQDqabVAjM3LwHaHa?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://times-ott-live.akamaized.net/moviesnow_wv_drm/index.mpd",
+    "drm": {
+      "40f019b86241d23ef075633fd7f1e927": "058dec845bd340178a388edd104a015e"
+    }
+  },
+  
+  {
+    "name": "MYX Global",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/48/1/myx-logo-png_seeklogo-482518.png",
+    "category": "Music",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-myxnola-dash-abscbnono/28b644c3-4a05-4733-a518-50ae75ff8193/index.mpd",
+    "drm": {
+      "f40a52a3ac9b4702bdd5b735d910fd2f": "35e4893c6e76546085941be3010932d4"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+    {
+    "name": "NBA TV",
+    "type": "TV",
+    "logo": "https://static.vecteezy.com/system/resources/previews/027/127/440/original/nba-logo-nba-icon-transparent-free-png.png",
+    "category": "Sports",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/nba_tv_hd/default/index.mpd",
+    "drm": {
+      "0c39778fe8fb4f9f8574016b3d4ae2ed": "232b1f450f2e37f47fdd5b678a8a546d"
+    }
+  },
+
+    {
+    "name": "New K-Pop",
+    "type": "TV",
+    "logo": "https://24hrkpop.com/wp-content/uploads/2020/04/KPOP-Logo-Alpha.png",
+    "category": "Music",
+    "streamUrl": "https://newidco-newkid-1-eu.xiaomi.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "NFL Network",
+    "type": "TV",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.-O5xaqQzgF4_ZjXvVufitAHaHa?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/nfl_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
+  },
+  {
+    "name": "ONE Championship",
+    "type": "TV",
+    "logo": "https://logowik.com/content/uploads/images/one-championship2775.jpg",
+    "category": "Sports",
+    "streamUrl": "https://live-pv-ta.amazon.fastly-edge.com/syd-nitro/live/clients/dash/enc/kkfdbi2d1c/out/v1/a5b9b32dafd5499688240287ef8c9b90/cenc.mpd",
+    "drm": {
+      "308006101c8fd0262c0f529319b9c127": "37683aadc75b1450efa82d62c647984d"
+    }
+  },
+  {
+    "name": "Pickle TV",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.5IbXxOB_xhUEFQFCXGU6UQHaHa?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "dateAdded": "2026-03-19",
+    "streamUrl": "https://fce26776.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U3BvcnRzVHJpYmFsLWV1X1BpY2tsZVRWX0hMUw/playlist.m3u8"
+  },
+
+    {
+    "name": "Stories by AMC",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.E_ALVOsrM9xvzepA1oq4-gHaEJ?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://amc-amcpresents-1-us.plex.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Tennis+",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.YLaFJUU8hyI5A4hSbhPa5AHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg01935-amg01935c1-amgplt0352.playout.now3.amagi.tv/playlist/amg01935-amg01935c1-amgplt0352/playlist.m3u8"
+  },
+  {
+    "name": "Tennis Channel 2",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_tennis_channel_2.webp",
+    "category": "Sports",
+    "dateAdded": "2026-03-20",
+    "streamUrl": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/bfigtl960n/out/v1/5ba5484550e84681bff2e8ca994266c1/cenc.mpd",
+    "drm": {
+      "59F50679C9E60963BD0CB6640992AAAA": "8685817c4d31f322e08940feeae2855a"
+    }
+  },
+
+  {
+    "name": "TFC",
+    "type": "TV",
+    "logo": "https://content.osn.com/bob/745x419/TFC.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-tfcasia-dash-abscbnono/index.mpd",
+    "drm": {
+      "9568cc84e1d944f38eac304517eab6fd": "2c8306892361e3fba18cb142f31ec775"
+    },
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
+    }
+  },
+    {
+    "name": "Vevo Pop",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/5d93b635b43dd1a399b39eee/featuredImage.jpg",
+    "category": "Music",
+    "streamUrl": "https://amg00056-amg00056c6-rakuten-uk-3235.playouts.now.amagi.tv/playlist.m3u8"
+  },
+
+    {
+    "name": "Wild Earth",
+    "type": "TV",
+    "logo": "https://mms.businesswire.com/media/20221026005209/en/1613768/23/WE_Logo_V1_062222_Stacked_1-color_Forest.jpg",
+    "category": "Documentary",
+    "streamUrl": "https://wildearth-plex.amagi.tv/masterR1080p.m3u8"
+  },
+
+  {
+    "name": "YTV",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.DfsD-OhD0b16GzoiCUf_GAHaHa?pid=Api&h=220&P=0",
+    "category": "Kids",
+    "streamUrl": "https://a196aivottlinear-a.akamaihd.net/OTTB/pdx-nitro/live/clients/dash/enc/o7aqpbb6vv/out/v1/f8f6ef738ef24c4f8176d561ffb8a157/cenc.mpd",
+    "drm": {
+      "6f0aeae5779f1dcaef23f0bfbc828220": "7bcef3cf93de00e3daeb190d15b1ec05"
+    }
+  },
+  {
+    "name": "[adult swim]",
+    "type": "TV",
+    "logo": "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg",
+    "category": "Kids",
+    "streamUrl": "https://a116aivottlinear-a.akamaihd.net/OTTB/pdx-nitro/live/clients/dash/enc/rwcf8uax9l/out/v1/13ccaaacbe1143e69b7732fced73f0ab/cenc.mpd",
+    "drm": {
+      "cc26110bb0d29d0e4452d42602846080": "4a2e5782e26a3e2d7dd0431205c14518"
+    }
+  },
+
+  {
+    "name": "90.7 Love Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://azura.loveradio.com.ph/listen/love_radio_manila/radio.mp3",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/3/32/Love_Radio_2021_logo.png?Love_Radio1184620647"
+},
+{
+    "name": "96.3 Easy Rock",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://azura.easyrock.com.ph/listen/easy_rock_manila/radio.mp3",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/1/13/New_modernized_logo_of_96.3_Easy_Rock_-_Vectorized_via_InkScape.svg"
+},
+{
+    "name": "93.1 MONSTER RX",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://in-icecast.eradioportal.com:8443/monsterrrx",
+    "logo": "https://rx931.com/images/logo-main.png"
+},
+{
+    "name": "91.5 Win Radio Manila",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/nz4ydgnu6hhvv?an-uid=4762660213158558940",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/Ev1_yutQykKjO56VRPMAd2sEQlmrQC9EVrP9p-0rGLo/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0k3b1NRbEFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0k5dkRNNmdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc0NDgyMzQxMjAwMA.webp"
+},
+{
+    "name": "95.5 Star FM Cebu",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/g98fs57q0y5tv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/ZYMRqpgfV09UKg4XATVZf1ImvzXxiPAKCo92PKwI8nI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnUE9Ya3drTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjMyOTAwMA.webp"
+},
+{
+    "name": "94.7 Energy FM Cebu",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/4oa5m3ffwutuv?dyn-uid=4953455941537461585&an-uid=6788999058307340397&dot-uid=0c6f2204002afaac5e3f41c4&amb-uid=8063733765431834548&dbm-uid=CAESEJoN6FTvjvF3Bvl0e_kDWTg&aw_0_req_lsid=b60d41b87dd35514d9cf949f42a559c6",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/XG-MObHM6PEtkzagDXocTb6RTP9-7aVgC3rLPtQpTp0/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYzFmNWUxNTgtM2VmOS00MTYzLWE1NWItOTZhMjU2MjIzYmE5L2ltYWdlLz91PTE3MjgzNDg4NTkwMDA.webp"
+},
+{
+    "name": "106.3 Energy FM Naga",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/klewk28qlqquv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/-Y6IS9jaU9PriXP_3E3JHF4c-256Ob8Pl-9D5q48VjE/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvMjI5Y2YzNmYtZDJlMi00ZGRlLWJhMTMtZDUwYWMyOGM2NjMwL2ltYWdlLz91PTE3Mzk4NjUxMjIwMDA.webp"
+},
+{
+    "name": "102.7 Star FM Manila",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/69b1kf7q0y5tv?an-uid=4762660213158558940",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/_ZvbPylo7NBu72rPDnUvyCInPbTGGCj7iO57KrUOGW4/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnSXY2aGdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjQxNTAwMA.webp"
+},
+{
+    "name": "Tee Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/r19q0f1hbm0uv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/naE7jZGFRs5c0t0g3ULHHy-4vKFi03lHsXEcmRjW-0g/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFpYnJ4N0FrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFE2Zk90cmdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTY3NzE1MzAwMA.webp"
+},
+{
+    "name": "Station 1 Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/6a9w4h8xqg0uv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/8OuhHMZdgn8agTxt5HtAGl1IkvcnP-NzTBs4gDjI-2c/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFfcm5DN3dnTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFFucnZOeGdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY4OTU1MzAyODAwMA.webp"
+},
+{
+    "name": "Vibe Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/zf0ac4raqy8uv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/2omcviiNmet2a72dj84IDg4pUlt43mCC0UDlhQWVFyw/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3dsdU9Gc0FvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dpWlRfLWdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY3MzQ5Nzc1NDAwMA.webp"
+},
+{
+    "name": "Dreamstar Teleradio Nationwide",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://usa13.fastcast4u.com/proxy/itunerworldwide?mp=/1",
+    "logo": "https://static.mytuner.mobi/media/tvos_radios/380/dreamstar-teleradio.f004004e.png"
+},
+{
+    "name": "Online Christian Radio",
+    "type": "Radio",
+    "category": "Praise and Worship",
+    "streamUrl": "https://stream.zeno.fm/grvs43g0tmzuv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/ECaB9K5zwHe4kbsQqOhf5SJ01_L2wkyXIa-cHGPdwzc/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRGd4Y0hCa1FzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRGdwWjNEMFFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTc1MzI0NjAwMA.webp"
+},
+{
+    "name": "One Radio Manila",
+    "type": "Radio",
+    "category": "Praise and Worship",
+    "streamUrl": "https://stream-155.zeno.fm/e9d0qhpxmv8uv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/KQrS02TIJj_KEw1Lbc9mH14-OTMfGJchgZKgS_LnGSI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dxcjMyckFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc1MDI5NDM5NTAwMA.webp"
+},
+{
+    "name": "Flame Gospel Radio",
+    "type": "Radio",
+    "category": "Praise and Worship",
+    "streamUrl": "https://stream.zeno.fm/1ruppedsd6quv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/DSamCoS2ae3svnuek0UpEU2SatLtUM08ztxnlMoOkAY/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ2dncFhiclFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ2doY0tSbHdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTQ3NzU4ODAwMA.webp"
+},
+{
+    "name": "One Radio Christmas",
+    "type": "Radio",
+    "category": "Praise and Worship",
+    "streamUrl": "https://stream.zeno.fm/p29uvzkazy8uv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/BeDsdWFYzxt7kruuYoLl3Wd5ckqNkRBnEi6WPEk2WAU/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3d1ZTNZcWdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTczMjkzNzM4MTAwMA.webp"
+},
+{
+    "name": "Send The Word Online Radio",
+    "type": "Radio",
+    "category": "Praise and Worship",
+    "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
+},
+  {
+    "name": "ABN Bible Movies",
+    "type": "TV",
+    "logo": "ch_abn_bible_movies",
+    "category": "Pinoy",
+    "streamUrl": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8"
+  }
+ 
+
+ 
+
+
+]
