@@ -671,6 +671,13 @@
     "streamUrl": "https://stream.zeno.fm/4oa5m3ffwutuv?dyn-uid=4953455941537461585&an-uid=6788999058307340397&dot-uid=0c6f2204002afaac5e3f41c4&amb-uid=8063733765431834548&dbm-uid=CAESEJoN6FTvjvF3Bvl0e_kDWTg&aw_0_req_lsid=b60d41b87dd35514d9cf949f42a559c6",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/XG-MObHM6PEtkzagDXocTb6RTP9-7aVgC3rLPtQpTp0/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYzFmNWUxNTgtM2VmOS00MTYzLWE1NWItOTZhMjU2MjIzYmE5L2ltYWdlLz91PTE3MjgzNDg4NTkwMDA.webp"
 },
+    {
+    "name": "97.1 Barangay LS",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/dphe9050afhvv",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/eFhUa81egn4S-LfIn_oz9LRPKn-_wW6SkdeojkrsMVc/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNjA0YmI0YWYtY2NmNi00N2JkLTgxOWUtN2QxYWNjZDE1ZTA1L2ltYWdlLz91PTE3NzAwNDI0ODEwMDA.webp"
+},
 {
     "name": "106.3 Energy FM Naga",
     "type": "Radio",
@@ -684,6 +691,13 @@
     "category": "FM",
     "streamUrl": "https://stream.zeno.fm/69b1kf7q0y5tv?an-uid=4762660213158558940",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/_ZvbPylo7NBu72rPDnUvyCInPbTGGCj7iO57KrUOGW4/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnSXY2aGdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjQxNTAwMA.webp"
+},
+    {
+    "name": "MOR Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream-144.zeno.fm/26ea0anpms8uv",
+    "logo": "https://static.mytuner.mobi/media/tvos_radios/ngt3qgajtbv4.png"
 },
 {
     "name": "Tee Radio",
@@ -748,6 +762,7 @@
     "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
 },
+
   {
     "name": "Baby Shark TV (720p)",
     "type": "TV",
