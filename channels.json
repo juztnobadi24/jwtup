@@ -899,35 +899,21 @@
      {
     "name": "DAILY WIRE",
     "type": "TV",
-    "logoLocal": "ch_daily_wire",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://fl1004.bozztv.com/ushba-m10/tracks-v1a1/mono.m3u8"
   },
   {
-    "name": "DAZN Combat",
-    "type": "TV",
-    "logoLocal": "ch_dazn_combat",
-    "category": "Sports",
-    "streamUrl": "https://rakutenaa-dazn-combat-rakuten-kcybm.amagi.tv/playlist/rakutenAA-dazn-combat-rakuten/playlist.m3u8"
-  },
-  {
-    "name": "DAZN Ringside",
-    "type": "TV",
-    "logoLocal": "ch_dazn_ringside",
-    "category": "Sports",
-    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/720p-cc/index.m3u8"
-  },
-  {
     "name": "Declassified",
     "type": "TV",
-    "logoLocal": "ch_declassified",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
     "category": "Entertainment",
     "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
   },
   {
     "name": "Discovery Channel SD",
     "type": "TV",
-    "logoLocal": "ch_discovery_channel",
+    "logoLocal": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
     "category": "Documentary",
     "streamUrl": "https://qp-pldt-live-grp-13-prod.akamaized.net/out/u/dr_discovery.mpd",
     "drm": {
@@ -937,118 +923,25 @@
   {
     "name": "Discover Film",
     "type": "TV",
-    "logoLocal": "ch_discover_film",
+    "logo": "https://static.wikitide.net/avidwiki/thumb/b/be/Discovery_01.jpg/402px-Discovery_01.jpg",
     "category": "Kids and Animation",
     "streamUrl": "https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8"
   },
   {
-    "name": "Discovery HD World",
-    "type": "TV",
-    "logoLocal": "ch_discovery_hd_world",
-    "category": "Documentary",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/discoveryhdworld/master.m3u8"
-  },
-  {
-    "name": "Discovery India",
-    "type": "TV",
-    "logoLocal": "ch_discovery_india",
-    "category": "Documentary",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/discovery/master.m3u8"
-  },
-  {
-    "name": "Discovery Science",
-    "type": "TV",
-    "logoLocal": "ch_discovery_science",
-    "category": "Documentary",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/discoveryscience/master.m3u8"
-  },
-  {
-    "name": "Discovery Turbo",
-    "type": "TV",
-    "logoLocal": "ch_discovery_turbo",
-    "category": "Documentary",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/discoveryturbo/master.m3u8"
-  },
-  {
-    "name": "Disney Channel",
-    "type": "TV",
-    "logoLocal": "ch_disney_channel",
-    "category": "Kids and Animation",
-    "streamUrl": "https://ottb.live.cf.ww.aiv-cdn.net/dub-nitro/live/clients/dash/enc/zuf794yutz/out/v1/ca3534bfe4f148298b36719204d108e0/cenc.mpd",
-    "drm": {
-      "be9caaa813c5305e761c66ac63645901": "3d40f2990ec5362ca5be3a3c9bb8f8b4"
-    }
-  },
-  {
-    "name": "Disney International",
-    "type": "TV",
-    "logoLocal": "ch_disney_international",
-    "category": "Kids and Animation",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotvplus/disneyinternationalhd/stream_0.m3u8"
-  },
-  {
     "name": "Dont Tell The Bride",
     "type": "TV",
-    "logoLocal": "ch_dont_tell_the_bride",
+    "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
     "category": "Entertainment",
     "streamUrl": "https://lds-donttellbride-rakuten.amagi.tv/360p-cc/index.m3u8"
   },
-  {
-    "name": "DreamWorks HD",
-    "type": "TV",
-    "logoLocal": "ch_dreamworks_hd",
-    "category": "Kids and Animation",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_dreamworks_hd1/default/index.mpd",
-    "drm": {
-      "4ab9645a2a0a47edbd65e8479c2b9669": "8cb209f1828431ce9b50b593d1f44079"
-    }
-  },
-  {
-    "name": "DreamWorks Tagalog",
-    "type": "TV",
-    "logoLocal": "ch_dreamworks_tagalog",
-    "category": "Kids and Animation",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_dreamworktag/default/index.mpd",
-    "drm": {
-      "564b3b1c781043c19242c66e348699c5": "d3ad27d7fe1f14fb1a2cd5688549fbab"
-    }
-  },
-  {
-    "name": "Dubai One",
-    "type": "TV",
-    "logoLocal": "ch_dubai_one",
-    "category": "Movies",
-    "streamUrl": "https://dminnvllta.cdn.mgmlcdn.com/dubaione/smil:dubaione.stream.smil/chunklist_b1300000.m3u8"
-  },
-  {
-    "name": "Dubai Sports",
-    "type": "TV",
-    "logoLocal": "ch_dubai_sports",
-    "category": "Sports",
-    "streamUrl": "https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8"
-  },
-  {
-    "name": "Dunia Sinema",
-    "type": "TV",
-    "logoLocal": "ch_dunia_sinema",
-    "category": "Movies",
-    "streamUrl": "https://unifi-live01.secureswiftcontent.com/UnifiHD/live27-720H.m3u8"
-  },
-  {
-    "name": "DW",
-    "type": "TV",
-    "logoLocal": "ch_dw",
-    "category": "News",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/dw/master.m3u8"
-  },
+ 
   {
     "name": "DW News",
     "type": "TV",
-    "logoLocal": "ch_dw_news",
+    "logoLocal": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
   }
-
 
 
 ]
