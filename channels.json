@@ -754,7 +754,153 @@
     "category": "Praise and Worship",
     "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
-}
+},
+    {
+    "name": "BabyFirst",
+    "type": "TV",
+    "logoLocal": "ch_babyfirst",
+    "category": "Kids and Animation",
+    "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/c8d16110-566c-4e95-a1df-55d175e9e201/manifest.m3u8"
+  },
+  {
+    "name": "Baby Shark TV (720p)",
+    "type": "TV",
+    "logoLocal": "ch_baby_shark_tv",
+    "category": "Kids and Animation",
+    "streamUrl": "https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Bein Sports Xtra",
+    "type": "TV",
+    "logoLocal": "ch_bein_sports_xtra",
+    "category": "Sports",
+    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "BBC Earth",
+    "type": "TV",
+    "logoLocal": "ch_bbc_earth",
+    "category": "Documentary",
+    "streamUrl": "https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8"
+  },
+  {
+    "name": "BBC Four/CBeebies (1080p)",
+    "type": "TV",
+    "logoLocal": "ch_bbc_four_cbeebies",
+    "category": "Kids and Animation",
+    "streamUrl": "https://viamotionhsi.netplus.ch/live/eds/bbc4cbeebies/browser-HLS8/bbc4cbeebies.m3u8"
+  },
+  {
+    "name": "BBC Impossible",
+    "type": "TV",
+    "logoLocal": "ch_bbc_impossible",
+    "category": "Entertainment",
+    "streamUrl": "https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "BBC Lifestyle",
+    "type": "TV",
+    "logoLocal": "ch_bbc_lifestyle",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://cdn4.skygo.mn/live/disk1/BBC_lifestyle/HLSv3-FTA/BBC_lifestyle-avc1_2089200=21-mp4a_256000_eng=22.m3u8"
+  },
+  {
+    "name": "BBC Three/CBBC (1080p)",
+    "type": "TV",
+    "logoLocal": "ch_bbc_three_cbbc",
+    "category": "Kids and Animation",
+    "streamUrl": "https://viamotionhsi.netplus.ch/live/eds/bbc3cbbc/browser-HLS8/bbc3cbbc.m3u8"
+  },
+  {
+    "name": "BBC Top Gear",
+    "type": "TV",
+    "logoLocal": "ch_bbc_top_gear",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00793-amg00793c5-xumo-us-2664.playouts.now.amagi.tv/bbcstudios-bbctopgear8min-all/playlist.m3u8"
+  },
+  {
+    "name": "BBC World News",
+    "type": "TV",
+    "logoLocal": "ch_bbc_world_news",
+    "category": "News",
+    "streamUrl": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8"
+  },
+  {
+    "name": "Beach Bunny",
+    "type": "TV",
+    "logoLocal": "ch_beach_bunny",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://fl1003.bozztv.com/ushba-m7/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Bloomberg",
+    "type": "TV",
+    "logoLocal": "ch_bloomberg",
+    "category": "News",
+    "streamUrl": "https://www.bloomberg.com/media-manifest/streams/asia.m3u8"
+  },
+  {
+    "name": "Blossom Tv",
+    "type": "TV",
+    "logoLocal": "ch_blossom_tv",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
+  },
+  {
+    "name": "Billiard TV",
+    "type": "TV",
+    "logoLocal": "ch_billiard_tv",
+    "category": "Sports",
+    "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
+  },
+  {
+    "name": "Bilyonaryo",
+    "type": "TV",
+    "logoLocal": "ch_bilyonaryo",
+    "category": "Pinoy",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/bilyonaryoch/default/index.mpd",
+    "drm": {
+      "227ffaf09bec4a889e0e0988704d52a2": "b2d0dce5c486891997c1c92ddaca2cd2"
+    }
+  },
+  {
+    "name": "Bollywood Classic",
+    "type": "TV",
+    "logoLocal": "ch_bollywood_classic",
+    "category": "Movies",
+    "streamUrl": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-classic/manifest.m3u8"
+  },
+  {
+    "name": "Bollywood HD",
+    "type": "TV",
+    "logoLocal": "ch_bollywood_hd",
+    "category": "Movies",
+    "streamUrl": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-hd/manifest.m3u8"
+  },
+  {
+    "name": "Brave TV",
+    "type": "TV",
+    "logoLocal": "ch_brave_tv",
+    "category": "Movies",
+    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/bravetv/master.m3u8"
+  },
+  {
+    "name": "BugsBunny Builders",
+    "type": "TV",
+    "logoLocal": "ch_bugsbunny_builders",
+    "category": "Kids and Animation",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-t6/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "BUKO",
+    "type": "TV",
+    "logoLocal": "ch_buko",
+    "category": "Pinoy",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_buko_sd/default/index.mpd",
+    "drm": {
+      "d273c085f2ab4a248e7bfc375229007d": "7932354c3a84f7fc1b80efa6bcea0615"
+    }
+  }
 
 
 
