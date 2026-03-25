@@ -185,6 +185,414 @@
     "streamUrl": "https://azt-mun.otteravision.com/azt/mun/mun_1080p.m3u8"
   },
   {
+    "name": "Baby Shark TV (720p)",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/N7Kf5CZB5yFGddAZxmtjylZuG9ECPJFm1y_sdV7Gx_WrawDP-k-9mpFY_hRL4E3IXPo",
+    "category": "Kids",
+    "streamUrl": "https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Bein Sports Xtra",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.ob-M2GXzrQzDibjpQHhmxgHaFj?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "BBC Earth",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.0Tli1puSkO6sj789h80HmwHaFj?pid=Api&h=220&P=0",
+    "category": "Documentary",
+    "streamUrl": "https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8"
+  },
+  {
+    "name": "BBC Impossible",
+    "type": "TV",
+    "logo": "https://m.media-amazon.com/images/I/81geqCyt9KL.png",
+    "category": "Entertainment",
+    "streamUrl": "https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "BBC Top Gear",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.gYub6jvJ2mNsHv46pgEvkAHaE5?pid=Api&h=220&P=0",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00793-amg00793c5-xumo-us-2664.playouts.now.amagi.tv/bbcstudios-bbctopgear8min-all/playlist.m3u8"
+  },
+  {
+    "name": "BBC World News",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.wkiTX11xPMfvl2DW6LUCEAHaFj?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8"
+  },
+  {
+    "name": "Blossom Tv",
+    "type": "TV",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
+  },
+  {
+    "name": "Billiard TV",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.2btxOHsk5DcqPIljOPzgUwHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
+  },
+     {
+    "name": "Bilyonaryo News Channel",
+    "type": "TV",
+    "logo": "https://www.lyngsat.com/logo/tv/bb/bilyonaryo-news-channel-ph.png",
+    "category": "News",
+    "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
+  },
+  {
+    "name": "Catholic Network",
+    "type": "TV",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
+    "category": "Religion",
+    "streamUrl": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8"
+  },
+  {
+    "name": "Cartoon Classics",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest/scale-to-width-down/300?cb=20230929014751",
+    "category": "Kids",
+    "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8"
+  },
+      {
+    "name": "Cinema One Global",
+    "type": "TV",
+    "logo": "https://s.pngkit.com/png/small/357-3578647_cinema-one-logo-cinema-one-logo-png.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemaone-dash-abscbnono/index.mpd",
+    "drm": {
+      "58d0e56991194043b8fb82feb4db7276": "c116c612201e178193693eced13d7319"
+    }
+  },
+  {
+    "name": "Cinemo Global",
+    "type": "TV",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd",
+    "drm": {
+      "aa8aebe35ccc4541b7ce6292efcb1bfb": "f06b6031a3604cc6708c14d83f1a1b27"
+    }
+  },
+    {
+    "name": "CNA",
+    "type": "TV",
+    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
+  },
+  {
+    "name": "CBS News",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master_21.m3u8"
+  },
+  {
+    "name": "CGTN",
+    "type": "TV",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
+    "category": "News",
+    "streamUrl": "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master720p.m3u8"
+  },
+  {
+    "name": "CGTN DOCUMENTARY",
+    "type": "TV",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
+    "category": "Documentary",
+    "streamUrl": "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master720p.m3u8"
+  },
+  {
+    "name": "CH 13 Israel",
+    "type": "TV",
+    "logo": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
+    "category": "News",
+    "streamUrl": "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/66d4ac8748ce4a9298b4e40e48d1ae2f/index_3.m3u8"
+  },
+  {
+    "name": "Channel News Asia",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
+  },
+  {
+    "name": "Charge",
+    "type": "TV",
+    "category": "News",
+    "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
+  },
+  {
+    "name": "CNA",
+    "type": "TV",
+    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_2.m3u8"
+  },
+  {
+    "name": "CNBC TV 18",
+    "type": "TV",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.hxk8F1WCZKbRhBH6paopnAHaFZ?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/cnbc-tv18/master.m3u8"
+  },
+  {
+    "name": "CNN HD",
+    "type": "TV",
+    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_cnnhd.mpd",
+    "drm": {
+      "900c43f0e02742dd854148b7a75abbec": "da315cca7f2902b4de23199718ed7e90"
+    }
+  },
+  {
+    "name": "Crime 360",
+    "type": "TV",
+    "logo": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
+    "category": "Documentary",
+    "streamUrl": "https://c664c25d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfQ3JpbWUzNjBfSExT/playlist.m3u8"
+  },
+  {
+    "name": "Crunchyroll",
+    "type": "TV",
+    "logo": "https://logos-marcas.com/wp-content/uploads/2021/03/Crunchyroll-Simbolo.png",
+    "category": "Anime",
+    "streamUrl": "https://8846385a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8"
+  },
+     {
+    "name": "DAILY WIRE",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-m10/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Declassified",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Discovery Channel SD",
+    "type": "TV",
+    "logo": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
+    "category": "Documentary",
+    "streamUrl": "https://qp-pldt-live-grp-13-prod.akamaized.net/out/u/dr_discovery.mpd",
+    "drm": {
+      "d9ac48f5131641a789328257e778ad3a": "b6e67c37239901980c6e37e0607ceee6"
+    }
+  },
+  {
+    "name": "Discover Film",
+    "type": "TV",
+    "logo": "https://static.wikitide.net/avidwiki/thumb/b/be/Discovery_01.jpg/402px-Discovery_01.jpg",
+    "category": "Kids",
+    "streamUrl": "https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Dont Tell The Bride",
+    "type": "TV",
+    "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
+    "category": "Entertainment",
+    "streamUrl": "https://lds-donttellbride-rakuten.amagi.tv/360p-cc/index.m3u8"
+  },
+ 
+  {
+    "name": "DW News",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
+  },
+      {
+    "name": "DAZN Combat",
+    "type": "TV",
+    "logo": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
+    "category": "Sports",
+    "streamUrl": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8"
+  },
+  {
+    "name": "DAZN Ringside",
+    "type": "TV",
+    "logo": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+    "category": "Sports",
+    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8"
+  },
+  {
+    "name": "Disney Channel",
+    "type": "TV",
+    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/eef93b81-b587-483c-a748-9745913f9219/dglo29x-d8ced47b-f36c-4e21-b4f7-b50df1cd01e9.png/v1/fill/w_955,h_836/disney_channel_my_concept_for_new_logo_2_by_kh111111_dglo29x-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTExOSIsInBhdGgiOiJcL2ZcL2VlZjkzYjgxLWI1ODctNDgzYy1hNzQ4LTk3NDU5MTNmOTIxOVwvZGdsbzI5eC1kOGNlZDQ3Yi1mMzZjLTRlMjEtYjRmNy1iNTBkZjFjZDAxZTkucG5nIiwid2lkdGgiOiI8PTEyNzgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gOX0b8qqaMbYLbwGYuUsRPxGc8owawSigeqQ0ebdl_w",
+    "category": "Kids",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_channel_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
+  },
+  {
+    "name": "Disney Jr.",
+    "type": "TV",
+    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a9e9425-78dc-4ba0-8cf0-74c8eb23f673/dhiz5f7-24d48289-65a3-42e2-91e1-ce03fd872060.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNhOWU5NDI1LTc4ZGMtNGJhMC04Y2YwLTc0YzhlYjIzZjY3M1wvZGhpejVmNy0yNGQ0ODI4OS02NWEzLTQyZTItOTFlMS1jZTAzZmQ4NzIwNjAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uwIQACD8Am2JqUtDmndKy76AIOfLt6-mAoHCY8JeN9o",
+    "category": "Kids",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_jr_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
+  },
+
+    {
+    "name": "DZMM Teleradyo",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/russel/images/0/0d/DZMM_TeleRadyo_Logo_2025.png/revision/latest/scale-to-width-down/1200?cb=20250619152431",
+    "category": "News",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
+    "drm": {
+      "47c093e0c9fd4f80839a0337da3dd876": "603248b858276f533a13e17f2f48c711"
+    }
+  },
+    {
+    "name": "Electric Now",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.ZLze8zPgSnwVzAK-vNqQeAHaD4?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://elec-en-xumo.otteravision.com/elec/en/elec_en_1080p.m3u8"
+  },
+  {
+    "name": "EWTN Asia-Pacific",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+    "category": "Religion",
+    "streamUrl": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8"
+  },
+  {
+    "name": "Ewtn USA",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+    "category": "Religion",
+    "streamUrl": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/fq3bs6qd/720/chunklist.m3u8"
+  },
+  {
+    "name": "EXHBT TV",
+    "type": "TV",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-monj/tracks-v1a1/mono.m3u8"
+  },
+       {
+    "name": "Eurosport 1",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561802/index.mpd",
+    "drm": {
+      "01a665d487aa4c1c898c9eb0ff1a21df": "a0b9df5f92e6b218ddb6aa40a2cd996d"
+    }
+  },
+  {
+    "name": "Eurosport 2",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561705/index.mpd",
+    "drm": {
+      "657707bbd1e240e08bd6969df27fef7c": "364e00581c1432f4175e4a2e8e0cd57e"
+    }
+  },
+  {
+    "name": "FIFA+",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
+    "category": "Sports",
+    "streamUrl": "https://ca333c39.wurl.com/v1/sysdata_s_p_a_fifa_6/ohlscdn_us/latest/main/hls/playlist.m3u8"
+  },
+  {
+    "name": "Fight+",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg19223-amg19223c6-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c6-amgplt0351/playlist.m3u8"
+  },
+
+    {
+    "name": "F1 TV (1)",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "dateAdded": "2026-03-21",
+    "streamUrl": "https://a184aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/5fjow0mrvw/out/v1/f870533ee24b4f3bb98d2afe4b1e1bac/cenc.mpd",
+    "drm": {
+      "505616380de706936e493fdd1c25d0b6": "5b313f49c63c682236eab3357400e216"
+    }
+  },
+  {
+    "name": "F1 TV (2)",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "dateAdded": "2026-03-21",
+    "streamUrl": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/duqbirmk0d/out/v1/40f53c7cbc95498db3afd081c377d776/cenc.mpd",
+    "drm": {
+      "609d795905904705028ef54653019af7": "2c791eb611e57a7d7f203022bc1b9ba3"
+    }
+  },
+  {
+    "name": "Fail Army",
+    "type": "TV",
+    "logo": "https://m.media-amazon.com/images/M/MV5BMjQyNzU5MTExMF5BMl5BanBnXkFtZTgwMTkwODA2NjE@._V1_.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://b5b2d4f7.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfRmFpbEFybXlfSExT/playlist.m3u8"
+  },
+  {
+    "name": "Kids Flix",
+    "type": "TV",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/70/df/5a/70df5a45-d3af-e622-114a-bce9b42f2b1c/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/1200x630wa.png",
+    "category": "Kids",
+    "streamUrl": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=50&live=1&app_bundle=com.plexapp.desktop&checkedby:iptvcat.com%27"
+  },
+  {
+    "name": "FIFA+ (720p)",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
+    "category": "Sports",
+    "streamUrl": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8"
+  },
+  {
+    "name": "Films TV",
+    "type": "TV",
+    "category": "Movies",
+    "streamUrl": "https://fl1003.bozztv.com/ushba-films-m/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "FoodOn",
+    "type": "TV",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://amg15905-k20-amg15905c4-lg-au-5399.playouts.now.amagi.tv/playlist/amg15905-mediacan-foodon-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Fork & Flight",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.U5Zsb43ViJB0dW74EVpSogHaEK?pid=Api&h=220&P=0",
+    "category": "Food and Lifestyle",
+    "streamUrl": "https://amg00346-vizioono-forkandfligt-xumo-us.amagi.tv/240p/index.m3u8"
+  },
+  {
+    "name": "Fx1",
+    "type": "TV",
+    "category": "Entertainment",
+    "streamUrl": "https://fxtvhls.wns.live/hls/stream.m3u8"
+  },
+  {
+    "name": "Fx Cartoon",
+    "type": "TV",
+    "category": "Kids",
+    "streamUrl": "https://toonixhls.wns.live/hls/stream.m3u8"
+  },
+ {
     "name": "Game Show Network",
     "type": "TV",
     "logo": "https://raw.githubusercontent.com/noodtayo/app/main/images/ch_game_show_network.webp",
@@ -625,416 +1033,7 @@
     "category": "Praise and Worship",
     "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
-},
-
-  {
-    "name": "Baby Shark TV (720p)",
-    "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/N7Kf5CZB5yFGddAZxmtjylZuG9ECPJFm1y_sdV7Gx_WrawDP-k-9mpFY_hRL4E3IXPo",
-    "category": "Kids",
-    "streamUrl": "https://newidco-babysharktv-1-eu.rakuten.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Bein Sports Xtra",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.ob-M2GXzrQzDibjpQHhmxgHaFj?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "BBC Earth",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.0Tli1puSkO6sj789h80HmwHaFj?pid=Api&h=220&P=0",
-    "category": "Documentary",
-    "streamUrl": "https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8"
-  },
-  {
-    "name": "BBC Impossible",
-    "type": "TV",
-    "logo": "https://m.media-amazon.com/images/I/81geqCyt9KL.png",
-    "category": "Entertainment",
-    "streamUrl": "https://bbc-impossible-1-us.xumo.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "BBC Top Gear",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.gYub6jvJ2mNsHv46pgEvkAHaE5?pid=Api&h=220&P=0",
-    "category": "Entertainment",
-    "streamUrl": "https://amg00793-amg00793c5-xumo-us-2664.playouts.now.amagi.tv/bbcstudios-bbctopgear8min-all/playlist.m3u8"
-  },
-  {
-    "name": "BBC World News",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.wkiTX11xPMfvl2DW6LUCEAHaFj?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8"
-  },
-  {
-    "name": "Blossom Tv",
-    "type": "TV",
-    "category": "Entertainment",
-    "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
-  },
-  {
-    "name": "Billiard TV",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.2btxOHsk5DcqPIljOPzgUwHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
-  },
-     {
-    "name": "Bilyonaryo News Channel",
-    "type": "TV",
-    "logo": "https://www.lyngsat.com/logo/tv/bb/bilyonaryo-news-channel-ph.png",
-    "category": "News",
-    "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
-  },
-  {
-    "name": "Catholic Network",
-    "type": "TV",
-    "logo": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
-    "category": "Religion",
-    "streamUrl": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8"
-  },
-  {
-    "name": "Cartoon Classics",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest/scale-to-width-down/300?cb=20230929014751",
-    "category": "Kids",
-    "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8"
-  },
-      {
-    "name": "Cinema One Global",
-    "type": "TV",
-    "logo": "https://s.pngkit.com/png/small/357-3578647_cinema-one-logo-cinema-one-logo-png.png",
-    "category": "Movies",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemaone-dash-abscbnono/index.mpd",
-    "drm": {
-      "58d0e56991194043b8fb82feb4db7276": "c116c612201e178193693eced13d7319"
-    }
-  },
-  {
-    "name": "Cinemo Global",
-    "type": "TV",
-    "category": "Movies",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd",
-    "drm": {
-      "aa8aebe35ccc4541b7ce6292efcb1bfb": "f06b6031a3604cc6708c14d83f1a1b27"
-    }
-  },
-    {
-    "name": "CNA",
-    "type": "TV",
-    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
-    "category": "News",
-    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
-  },
-  {
-    "name": "CBS News",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master_21.m3u8"
-  },
-  {
-    "name": "CGTN",
-    "type": "TV",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
-    "category": "News",
-    "streamUrl": "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master720p.m3u8"
-  },
-  {
-    "name": "CGTN DOCUMENTARY",
-    "type": "TV",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
-    "category": "Documentary",
-    "streamUrl": "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master720p.m3u8"
-  },
-  {
-    "name": "CH 13 Israel",
-    "type": "TV",
-    "logo": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
-    "category": "News",
-    "streamUrl": "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/66d4ac8748ce4a9298b4e40e48d1ae2f/index_3.m3u8"
-  },
-  {
-    "name": "Channel News Asia",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
-  },
-  {
-    "name": "Charge",
-    "type": "TV",
-    "category": "News",
-    "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
-  },
-  {
-    "name": "CNA",
-    "type": "TV",
-    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
-    "category": "News",
-    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_2.m3u8"
-  },
-  {
-    "name": "CNBC TV 18",
-    "type": "TV",
-    "logo": "https://tse2.mm.bing.net/th/id/OIP.hxk8F1WCZKbRhBH6paopnAHaFZ?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/cnbc-tv18/master.m3u8"
-  },
-  {
-    "name": "CNN HD",
-    "type": "TV",
-    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
-    "category": "News",
-    "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_cnnhd.mpd",
-    "drm": {
-      "900c43f0e02742dd854148b7a75abbec": "da315cca7f2902b4de23199718ed7e90"
-    }
-  },
-  {
-    "name": "Crime 360",
-    "type": "TV",
-    "logo": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
-    "category": "Documentary",
-    "streamUrl": "https://c664c25d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfQ3JpbWUzNjBfSExT/playlist.m3u8"
-  },
-  {
-    "name": "Crunchyroll",
-    "type": "TV",
-    "logo": "https://logos-marcas.com/wp-content/uploads/2021/03/Crunchyroll-Simbolo.png",
-    "category": "Anime",
-    "streamUrl": "https://8846385a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8"
-  },
-     {
-    "name": "DAILY WIRE",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://fl1004.bozztv.com/ushba-m10/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Declassified",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
-    "category": "Entertainment",
-    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "Discovery Channel SD",
-    "type": "TV",
-    "logo": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
-    "category": "Documentary",
-    "streamUrl": "https://qp-pldt-live-grp-13-prod.akamaized.net/out/u/dr_discovery.mpd",
-    "drm": {
-      "d9ac48f5131641a789328257e778ad3a": "b6e67c37239901980c6e37e0607ceee6"
-    }
-  },
-  {
-    "name": "Discover Film",
-    "type": "TV",
-    "logo": "https://static.wikitide.net/avidwiki/thumb/b/be/Discovery_01.jpg/402px-Discovery_01.jpg",
-    "category": "Kids",
-    "streamUrl": "https://discoverfilm-discoverfilm-1-nl.samsung.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Dont Tell The Bride",
-    "type": "TV",
-    "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
-    "category": "Entertainment",
-    "streamUrl": "https://lds-donttellbride-rakuten.amagi.tv/360p-cc/index.m3u8"
-  },
- 
-  {
-    "name": "DW News",
-    "type": "TV",
-    "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
-    "category": "News",
-    "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
-  },
-      {
-    "name": "DAZN Combat",
-    "type": "TV",
-    "logo": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
-    "category": "Sports",
-    "streamUrl": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8"
-  },
-  {
-    "name": "DAZN Ringside",
-    "type": "TV",
-    "logo": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
-    "category": "Sports",
-    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8"
-  },
-  {
-    "name": "Disney Channel",
-    "type": "TV",
-    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/eef93b81-b587-483c-a748-9745913f9219/dglo29x-d8ced47b-f36c-4e21-b4f7-b50df1cd01e9.png/v1/fill/w_955,h_836/disney_channel_my_concept_for_new_logo_2_by_kh111111_dglo29x-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTExOSIsInBhdGgiOiJcL2ZcL2VlZjkzYjgxLWI1ODctNDgzYy1hNzQ4LTk3NDU5MTNmOTIxOVwvZGdsbzI5eC1kOGNlZDQ3Yi1mMzZjLTRlMjEtYjRmNy1iNTBkZjFjZDAxZTkucG5nIiwid2lkdGgiOiI8PTEyNzgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gOX0b8qqaMbYLbwGYuUsRPxGc8owawSigeqQ0ebdl_w",
-    "category": "Kids",
-    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_channel_hd/default/index.mpd",
-    "drm": {
-      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
-    }
-  },
-  {
-    "name": "Disney Jr.",
-    "type": "TV",
-    "logo": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a9e9425-78dc-4ba0-8cf0-74c8eb23f673/dhiz5f7-24d48289-65a3-42e2-91e1-ce03fd872060.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNhOWU5NDI1LTc4ZGMtNGJhMC04Y2YwLTc0YzhlYjIzZjY3M1wvZGhpejVmNy0yNGQ0ODI4OS02NWEzLTQyZTItOTFlMS1jZTAzZmQ4NzIwNjAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uwIQACD8Am2JqUtDmndKy76AIOfLt6-mAoHCY8JeN9o",
-    "category": "Kids",
-    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/disney_jr_hd/default/index.mpd",
-    "drm": {
-      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
-    }
-  },
-
-    {
-    "name": "DZMM Teleradyo",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/0/0d/DZMM_TeleRadyo_Logo_2025.png/revision/latest/scale-to-width-down/1200?cb=20250619152431",
-    "category": "News",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
-    "drm": {
-      "47c093e0c9fd4f80839a0337da3dd876": "603248b858276f533a13e17f2f48c711"
-    }
-  },
-    {
-    "name": "Electric Now",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.ZLze8zPgSnwVzAK-vNqQeAHaD4?pid=Api&h=220&P=0",
-    "category": "Movies",
-    "streamUrl": "https://elec-en-xumo.otteravision.com/elec/en/elec_en_1080p.m3u8"
-  },
-  {
-    "name": "EWTN Asia-Pacific",
-    "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
-    "category": "Religion",
-    "streamUrl": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8"
-  },
-  {
-    "name": "Ewtn USA",
-    "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
-    "category": "Religion",
-    "streamUrl": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/fq3bs6qd/720/chunklist.m3u8"
-  },
-  {
-    "name": "EXHBT TV",
-    "type": "TV",
-    "category": "Food and Lifestyle",
-    "streamUrl": "https://fl1004.bozztv.com/ushba-monj/tracks-v1a1/mono.m3u8"
-  },
-       {
-    "name": "Eurosport 1",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561802/index.mpd",
-    "drm": {
-      "01a665d487aa4c1c898c9eb0ff1a21df": "a0b9df5f92e6b218ddb6aa40a2cd996d"
-    }
-  },
-  {
-    "name": "Eurosport 2",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561705/index.mpd",
-    "drm": {
-      "657707bbd1e240e08bd6969df27fef7c": "364e00581c1432f4175e4a2e8e0cd57e"
-    }
-  },
-  {
-    "name": "FIFA+",
-    "type": "TV",
-    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
-    "category": "Sports",
-    "streamUrl": "https://ca333c39.wurl.com/v1/sysdata_s_p_a_fifa_6/ohlscdn_us/latest/main/hls/playlist.m3u8"
-  },
-  {
-    "name": "Fight+",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://amg19223-amg19223c6-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c6-amgplt0351/playlist.m3u8"
-  },
-
-    {
-    "name": "F1 TV (1)",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "dateAdded": "2026-03-21",
-    "streamUrl": "https://a184aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/5fjow0mrvw/out/v1/f870533ee24b4f3bb98d2afe4b1e1bac/cenc.mpd",
-    "drm": {
-      "505616380de706936e493fdd1c25d0b6": "5b313f49c63c682236eab3357400e216"
-    }
-  },
-  {
-    "name": "F1 TV (2)",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "dateAdded": "2026-03-21",
-    "streamUrl": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/duqbirmk0d/out/v1/40f53c7cbc95498db3afd081c377d776/cenc.mpd",
-    "drm": {
-      "609d795905904705028ef54653019af7": "2c791eb611e57a7d7f203022bc1b9ba3"
-    }
-  },
-  {
-    "name": "Fail Army",
-    "type": "TV",
-    "logo": "https://m.media-amazon.com/images/M/MV5BMjQyNzU5MTExMF5BMl5BanBnXkFtZTgwMTkwODA2NjE@._V1_.jpg",
-    "category": "Entertainment",
-    "streamUrl": "https://b5b2d4f7.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfRmFpbEFybXlfSExT/playlist.m3u8"
-  },
-  {
-    "name": "Kids Flix",
-    "type": "TV",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/70/df/5a/70df5a45-d3af-e622-114a-bce9b42f2b1c/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/1200x630wa.png",
-    "category": "Kids",
-    "streamUrl": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=50&live=1&app_bundle=com.plexapp.desktop&checkedby:iptvcat.com%27"
-  },
-  {
-    "name": "FIFA+ (720p)",
-    "type": "TV",
-    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
-    "category": "Sports",
-    "streamUrl": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8"
-  },
-  {
-    "name": "Films TV",
-    "type": "TV",
-    "category": "Movies",
-    "streamUrl": "https://fl1003.bozztv.com/ushba-films-m/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "FoodOn",
-    "type": "TV",
-    "category": "Food and Lifestyle",
-    "streamUrl": "https://amg15905-k20-amg15905c4-lg-au-5399.playouts.now.amagi.tv/playlist/amg15905-mediacan-foodon-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "Fork & Flight",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.U5Zsb43ViJB0dW74EVpSogHaEK?pid=Api&h=220&P=0",
-    "category": "Food and Lifestyle",
-    "streamUrl": "https://amg00346-vizioono-forkandfligt-xumo-us.amagi.tv/240p/index.m3u8"
-  },
-  {
-    "name": "Fx1",
-    "type": "TV",
-    "category": "Entertainment",
-    "streamUrl": "https://fxtvhls.wns.live/hls/stream.m3u8"
-  },
-  {
-    "name": "Fx Cartoon",
-    "type": "TV",
-    "category": "Kids",
-    "streamUrl": "https://toonixhls.wns.live/hls/stream.m3u8"
-  }
+}
 
 
 ]
