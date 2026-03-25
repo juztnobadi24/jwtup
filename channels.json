@@ -1033,7 +1033,52 @@
     "category": "Praise and Worship",
     "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
-}
-
+},
+{
+    "name": "Kapamilya Channel",
+    "type": "TV",
+    "logoLocal": "ch_kapamilya_channel",
+    "category": "Entertainment",
+    "streamUrl": "http://136.239.173.2:6610/001/2/ch00000090990000001286/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2Bqw65FFCygtQMRRIUPF0xuXytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001694&contentid=ch00000000000000001694&videoid=ch00000090990000001286&recommendtype=0&userid=1004802317138&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=CCJLYZ04O9IXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
+  },
+  {
+    "name": "ALLTV2",
+    "type": "TV",
+    "logoLocal": "ch_alltv2",
+    "category": "Entertainment",
+    "streamUrl": "http://136.239.158.10:6610/001/2/ch00000090990000001179/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2Bow35sHUcBhGBpxqddBGYEnytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001415&contentid=ch00000000000000001415&videoid=ch00000090990000001179&recommendtype=0&userid=1205050496206&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=02WMA0HI2O3AXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
+  },
+  {
+    "name": "GMA 7",
+    "type": "TV",
+    "logoLocal": "ch_gma7",
+    "category": "Entertainment",
+    "streamUrl": "http://136.158.97.2:6610/001/2/ch00000090990000001093/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20TsXah2%2FZLFNNIdWrVrXDMAoLvT86fM74ocVChyFS93HUsyK4TH4mOENKJ45mwOyS0g%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001214&contentid=ch00000000000000001214&videoid=ch00000090990000001093&recommendtype=0&userid=1438418816418&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=BLJMICF8T5XXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO&IASHttpSessionId=RR20448620260101155237367179&ispcode=55"
+  },
+  {
+    "name": "TV5",
+    "type": "TV",
+    "logoLocal": "ch_tv5",
+    "category": "Entertainment",
+    "streamUrl": "http://136.239.158.30:6610/001/2/ch00000090990000001088/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2Boh0xOsaoSFLqA0PEh9gVjiytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001213&contentid=ch00000000000000001213&videoid=ch00000090990000001088&recommendtype=0&userid=1150006064464&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=J62NMXIGLTMXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
+  },
+  {
+    "name": "GTV",
+    "type": "TV",
+    "logoLocal": "ch_gtv",
+    "category": "Entertainment",
+    "streamUrl": "http://136.239.159.18:6610/001/2/ch00000090990000001143/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BrwAtJC%2BsmBQ5ARU076BdkhytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001313&contentid=ch00000000000000001313&videoid=ch00000090990000001143&recommendtype=0&userid=1590268675436&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=AAIUZ2MAG7XXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
+  },
+  {
+    "name": "Kapatid Channel",
+    "type": "TV",
+    "logoLocal": "ch_kapatid_channel",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/kapatid_hd/default/index.mpd",
+    "drm": {
+      "045d103180f64562b1db7c932741c3ba": "c3380548b9075c767a6ae2006ef4bff8"
+    }
+  }
+    
 
 ]
