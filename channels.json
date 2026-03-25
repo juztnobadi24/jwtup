@@ -913,7 +913,7 @@
   {
     "name": "Discovery Channel SD",
     "type": "TV",
-    "logoLocal": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
+    "logo": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
     "category": "Documentary",
     "streamUrl": "https://qp-pldt-live-grp-13-prod.akamaized.net/out/u/dr_discovery.mpd",
     "drm": {
@@ -938,7 +938,7 @@
   {
     "name": "DW News",
     "type": "TV",
-    "logoLocal": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
   }
