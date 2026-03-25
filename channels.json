@@ -803,161 +803,79 @@
     "category": "Sports",
     "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
   },
-{
-    "name": "C Span",
-    "type": "TV",
-    "logoLocal": "ch_c_span",
-    "category": "News",
-    "streamUrl": "https://e1.thetvapp.to/hls/CSPAN/tracks-v1a1/mono.m3u8"
-  },
   {
     "name": "Catholic Network",
     "type": "TV",
-    "logoLocal": "ch_catholic_network",
-    "category": "Education and Religion",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
+    "category": "Religion",
     "streamUrl": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8"
-  },
-  {
-    "name": "Cartoonito",
-    "type": "TV",
-    "logoLocal": "ch_cartoonito",
-    "category": "Kids and Animation",
-    "streamUrl": "https://cdn4.skygo.mn/live/disk1/Boomerang/HLSv3-FTA/Boomerang.m3u8"
   },
   {
     "name": "Cartoon Classics",
     "type": "TV",
-    "logoLocal": "ch_cartoon_classics",
-    "category": "Kids and Animation",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest/scale-to-width-down/300?cb=20230929014751",
+    "category": "Kids",
     "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8"
-  },
-  {
-    "name": "Cartoon Network HD",
-    "type": "TV",
-    "logoLocal": "ch_cartoon_network",
-    "category": "Kids and Animation",
-    "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_cartoonnetworkhd.mpd",
-    "drm": {
-      "a2d1f552ff9541558b3296b5a932136b": "cdd48fa884dc0c3a3f85aeebca13d444"
-    }
   },
   {
     "name": "CBS News",
     "type": "TV",
-    "logoLocal": "ch_cbs_news",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master_21.m3u8"
   },
   {
-    "name": "Celestial Movies Pinoy",
-    "type": "TV",
-    "logoLocal": "ch_celestial_movies_pinoy",
-    "category": "Pinoy",
-    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/celmovie_pinoy_sd/default/index.mpd",
-    "drm": {
-      "0f8537d8412b11edb8780242ac120002": "2ffd7230416150fd5196fd7ea71c36f3"
-    }
-  },
-  {
     "name": "CGTN",
     "type": "TV",
-    "logoLocal": "ch_cgtn",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
     "category": "News",
     "streamUrl": "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master720p.m3u8"
   },
   {
     "name": "CGTN DOCUMENTARY",
     "type": "TV",
-    "logoLocal": "ch_cgtn_documentary",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
     "category": "Documentary",
     "streamUrl": "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master720p.m3u8"
   },
   {
     "name": "CH 13 Israel",
     "type": "TV",
-    "logoLocal": "ch_ch_13_israel",
+    "logo": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
     "category": "News",
     "streamUrl": "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/66d4ac8748ce4a9298b4e40e48d1ae2f/index_3.m3u8"
   },
   {
-    "name": "Channel Movies",
-    "type": "TV",
-    "logoLocal": "ch_channel_movies",
-    "category": "Movies",
-    "streamUrl": "https://fl1004.bozztv.com/ushba34/tracks-v1a1/mono.m3u8"
-  },
-  {
     "name": "Channel News Asia",
     "type": "TV",
-    "logoLocal": "ch_channel_news_asia",
-    "category": "News",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/channelnewsasia/default/index.mpd",
-    "drm": {
-      "b259df9987364dd3b778aa5d42cb9acd": "753e3dba96ab467e468269e7e33fb813"
-    }
-  },
-  {
-    "name": "Channel News Asia 2",
-    "type": "TV",
-    "logoLocal": "ch_channel_news_asia_2",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
   },
   {
     "name": "Charge",
     "type": "TV",
-    "logoLocal": "ch_charge",
     "category": "News",
     "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
   },
   {
-    "name": "CinemaOne",
-    "type": "TV",
-    "logoLocal": "ch_cinemaone",
-    "category": "Pinoy",
-    "streamUrl": "https://d9rpesrrg1bdi.cloudfront.net/out/v1/93b9db7b231d45f28f64f29b86dc6c65/index.mpd",
-    "drm": {
-      "58d0e56991194043b8fb82feb4db7276": "d68f41b59649676788889e19fb10d22c"
-    }
-  },
-  {
-    "name": "Cinemax",
-    "type": "TV",
-    "logoLocal": "ch_cinemax",
-    "category": "Movies",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_cinemax/default/index.mpd",
-    "drm": {
-      "b207c44332844523a3a3b0469e5652d7": "fe71aea346db08f8c6fbf0592209f955"
-    }
-  },
-  {
-    "name": "Cinemo",
-    "type": "TV",
-    "logoLocal": "ch_cinemo",
-    "category": "Pinoy",
-    "streamUrl": "https://d1bail49udbz1k.cloudfront.net/out/v1/3a895f368f4a467c9bca0962559efc19/index.mpd",
-    "drm": {
-      "aa8aebe35ccc4541b7ce6292efcb1bfb": "aab1df109d22fc5d7e3ec121ddf24e5f"
-    }
-  },
-  {
     "name": "CNA",
     "type": "TV",
-    "logoLocal": "ch_cna",
+    "logoLocal": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
     "category": "News",
     "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_2.m3u8"
   },
   {
     "name": "CNBC TV 18",
     "type": "TV",
-    "logoLocal": "ch_cnbc_tv_18",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.hxk8F1WCZKbRhBH6paopnAHaFZ?pid=Api&h=220&P=0",
     "category": "News",
     "streamUrl": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/cnbc-tv18/master.m3u8"
   },
   {
     "name": "CNN HD",
     "type": "TV",
-    "logoLocal": "ch_cnn_hd",
+    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
     "category": "News",
     "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_cnnhd.mpd",
     "drm": {
@@ -965,123 +883,19 @@
     }
   },
   {
-    "name": "CNN International",
-    "type": "TV",
-    "logoLocal": "ch_cnn_international",
-    "category": "News",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_cnnhd/default/index.mpd",
-    "drm": {
-      "900c43f0e02742dd854148b7a75abbec": "da315cca7f2902b4de23199718ed7e90"
-    }
-  },
-  {
-    "name": "Colors Bangla",
-    "type": "TV",
-    "logoLocal": "ch_colors_bangla",
-    "category": "Movies",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorsbanglasd/master.m3u8"
-  },
-  {
-    "name": "Colors Cineplex HD",
-    "type": "TV",
-    "logoLocal": "ch_colors_cineplex",
-    "category": "Movies",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorscineplexhd/master.m3u8"
-  },
-  {
-    "name": "Colors HD",
-    "type": "TV",
-    "logoLocal": "ch_colors_hd",
-    "category": "Entertainment",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorshd/master.m3u8"
-  },
-  {
-    "name": "Colors Kannada",
-    "type": "TV",
-    "logoLocal": "ch_colors_kannada",
-    "category": "Entertainment",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorskannadasd/master.m3u8"
-  },
-  {
-    "name": "Colors Infinity HD",
-    "type": "TV",
-    "logoLocal": "ch_colors_infinity",
-    "category": "Movies",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorsinfinityhd/master.m3u8"
-  },
-  {
-    "name": "Colors Marathi",
-    "type": "TV",
-    "logoLocal": "ch_colors_marathi",
-    "category": "Movies",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/colorsmarathisd/master.m3u8"
-  },
-  {
-    "name": "Colors Rishtey",
-    "type": "TV",
-    "logoLocal": "ch_colors_rishtey",
-    "category": "Entertainment",
-    "streamUrl": "https://live.dinesh29.com.np/stream/jiotv/rishtey/master.m3u8"
-  },
-  {
-    "name": "Court TV",
-    "type": "TV",
-    "logoLocal": "ch_court_tv",
-    "category": "News",
-    "streamUrl": "https://livetv-fa.tubi.video/court-tv/playlist_3000k.m3u8"
-  },
-  {
-    "name": "Cowboy Channel",
-    "type": "TV",
-    "logoLocal": "ch_cowboy_channel",
-    "category": "Sports",
-    "streamUrl": "https://0fj.cc/cch1"
-  },
-  {
-    "name": "Crime Investigation",
-    "type": "TV",
-    "logoLocal": "ch_crime_investigation",
-    "category": "Documentary",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/crime_invest/default/index.mpd",
-    "drm": {
-      "21e2843b561c4248b8ea487986a16d33": "db6bb638ccdfc1ad1a3e98d728486801"
-    }
-  },
-  {
     "name": "Crime 360",
     "type": "TV",
-    "logoLocal": "ch_crime_360",
+    "logo": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
     "category": "Documentary",
     "streamUrl": "https://c664c25d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfQ3JpbWUzNjBfSExT/playlist.m3u8"
   },
   {
     "name": "Crunchyroll",
     "type": "TV",
-    "logoLocal": "ch_crunchyroll",
+    "logo": "https://logos-marcas.com/wp-content/uploads/2021/03/Crunchyroll-Simbolo.png",
     "category": "Kids and Animation",
     "streamUrl": "https://8846385a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8"
-  },
-  {
-    "name": "CW",
-    "type": "TV",
-    "logoLocal": "ch_cw",
-    "category": "Entertainment",
-    "streamUrl": "https://e2.thetvapp.to/hls/WPIX/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "C247",
-    "type": "TV",
-    "logoLocal": "ch_c247",
-    "category": "Movies",
-    "streamUrl": "https://tv.localstreamgh.com/Channel247/tracks-v1a1/mono.ts.m3u8"
-  },
-    {
-  "name": "AllTV2",
-  "type": "TV",
-  "logoLocal": "ch_alltv2",
-  "category": "Pinoy",
-  "streamUrl": "https://live20.bozztv.com/akamaissh101/ssh101/alltv2/playlist.m3u8"
-}
+  }
 
 
 
