@@ -1035,6 +1035,75 @@
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp"
 },
 
+
+
+{
+  "name": "TV5",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/TV5_2014_Logo.svg/1200px-TV5_2014_Logo.svg.png",
+  "category": "Entertainment",
+  "streamUrl": "https://tv5.akamaized.net/hls/live/2043241/tv5abscbn/master.m3u8",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://www.tv5.com.ph/"
+  }
+},
+{
+  "name": "A2Z",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/A2Z_2020_Logo.svg/1200px-A2Z_2020_Logo.svg.png",
+  "category": "Entertainment",
+  "streamUrl": "https://a2z.akamaized.net/hls/live/2043242/a2zabscbn/master.m3u8",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://www.a2zchannel.ph/"
+  }
+},
+{
+  "name": "GMA 7",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/GMA_Network_Logo_2018.svg/1200px-GMA_Network_Logo_2018.svg.png",
+  "category": "Entertainment",
+  "streamUrl": "https://gmapinoytv.akamaized.net/hls/live/2043240/gmapinoytv/master.m3u8",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://www.gmanetwork.com/"
+  }
+},
+{
+  "name": "ABS-CBN News",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/ABS-CBN_News_Logo.svg/1200px-ABS-CBN_News_Logo.svg.png",
+  "category": "News",
+  "streamUrl": "https://news.abs-cbn.com/live",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://news.abs-cbn.com/"
+  }
+},
+{
+  "name": "One PH",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/OnePH_logo.png/1200px-OnePH_logo.png",
+  "category": "News",
+  "streamUrl": "https://oneph.akamaized.net/hls/live/2043243/oneph/master.m3u8",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://www.oneph.com/"
+  }
+},
+{
+  "name": "CNN Philippines",
+  "type": "TV",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/CNN_Philippines_logo.svg/1200px-CNN_Philippines_logo.svg.png",
+  "category": "News",
+  "streamUrl": "https://cnnphilippines.akamaized.net/hls/live/2043244/cnnphilippines/master.m3u8",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "Referer": "https://www.cnnphilippines.com/"
+  }
+},
+    
   {
     "name": "3RsTV",
     "type": "TV",
