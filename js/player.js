@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH FULL DRM SUPPORT ========================
+// ======================== PLAYER COMPONENT WITH HTTP HEADERS SUPPORT ========================
 
 class PlayerComponent {
     constructor() {
@@ -388,40 +388,38 @@ class PlayerComponent {
         if (typeof shaka !== "undefined") {
             this.shakaPlayer = new shaka.Player(this.videoPlayer);
             
-            // Configure Shaka with better DRM support
+            // Configure Shaka with better DRM support and headers
             await this.shakaPlayer.configure({
                 drm: {
                     servers: {},
                     clearKeys: {},
                     retryParameters: { maxAttempts: 5, timeout: 10000 },
-                    // Enable persistent sessions for offline support
                     persistentSessionId: null,
-                    // Allow custom license servers
                     advanced: {}
                 },
                 streaming: {
                     rebufferingGoal: 2,
                     bufferingGoal: 10,
                     retryParameters: { maxAttempts: 5, timeout: 10000 },
-                    // Handle low latency streaming
                     useNativeHlsOnSafari: true
                 },
                 manifest: {
                     retryParameters: { maxAttempts: 5, timeout: 10000 }
                 },
-                // Enable ABR for better performance
                 abr: {
                     enabled: true,
                     defaultBandwidthEstimate: 1000000
                 }
             });
             
+            // Setup request filters for headers
+            this.setupShakaRequestFilters();
+            
             this.shakaPlayer.addEventListener("error", (event) => {
                 console.error("Shaka error", event.detail);
                 this.handleDrmError(event.detail);
             });
             
-            // Handle DRM license requests
             this.shakaPlayer.addEventListener("drm", (event) => {
                 console.log("DRM event:", event);
                 this.updateDrmInfo("DRM license requested");
@@ -433,12 +431,106 @@ class PlayerComponent {
         return null;
     }
     
+    setupShakaRequestFilters() {
+        if (!this.shakaPlayer) return;
+        
+        // Get networking engine
+        const netEngine = this.shakaPlayer.getNetworkingEngine();
+        if (!netEngine) return;
+        
+        // Store current headers for use in filter
+        const self = this;
+        
+        // Register request filter for all requests
+        netEngine.registerRequestFilter((type, request) => {
+            // Add headers for all requests
+            if (self.currentHeaders) {
+                // User-Agent
+                if (self.currentHeaders['User-Agent']) {
+                    request.headers['User-Agent'] = self.currentHeaders['User-Agent'];
+                }
+                // Referer
+                if (self.currentHeaders['Referer']) {
+                    request.headers['Referer'] = self.currentHeaders['Referer'];
+                }
+                // Origin
+                if (self.currentHeaders['Origin']) {
+                    request.headers['Origin'] = self.currentHeaders['Origin'];
+                }
+                // Accept
+                if (self.currentHeaders['Accept']) {
+                    request.headers['Accept'] = self.currentHeaders['Accept'];
+                }
+                // Accept-Language
+                if (self.currentHeaders['Accept-Language']) {
+                    request.headers['Accept-Language'] = self.currentHeaders['Accept-Language'];
+                }
+                // Authorization
+                if (self.currentHeaders['Authorization']) {
+                    request.headers['Authorization'] = self.currentHeaders['Authorization'];
+                }
+                // Any other custom headers
+                Object.keys(self.currentHeaders).forEach(key => {
+                    if (!['User-Agent', 'Referer', 'Origin', 'Accept', 'Accept-Language', 'Authorization'].includes(key)) {
+                        request.headers[key] = self.currentHeaders[key];
+                    }
+                });
+            }
+            
+            // Log headers for debugging (optional)
+            if (request.uris && request.uris.length > 0) {
+                console.log(`Requesting: ${request.uris[0]}`);
+                console.log('Headers:', request.headers);
+            }
+        });
+    }
+    
+    setupHlsRequestFilters(hlsConfig, headers) {
+        if (!headers) return hlsConfig;
+        
+        // Configure HLS.js with headers
+        hlsConfig.xhrSetup = (xhr, url) => {
+            // Add User-Agent
+            if (headers['User-Agent']) {
+                xhr.setRequestHeader('User-Agent', headers['User-Agent']);
+            }
+            // Add Referer
+            if (headers['Referer']) {
+                xhr.setRequestHeader('Referer', headers['Referer']);
+            }
+            // Add Origin
+            if (headers['Origin']) {
+                xhr.setRequestHeader('Origin', headers['Origin']);
+            }
+            // Add Accept
+            if (headers['Accept']) {
+                xhr.setRequestHeader('Accept', headers['Accept']);
+            }
+            // Add Accept-Language
+            if (headers['Accept-Language']) {
+                xhr.setRequestHeader('Accept-Language', headers['Accept-Language']);
+            }
+            // Add Authorization
+            if (headers['Authorization']) {
+                xhr.setRequestHeader('Authorization', headers['Authorization']);
+            }
+            // Add any other custom headers
+            Object.keys(headers).forEach(key => {
+                if (!['User-Agent', 'Referer', 'Origin', 'Accept', 'Accept-Language', 'Authorization'].includes(key)) {
+                    xhr.setRequestHeader(key, headers[key]);
+                }
+            });
+            
+            console.log(`HLS Request: ${url}`);
+        };
+        
+        return hlsConfig;
+    }
+    
     handleDrmError(error) {
         console.error("DRM Error:", error);
         
-        // Provide user-friendly error messages based on DRM type
         if (error.code === 6000) {
-            // DRM error
             this.showError("DRM license error. Your browser may not support the required DRM system.");
         } else if (error.code === 6001) {
             this.showError("DRM system not supported in this browser. Please use a compatible browser.");
@@ -448,7 +540,6 @@ class PlayerComponent {
             this.showError("DRM license expired or invalid.");
         }
         
-        // Log detailed error for debugging
         if (error.detail && error.detail.error) {
             console.error("DRM Error Details:", error.detail.error);
         }
@@ -471,21 +562,17 @@ class PlayerComponent {
         const drmAdvanced = {};
         const isDash = streamUrl.includes(".mpd") || streamUrl.includes("manifest.mpd");
         
-        // Detect platform and configure appropriate DRM
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         const isChrome = /Chrome/.test(navigator.userAgent) && !/Edge/.test(navigator.userAgent);
         const isEdge = /Edge/.test(navigator.userAgent);
         const isFirefox = /Firefox/.test(navigator.userAgent);
         
-        // Configure based on DRM config from channel
         if (drmConfig) {
-            // Handle Widevine
             if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
                 drmServers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl || drmConfig.widevine;
                 console.log("✅ Widevine license server configured");
             }
             
-            // Handle FairPlay (for Safari)
             if (drmConfig.fairplayLicenseUrl || drmConfig.fairplay) {
                 drmServers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl || drmConfig.fairplay;
                 if (drmConfig.fairplayCertificateUrl) {
@@ -496,13 +583,11 @@ class PlayerComponent {
                 console.log("✅ FairPlay license server configured");
             }
             
-            // Handle PlayReady
             if (drmConfig.playreadyLicenseUrl || drmConfig.playready) {
                 drmServers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl || drmConfig.playready;
                 console.log("✅ PlayReady license server configured");
             }
             
-            // Handle ClearKey (for testing)
             if (drmConfig.keys && Array.isArray(drmConfig.keys)) {
                 const clearKeys = {};
                 drmConfig.keys.forEach(key => {
@@ -510,7 +595,6 @@ class PlayerComponent {
                 });
                 return { clearKeys, servers: drmServers, advanced: drmAdvanced };
             } else if (typeof drmConfig === "object" && !drmConfig.widevineLicenseUrl && !drmConfig.fairplayLicenseUrl && !drmConfig.playreadyLicenseUrl) {
-                // Legacy clear key format
                 const clearKeys = {};
                 for (const [kid, key] of Object.entries(drmConfig)) {
                     clearKeys[kid] = key;
@@ -519,11 +603,8 @@ class PlayerComponent {
             }
         }
         
-        // If no specific DRM config, try to auto-detect from manifest
         if (Object.keys(drmServers).length === 0 && isDash) {
-            // Try to detect from manifest URL patterns
             if (streamUrl.includes('widevine') || streamUrl.includes('cenc')) {
-                // Default Widevine test server (for testing only - replace with actual license server)
                 drmServers['com.widevine.alpha'] = 'https://proxy.uat.widevine.com/proxy?provider=widevine_test';
                 console.log("⚠️ Using default Widevine test server");
             }
@@ -587,6 +668,9 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
+        // Store headers for use in request filters
+        this.currentHeaders = headers;
+        
         await this.destroyPlayers();
         
         const isDash = url.includes(".mpd") || url.includes("manifest.mpd");
@@ -609,30 +693,26 @@ class PlayerComponent {
                 this.hideLoader();
                 console.error("Failed to load stream after multiple attempts");
             }
-        }, 30000); // Increased timeout for DRM license acquisition
+        }, 30000);
         
         try {
             if (isDash) {
-                console.log("Loading DASH stream with DRM support");
+                console.log("Loading DASH stream with header support");
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
-                // Configure DRM for the stream
                 const drmSettings = this.configureDrmForPlatform(drmConfig, url);
                 
-                // Build DRM configuration
                 const drmConfigObj = {
                     servers: drmSettings.servers,
                     clearKeys: drmSettings.clearKeys,
                     retryParameters: { maxAttempts: 5, timeout: 15000 }
                 };
                 
-                // Add advanced config for FairPlay if needed
                 if (Object.keys(drmSettings.advanced).length > 0) {
                     drmConfigObj.advanced = drmSettings.advanced;
                 }
                 
-                // Log DRM configuration (for debugging)
                 if (Object.keys(drmSettings.servers).length > 0) {
                     console.log("DRM Servers configured:", drmSettings.servers);
                     this.updateDrmInfo(`DRM: ${Object.keys(drmSettings.servers).join(', ')}`);
@@ -645,23 +725,9 @@ class PlayerComponent {
                 
                 await player.configure({ drm: drmConfigObj });
                 
-                // Set up DRM license request interceptor (for custom headers/tokens)
-                player.getNetworkingEngine().registerRequestFilter((type, request) => {
-                    if (type === shaka.net.NetworkingEngine.RequestType.LICENSE) {
-                        // Add custom headers for DRM license requests if needed
-                        if (drmConfig && drmConfig.licenseHeaders) {
-                            Object.entries(drmConfig.licenseHeaders).forEach(([key, value]) => {
-                                request.headers[key] = value;
-                            });
-                        }
-                        console.log("DRM license request:", request.uris);
-                    }
-                });
-                
                 // Load the manifest
                 await player.load(url);
                 
-                // Wait for stream to be ready
                 setTimeout(() => {
                     if (this.videoPlayer && !this.videoPlayer.paused) {
                         this.videoPlayer.play().catch(e => console.warn("Play attempt:", e));
@@ -674,16 +740,13 @@ class PlayerComponent {
                 return true;
             } 
             else if (isHls) {
-                console.log("Loading HLS stream with DRM support");
+                console.log("Loading HLS stream with header support");
                 
-                // Check for FairPlay on Safari
                 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
                 
                 if (isSafari && drmConfig && drmConfig.fairplayLicenseUrl) {
                     console.log("Using native HLS with FairPlay DRM on Safari");
-                    // For Safari, use native HLS with FairPlay
                     if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
-                        // Add FairPlay certificate if provided
                         if (drmConfig.fairplayCertificateUrl) {
                             const certificate = await this.loadFairPlayCertificate(drmConfig.fairplayCertificateUrl);
                             if (certificate) {
@@ -699,13 +762,12 @@ class PlayerComponent {
                     }
                 }
                 
-                // Use HLS.js for cross-platform HLS with DRM
                 if (Hls.isSupported()) {
                     return new Promise((resolve, reject) => {
                         let resolved = false;
                         let timeoutId = null;
                         
-                        const hlsConfig = {
+                        let hlsConfig = {
                             enableWorker: true,
                             lowLatencyMode: true,
                             autoStartLoad: true,
@@ -714,29 +776,15 @@ class PlayerComponent {
                             manifestLoadingTimeOut: 20000,
                             levelLoadingTimeOut: 20000,
                             fragLoadingTimeOut: 20000,
-                            // DRM configuration for HLS.js
                             drm: {
                                 widevineLicenseUrl: drmConfig?.widevineLicenseUrl || drmConfig?.widevine,
                                 playreadyLicenseUrl: drmConfig?.playreadyLicenseUrl || drmConfig?.playready
                             }
                         };
                         
-                        // Add custom headers if provided
+                        // Setup headers for HLS.js
                         if (headers) {
-                            hlsConfig.xhrSetup = (xhr, url) => {
-                                if (headers["User-Agent"]) {
-                                    xhr.setRequestHeader("User-Agent", headers["User-Agent"]);
-                                }
-                                if (headers["Authorization"]) {
-                                    xhr.setRequestHeader("Authorization", headers["Authorization"]);
-                                }
-                                // Add custom headers for DRM
-                                if (drmConfig && drmConfig.licenseHeaders) {
-                                    Object.entries(drmConfig.licenseHeaders).forEach(([key, value]) => {
-                                        xhr.setRequestHeader(key, value);
-                                    });
-                                }
-                            };
+                            hlsConfig = this.setupHlsRequestFilters(hlsConfig, headers);
                         }
                         
                         this.hlsPlayer = new Hls(hlsConfig);
@@ -765,7 +813,6 @@ class PlayerComponent {
                         this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                             console.error("HLS Error:", data);
                             
-                            // Handle DRM-specific errors
                             if (data.details === 'keyLoadingError' || data.details === 'keySystemError') {
                                 console.error("DRM key loading error");
                                 this.showError("DRM license error. Content may be protected.");
@@ -841,7 +888,6 @@ class PlayerComponent {
             clearTimeout(loadTimeout);
             console.error("loadStream error:", err);
             
-            // Check if error is DRM-related
             if (err.message && (err.message.includes('drm') || err.message.includes('license') || err.message.includes('DRM'))) {
                 this.showError("DRM license error. Please ensure your browser supports the required DRM system.");
             }
@@ -920,7 +966,6 @@ class PlayerComponent {
             if (channel.drm) {
                 drmConfig = channel.drm;
                 
-                // Log DRM type for debugging
                 if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
                     console.log("Channel uses Widevine DRM");
                 }
@@ -935,7 +980,20 @@ class PlayerComponent {
                 }
             }
             
-            if (channel.headers) headers = channel.headers;
+            // Extract headers from channel
+            if (channel.headers) {
+                headers = channel.headers;
+                console.log("Using custom headers for this channel");
+                if (headers['User-Agent']) {
+                    console.log("  - User-Agent: " + headers['User-Agent'].substring(0, 50) + "...");
+                }
+                if (headers['Referer']) {
+                    console.log("  - Referer: " + headers['Referer']);
+                }
+                if (headers['Origin']) {
+                    console.log("  - Origin: " + headers['Origin']);
+                }
+            }
             
             const success = await this.loadStream(channel.streamUrl, drmConfig, headers);
             
