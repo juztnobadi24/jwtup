@@ -365,7 +365,10 @@ class PlayerComponent {
     async initShaka() {
         if (this.shakaPlayer) return this.shakaPlayer;
         if (typeof shaka !== "undefined") {
-            this.shakaPlayer = new shaka.Player(this.videoPlayer);
+            // Use attach method instead of constructor with mediaElement (deprecated)
+            this.shakaPlayer = new shaka.Player();
+            await this.shakaPlayer.attach(this.videoPlayer);
+            
             await this.shakaPlayer.configure({
                 drm: {
                     servers: {},
@@ -376,11 +379,16 @@ class PlayerComponent {
                     rebufferingGoal: 2,
                     bufferingGoal: 10,
                     retryParameters: { maxAttempts: 3 }
+                },
+                manifest: {
+                    retryParameters: { maxAttempts: 3 }
                 }
             });
+            
             this.shakaPlayer.addEventListener("error", (event) => {
                 console.error("Shaka error", event.detail);
             });
+            
             this.isShakaInitialized = true;
             return this.shakaPlayer;
         }
@@ -453,11 +461,21 @@ class PlayerComponent {
         }, 15000);
         
         try {
+            // Default headers for many streaming services
+            const defaultHeaders = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+                'Referer': url.includes('akamaized.net') ? 'https://www.iwanttfc.com/' : undefined,
+                'Origin': url.includes('akamaized.net') ? 'https://www.iwanttfc.com' : undefined
+            };
+            
+            const finalHeaders = { ...defaultHeaders, ...headers };
+            
             if (isDash) {
                 console.log("Loading DASH stream");
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
+                // Configure DRM if provided
                 if (drmConfig) {
                     const drmObj = {};
                     if (drmConfig.keys && Array.isArray(drmConfig.keys)) {
@@ -476,6 +494,24 @@ class PlayerComponent {
                     await player.configure({ drm: drmObj });
                 } else {
                     await player.configure({ drm: { clearKeys: {} } });
+                }
+                
+                // Set custom headers for manifest and segment requests
+                if (finalHeaders) {
+                    player.getNetworkingEngine().registerRequestFilter((type, request) => {
+                        if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
+                            type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+                            if (finalHeaders['User-Agent']) {
+                                request.headers['User-Agent'] = finalHeaders['User-Agent'];
+                            }
+                            if (finalHeaders['Referer']) {
+                                request.headers['Referer'] = finalHeaders['Referer'];
+                            }
+                            if (finalHeaders['Origin']) {
+                                request.headers['Origin'] = finalHeaders['Origin'];
+                            }
+                        }
+                    });
                 }
                 
                 await player.load(url);
@@ -507,9 +543,15 @@ class PlayerComponent {
                             manifestLoadingTimeOut: 15000,
                             levelLoadingTimeOut: 15000,
                             fragLoadingTimeOut: 15000,
-                            xhrSetup: (xhr, url) => {
-                                if (headers && headers["User-Agent"]) {
-                                    xhr.setRequestHeader("User-Agent", headers["User-Agent"]);
+                            xhrSetup: (xhr, xhrUrl) => {
+                                if (finalHeaders['User-Agent']) {
+                                    xhr.setRequestHeader("User-Agent", finalHeaders['User-Agent']);
+                                }
+                                if (finalHeaders['Referer']) {
+                                    xhr.setRequestHeader("Referer", finalHeaders['Referer']);
+                                }
+                                if (finalHeaders['Origin']) {
+                                    xhr.setRequestHeader("Origin", finalHeaders['Origin']);
                                 }
                             }
                         });
@@ -680,6 +722,7 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
+                this.showError(`Failed to play ${channel.name}. Stream may be unavailable.`);
             }
             
             return success;
@@ -687,6 +730,7 @@ class PlayerComponent {
             console.error("Error in playChannel:", error);
             this.hideRadioLogo();
             this.hideLoader();
+            this.showError(`Error playing ${channel.name}: ${error.message}`);
             return false;
         } finally {
             setTimeout(() => {
