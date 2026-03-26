@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT ========================
+// ======================== PLAYER COMPONENT WITH FULL DRM SUPPORT ========================
 
 class PlayerComponent {
     constructor() {
@@ -25,6 +25,25 @@ class PlayerComponent {
         this.fullscreenTimeout = null;
         this.isFullscreenBtnVisible = false;
         this.isFullscreen = false;
+        
+        // DRM configuration
+        this.drmConfigurations = {
+            widevine: {
+                servers: {
+                    'com.widevine.alpha': ''
+                }
+            },
+            fairplay: {
+                servers: {
+                    'com.apple.fairplay': ''
+                }
+            },
+            playready: {
+                servers: {
+                    'com.microsoft.playready': ''
+                }
+            }
+        };
     }
     
     render() {
@@ -39,12 +58,14 @@ class PlayerComponent {
                 </button>
             </div>
             <div class="error-message" id="errorMessage"></div>
+            <div class="drm-info" id="drmInfo" style="display: none;"></div>
         `;
         
         this.videoPlayer = document.getElementById("videoPlayer");
         this.errorMessageDiv = document.getElementById("errorMessage");
         this.videoContainer = document.getElementById("videoContainer");
         this.radioLogoContainer = document.getElementById("radioLogoContainer");
+        this.drmInfoDiv = document.getElementById("drmInfo");
         
         // Remove controls from video player
         if (this.videoPlayer) {
@@ -366,29 +387,167 @@ class PlayerComponent {
         if (this.shakaPlayer) return this.shakaPlayer;
         if (typeof shaka !== "undefined") {
             this.shakaPlayer = new shaka.Player(this.videoPlayer);
+            
+            // Configure Shaka with better DRM support
             await this.shakaPlayer.configure({
                 drm: {
                     servers: {},
                     clearKeys: {},
-                    retryParameters: { maxAttempts: 3 }
+                    retryParameters: { maxAttempts: 5, timeout: 10000 },
+                    // Enable persistent sessions for offline support
+                    persistentSessionId: null,
+                    // Allow custom license servers
+                    advanced: {}
                 },
                 streaming: {
                     rebufferingGoal: 2,
                     bufferingGoal: 10,
-                    retryParameters: { maxAttempts: 3 }
+                    retryParameters: { maxAttempts: 5, timeout: 10000 },
+                    // Handle low latency streaming
+                    useNativeHlsOnSafari: true
+                },
+                manifest: {
+                    retryParameters: { maxAttempts: 5, timeout: 10000 }
+                },
+                // Enable ABR for better performance
+                abr: {
+                    enabled: true,
+                    defaultBandwidthEstimate: 1000000
                 }
             });
+            
             this.shakaPlayer.addEventListener("error", (event) => {
                 console.error("Shaka error", event.detail);
+                this.handleDrmError(event.detail);
             });
+            
+            // Handle DRM license requests
+            this.shakaPlayer.addEventListener("drm", (event) => {
+                console.log("DRM event:", event);
+                this.updateDrmInfo("DRM license requested");
+            });
+            
             this.isShakaInitialized = true;
             return this.shakaPlayer;
         }
         return null;
     }
     
+    handleDrmError(error) {
+        console.error("DRM Error:", error);
+        
+        // Provide user-friendly error messages based on DRM type
+        if (error.code === 6000) {
+            // DRM error
+            this.showError("DRM license error. Your browser may not support the required DRM system.");
+        } else if (error.code === 6001) {
+            this.showError("DRM system not supported in this browser. Please use a compatible browser.");
+        } else if (error.code === 6002) {
+            this.showError("DRM license request failed. Please check your internet connection.");
+        } else if (error.code === 6003) {
+            this.showError("DRM license expired or invalid.");
+        }
+        
+        // Log detailed error for debugging
+        if (error.detail && error.detail.error) {
+            console.error("DRM Error Details:", error.detail.error);
+        }
+    }
+    
+    updateDrmInfo(message) {
+        if (this.drmInfoDiv) {
+            this.drmInfoDiv.textContent = message;
+            this.drmInfoDiv.style.display = 'block';
+            setTimeout(() => {
+                if (this.drmInfoDiv) {
+                    this.drmInfoDiv.style.display = 'none';
+                }
+            }, 3000);
+        }
+    }
+    
+    configureDrmForPlatform(drmConfig, streamUrl) {
+        const drmServers = {};
+        const drmAdvanced = {};
+        const isDash = streamUrl.includes(".mpd") || streamUrl.includes("manifest.mpd");
+        
+        // Detect platform and configure appropriate DRM
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isChrome = /Chrome/.test(navigator.userAgent) && !/Edge/.test(navigator.userAgent);
+        const isEdge = /Edge/.test(navigator.userAgent);
+        const isFirefox = /Firefox/.test(navigator.userAgent);
+        
+        // Configure based on DRM config from channel
+        if (drmConfig) {
+            // Handle Widevine
+            if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
+                drmServers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl || drmConfig.widevine;
+                console.log("✅ Widevine license server configured");
+            }
+            
+            // Handle FairPlay (for Safari)
+            if (drmConfig.fairplayLicenseUrl || drmConfig.fairplay) {
+                drmServers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl || drmConfig.fairplay;
+                if (drmConfig.fairplayCertificateUrl) {
+                    drmAdvanced['com.apple.fairplay'] = {
+                        serverCertificateUri: drmConfig.fairplayCertificateUrl
+                    };
+                }
+                console.log("✅ FairPlay license server configured");
+            }
+            
+            // Handle PlayReady
+            if (drmConfig.playreadyLicenseUrl || drmConfig.playready) {
+                drmServers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl || drmConfig.playready;
+                console.log("✅ PlayReady license server configured");
+            }
+            
+            // Handle ClearKey (for testing)
+            if (drmConfig.keys && Array.isArray(drmConfig.keys)) {
+                const clearKeys = {};
+                drmConfig.keys.forEach(key => {
+                    if (key.kid && key.k) clearKeys[key.kid] = key.k;
+                });
+                return { clearKeys, servers: drmServers, advanced: drmAdvanced };
+            } else if (typeof drmConfig === "object" && !drmConfig.widevineLicenseUrl && !drmConfig.fairplayLicenseUrl && !drmConfig.playreadyLicenseUrl) {
+                // Legacy clear key format
+                const clearKeys = {};
+                for (const [kid, key] of Object.entries(drmConfig)) {
+                    clearKeys[kid] = key;
+                }
+                return { clearKeys, servers: drmServers, advanced: drmAdvanced };
+            }
+        }
+        
+        // If no specific DRM config, try to auto-detect from manifest
+        if (Object.keys(drmServers).length === 0 && isDash) {
+            // Try to detect from manifest URL patterns
+            if (streamUrl.includes('widevine') || streamUrl.includes('cenc')) {
+                // Default Widevine test server (for testing only - replace with actual license server)
+                drmServers['com.widevine.alpha'] = 'https://proxy.uat.widevine.com/proxy?provider=widevine_test';
+                console.log("⚠️ Using default Widevine test server");
+            }
+            
+            if (isSafari && (streamUrl.includes('fairplay') || streamUrl.includes('hls'))) {
+                drmServers['com.apple.fairplay'] = 'https://fairplay-license-server.com/license';
+                console.log("⚠️ Using default FairPlay test server");
+            }
+        }
+        
+        return { clearKeys: {}, servers: drmServers, advanced: drmAdvanced };
+    }
+    
     showError(msg) {
         console.error(msg);
+        if (this.errorMessageDiv) {
+            this.errorMessageDiv.textContent = msg;
+            this.errorMessageDiv.classList.add("show");
+            setTimeout(() => {
+                if (this.errorMessageDiv) {
+                    this.errorMessageDiv.classList.remove("show");
+                }
+            }, 8000);
+        }
         this.hideLoader();
     }
     
@@ -450,41 +609,64 @@ class PlayerComponent {
                 this.hideLoader();
                 console.error("Failed to load stream after multiple attempts");
             }
-        }, 15000);
+        }, 30000); // Increased timeout for DRM license acquisition
         
         try {
             if (isDash) {
-                console.log("Loading DASH stream");
+                console.log("Loading DASH stream with DRM support");
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
-                if (drmConfig) {
-                    const drmObj = {};
-                    if (drmConfig.keys && Array.isArray(drmConfig.keys)) {
-                        const clearKeys = {};
-                        drmConfig.keys.forEach(key => {
-                            if (key.kid && key.k) clearKeys[key.kid] = key.k;
-                        });
-                        drmObj.clearKeys = clearKeys;
-                    } else if (typeof drmConfig === "object") {
-                        const clearKeys = {};
-                        for (const [kid, key] of Object.entries(drmConfig)) {
-                            clearKeys[kid] = key;
-                        }
-                        drmObj.clearKeys = clearKeys;
-                    }
-                    await player.configure({ drm: drmObj });
-                } else {
-                    await player.configure({ drm: { clearKeys: {} } });
+                // Configure DRM for the stream
+                const drmSettings = this.configureDrmForPlatform(drmConfig, url);
+                
+                // Build DRM configuration
+                const drmConfigObj = {
+                    servers: drmSettings.servers,
+                    clearKeys: drmSettings.clearKeys,
+                    retryParameters: { maxAttempts: 5, timeout: 15000 }
+                };
+                
+                // Add advanced config for FairPlay if needed
+                if (Object.keys(drmSettings.advanced).length > 0) {
+                    drmConfigObj.advanced = drmSettings.advanced;
                 }
                 
+                // Log DRM configuration (for debugging)
+                if (Object.keys(drmSettings.servers).length > 0) {
+                    console.log("DRM Servers configured:", drmSettings.servers);
+                    this.updateDrmInfo(`DRM: ${Object.keys(drmSettings.servers).join(', ')}`);
+                }
+                
+                if (Object.keys(drmSettings.clearKeys).length > 0) {
+                    console.log("ClearKeys configured:", Object.keys(drmSettings.clearKeys).length);
+                    this.updateDrmInfo("DRM: ClearKey encryption detected");
+                }
+                
+                await player.configure({ drm: drmConfigObj });
+                
+                // Set up DRM license request interceptor (for custom headers/tokens)
+                player.getNetworkingEngine().registerRequestFilter((type, request) => {
+                    if (type === shaka.net.NetworkingEngine.RequestType.LICENSE) {
+                        // Add custom headers for DRM license requests if needed
+                        if (drmConfig && drmConfig.licenseHeaders) {
+                            Object.entries(drmConfig.licenseHeaders).forEach(([key, value]) => {
+                                request.headers[key] = value;
+                            });
+                        }
+                        console.log("DRM license request:", request.uris);
+                    }
+                });
+                
+                // Load the manifest
                 await player.load(url);
                 
+                // Wait for stream to be ready
                 setTimeout(() => {
                     if (this.videoPlayer && !this.videoPlayer.paused) {
                         this.videoPlayer.play().catch(e => console.warn("Play attempt:", e));
                     }
-                }, 100);
+                }, 500);
                 
                 clearTimeout(loadTimeout);
                 this.loadRetryCount = 0;
@@ -492,27 +674,72 @@ class PlayerComponent {
                 return true;
             } 
             else if (isHls) {
-                console.log("Loading HLS stream");
+                console.log("Loading HLS stream with DRM support");
+                
+                // Check for FairPlay on Safari
+                const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                
+                if (isSafari && drmConfig && drmConfig.fairplayLicenseUrl) {
+                    console.log("Using native HLS with FairPlay DRM on Safari");
+                    // For Safari, use native HLS with FairPlay
+                    if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
+                        // Add FairPlay certificate if provided
+                        if (drmConfig.fairplayCertificateUrl) {
+                            const certificate = await this.loadFairPlayCertificate(drmConfig.fairplayCertificateUrl);
+                            if (certificate) {
+                                this.videoPlayer.setServerCertificate(certificate);
+                            }
+                        }
+                        this.videoPlayer.src = url;
+                        await this.videoPlayer.play();
+                        clearTimeout(loadTimeout);
+                        this.loadRetryCount = 0;
+                        this.hideLoader();
+                        return true;
+                    }
+                }
+                
+                // Use HLS.js for cross-platform HLS with DRM
                 if (Hls.isSupported()) {
                     return new Promise((resolve, reject) => {
                         let resolved = false;
                         let timeoutId = null;
                         
-                        this.hlsPlayer = new Hls({
+                        const hlsConfig = {
                             enableWorker: true,
                             lowLatencyMode: true,
                             autoStartLoad: true,
                             startPosition: -1,
-                            manifestLoadTimeOut: 15000,
-                            manifestLoadingTimeOut: 15000,
-                            levelLoadingTimeOut: 15000,
-                            fragLoadingTimeOut: 15000,
-                            xhrSetup: (xhr, url) => {
-                                if (headers && headers["User-Agent"]) {
+                            manifestLoadTimeOut: 20000,
+                            manifestLoadingTimeOut: 20000,
+                            levelLoadingTimeOut: 20000,
+                            fragLoadingTimeOut: 20000,
+                            // DRM configuration for HLS.js
+                            drm: {
+                                widevineLicenseUrl: drmConfig?.widevineLicenseUrl || drmConfig?.widevine,
+                                playreadyLicenseUrl: drmConfig?.playreadyLicenseUrl || drmConfig?.playready
+                            }
+                        };
+                        
+                        // Add custom headers if provided
+                        if (headers) {
+                            hlsConfig.xhrSetup = (xhr, url) => {
+                                if (headers["User-Agent"]) {
                                     xhr.setRequestHeader("User-Agent", headers["User-Agent"]);
                                 }
-                            }
-                        });
+                                if (headers["Authorization"]) {
+                                    xhr.setRequestHeader("Authorization", headers["Authorization"]);
+                                }
+                                // Add custom headers for DRM
+                                if (drmConfig && drmConfig.licenseHeaders) {
+                                    Object.entries(drmConfig.licenseHeaders).forEach(([key, value]) => {
+                                        xhr.setRequestHeader(key, value);
+                                    });
+                                }
+                            };
+                        }
+                        
+                        this.hlsPlayer = new Hls(hlsConfig);
                         
                         this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
                             if (!resolved) {
@@ -537,6 +764,13 @@ class PlayerComponent {
                         
                         this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                             console.error("HLS Error:", data);
+                            
+                            // Handle DRM-specific errors
+                            if (data.details === 'keyLoadingError' || data.details === 'keySystemError') {
+                                console.error("DRM key loading error");
+                                this.showError("DRM license error. Content may be protected.");
+                            }
+                            
                             if (data.fatal && !resolved) {
                                 if (data.type === 'networkError' && !isRetry && this.loadRetryCount < this.maxRetries) {
                                     resolved = true;
@@ -577,7 +811,7 @@ class PlayerComponent {
                                     reject(new Error("Stream load timeout"));
                                 }
                             }
-                        }, 10000);
+                        }, 15000);
                         
                         this.hlsPlayer.loadSource(url);
                         this.hlsPlayer.attachMedia(this.videoPlayer);
@@ -607,6 +841,11 @@ class PlayerComponent {
             clearTimeout(loadTimeout);
             console.error("loadStream error:", err);
             
+            // Check if error is DRM-related
+            if (err.message && (err.message.includes('drm') || err.message.includes('license') || err.message.includes('DRM'))) {
+                this.showError("DRM license error. Please ensure your browser supports the required DRM system.");
+            }
+            
             if (!isRetry && this.loadRetryCount < this.maxRetries) {
                 this.loadRetryCount++;
                 console.log(`Retrying after error (${this.loadRetryCount}/${this.maxRetries})...`);
@@ -618,6 +857,17 @@ class PlayerComponent {
             this.hideLoader();
             console.error(`Cannot play stream: ${err.message || "unknown error"}`);
             return false;
+        }
+    }
+    
+    async loadFairPlayCertificate(certificateUrl) {
+        try {
+            const response = await fetch(certificateUrl);
+            const certData = await response.arrayBuffer();
+            return certData;
+        } catch (error) {
+            console.error("Failed to load FairPlay certificate:", error);
+            return null;
         }
     }
     
@@ -665,7 +915,26 @@ class PlayerComponent {
             
             let drmConfig = null;
             let headers = null;
-            if (channel.drm) drmConfig = channel.drm;
+            
+            // Extract DRM configuration from channel
+            if (channel.drm) {
+                drmConfig = channel.drm;
+                
+                // Log DRM type for debugging
+                if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
+                    console.log("Channel uses Widevine DRM");
+                }
+                if (drmConfig.fairplayLicenseUrl || drmConfig.fairplay) {
+                    console.log("Channel uses FairPlay DRM");
+                }
+                if (drmConfig.playreadyLicenseUrl || drmConfig.playready) {
+                    console.log("Channel uses PlayReady DRM");
+                }
+                if (drmConfig.keys) {
+                    console.log("Channel uses ClearKey encryption");
+                }
+            }
+            
             if (channel.headers) headers = channel.headers;
             
             const success = await this.loadStream(channel.streamUrl, drmConfig, headers);
@@ -680,6 +949,7 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
+                this.showError(`Failed to play ${channel.name}. The stream may be protected or unavailable.`);
             }
             
             return success;
@@ -687,6 +957,7 @@ class PlayerComponent {
             console.error("Error in playChannel:", error);
             this.hideRadioLogo();
             this.hideLoader();
+            this.showError(`Error playing ${channel.name}: ${error.message}`);
             return false;
         } finally {
             setTimeout(() => {
