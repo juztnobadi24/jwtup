@@ -34,6 +34,13 @@
     "category": "Entertainment",
     "streamUrl": "https://amc-allweddings-1-us.xumo.wurl.tv/playlist.m3u8"
   },
+    {
+  "name": "ALL TV",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723136602348.png",
+  "category": "Mixed",
+  "streamUrl": "https://nasgkfdspkdnlfddnhdx.supabase.co/functions/v1/ott/001/2/ch00000090990000001179/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2Bow35sHUcBhGBpxqddBGYEnytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001415&contentid=ch00000000000000001415&videoid=ch00000090990000001179&recommendtype=0&userid=1205050496206&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=02WMA0HI2O3AXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
+},
   {
     "name": "AMC Thrillers",
     "type": "TV",
