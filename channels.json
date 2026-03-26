@@ -1071,129 +1071,31 @@
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-211473/tracks-v1a1/mono.ts.m3u8"
   },
   {
-    "name": "Sdtv Network",
-    "type": "TV",
-    "logo": "https://i.imgur.com/lMkigfQ.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://live20.bozztv.com/giatv/giatv-sdtvglobalnew/sdtvglobalnew/playlist.m3u8"
-  },
-  {
-    "name": "StarTvPh",
-    "type": "TV",
-    "logo": "https://i.imgur.com/DPEMWJJ.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://startvphilippines.sanmateocable.workers.dev/playlist.m3u8"
-  },
-  {
     "name": "HypeTV",
     "type": "TV",
     "logo": "https://i.imgur.com/F0LQtYK.jpeg",
-    "category": "3rstv",
+    "category": "Kids",
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-211468/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "Tapsilog",
-    "type": "TV",
-    "logo": "https://i.imgur.com/s5KoFeA.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/blasttv/tap_silog/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "Sony Pix HD",
-    "type": "TV",
-    "logo": "https://i.imgur.com/4tPrf85.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/channels/sonypixhd/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "Star Movies HD",
-    "type": "TV",
-    "logo": "https://i.imgur.com/n0w1QZ8.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/channels/starmovies/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "Star Movies Select HD",
-    "type": "TV",
-    "logo": "https://i.imgur.com/jS2un18.png",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/channels/smselect/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "Heart Of Asia",
-    "type": "TV",
-    "logo": "https://i.imgur.com/FmYiHYy.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://hls.nathcreqtives.com/playlist.m3u8?id=1&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "iHeart Movies",
-    "type": "TV",
-    "logo": "https://i.imgur.com/uBmYDy0.jpeg",
-    "category": "3rstv",
-    "streamUrl": "https://hls.nathcreqtives.com/playlist.m3u8?id=2&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "Kapamilya Channel",
-    "type": "TV",
-    "logo": "https://i.imgur.com/WcYS3S3.png",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/cignal/kapamilya/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "NBA TV Philippines",
-    "type": "TV",
-    "logo": "https://i.imgur.com/x1ZG71v.png",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/cignal/nba_tv_philipnes/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "RPTV",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/f/fb/RPTV_Alternative_Logo_2024.png/revision/latest?cb=20240305140432",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/cignal/rptv/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "TV5",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/7/7a/TV5_HD_Logo_2024.png/revision/latest/scale-to-width-down/290?cb=20240202141126",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/cignal/tv5_2/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
-  },
-  {
-    "name": "A2Z",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/8/85/A2Z_Channel_11_without_Channel_11_3D_Logo_2020.png/revision/latest?cb=20231101144828",
-    "category": "3rstv",
-    "streamUrl": "https://converse.nathcreqtives.com/cignal/a2z/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo"
   },
   {
     "name": "Hells Kitchen",
     "type": "TV",
     "logo": "https://i.imgur.com/TRmiNiL.jpeg",
-    "category": "3rstv",
+    "category": "Food and Lifestyle",
     "streamUrl": "https://amg00654-itv-amg00654c1-samsung-th-9581.playouts.now.amagi.tv/playlist.m3u8"
   },
   {
     "name": "PBS Kids",
     "type": "TV",
     "logo": "https://i.imgur.com/8sKjU0A.png",
-    "category": "3rstv",
+    "category": "Kids",
     "streamUrl": "https://dce3793146fef017.mediapackage.us-west-2.amazonaws.com/out/v1/55cdf73af7894775ba6de8f57482b66a/CMAF_HLS/index.m3u8"
-  },
-  {
-    "name": "Universal Movies",
-    "type": "TV",
-    "logo": "https://raw.githubusercontent.com/mystery75/logo/main/UniversalMovies.png",
-    "category": "3rstv",
-    "streamUrl": "https://raw.githubusercontent.com/mystery75/m3u8/main/UNIVERSALMOV.m3u8"
   },
   {
     "name": "Survivor",
     "type": "TV",
     "logo": "https://i.imgur.com/3DumwvT.jpeg",
-    "category": "3rstv",
+    "category": "Entertainment",
     "streamUrl": "https://amg00627-amg00627c16-samsung-ph-5303.playouts.now.amagi.tv/playlist/amg00627-banijayfast-survivor-samsungph/playlist.m3u8"
   },
   {
@@ -1260,36 +1162,6 @@
     "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
   },
   {
-    "name": "GMA 7",
-    "type": "TV",
-    "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723126306082.png",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/1093/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "31363231383438333031323033393138": "38694e34324d543478316b7455753437"
-    }
-  },
-  {
-    "name": "GTV",
-    "type": "TV",
-    "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723126332757.png",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/1143/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "31363232353335323435353337353331": "35416a68643065697575493337566135"
-    }
-  },
-  {
-    "name": "ALL TV",
-    "type": "TV",
-    "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723136602348.png",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/1179/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "31363233323238353336303333363036": "367662564c69425947353948374f4553"
-    }
-  },
-  {
     "name": "DZMM TELERADYO",
     "type": "TV",
     "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1749519196399.png",
@@ -1297,16 +1169,6 @@
     "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
     "drm": {
       "47c093e0c9fd4f80839a0337da3dd876": "603248b858276f533a13e17f2f48c711"
-    }
-  },
-  {
-    "name": "NET 25",
-    "type": "TV",
-    "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723129823252.png",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/1090/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "31363231393131363337323232353030": "56783536726130576e5a4171564c3741"
     }
   },
   {
@@ -1319,36 +1181,21 @@
       "dc9fec234a5841bb8d06e92042c741ec": "225676f32612dc803cb4d0f950d063d0"
     }
   },
-  {
-    "name": "GMA Pinoy TV",
-    "type": "TV",
-    "logo": "https://i.imgur.com/50RyQA7.jpeg",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/25/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "7b5d15a7385546768aca9fd505ad5e16": "f534393c84c1a9c17fa36bc3a4380981"
-    }
-  },
-  {
-    "name": "GMA Life TV",
-    "type": "TV",
-    "logo": "https://i.imgur.com/50RyQA7.jpeg",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/26/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "5d308ef487f54107b7da758e195ecbd3": "9d4004d4c065dd4b85ad5bd12c35386f"
-    }
-  },
-  {
-    "name": "GMA News TV",
-    "type": "TV",
-    "logo": "https://i.imgur.com/50RyQA7.jpeg",
-    "category": "Mixed",
-    "streamUrl": "https://converse.nathcreqtives.com/27/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
-    "drm": {
-      "d5d848730e4a4f9b962290039dd2b96b": "c959dc12f1bff5a66d030117fb7e9855"
-    }
-  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   {
     "name": "Kapamilya Channel",
     "type": "TV",
