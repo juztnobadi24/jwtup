@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH HTTP HEADERS SUPPORT ========================
+// ======================== PLAYER COMPONENT WITH HTTP FIX ========================
 
 class PlayerComponent {
     constructor() {
@@ -84,14 +84,24 @@ class PlayerComponent {
         };
     }
     
+    // Fix HTTP URLs to prevent HTTPS upgrade
+    fixUrl(url) {
+        // If the page is HTTPS but URL is HTTP, we need to handle it carefully
+        if (window.location.protocol === 'https:' && url.startsWith('http://')) {
+            console.warn('⚠️ HTTPS page loading HTTP stream. This may cause mixed content issues.');
+            // Keep as HTTP - browsers may still block this
+            // Alternative: try to use a proxy or warn user
+            return url;
+        }
+        return url;
+    }
+    
     showRadioLogo(channel) {
         if (!this.radioLogoContainer) return;
         
-        // Check if it's a radio channel
         const isRadio = channel.type === "Radio";
         
         if (!isRadio) {
-            // Hide logo for TV channels
             this.radioLogoContainer.style.display = 'none';
             if (this.videoPlayer) {
                 this.videoPlayer.style.opacity = '1';
@@ -99,40 +109,29 @@ class PlayerComponent {
             return;
         }
         
-        // Try to get logo from multiple sources
         let logoUrl = null;
         
-        // Priority 1: logo from channel object
         if (channel.logo) {
             logoUrl = channel.logo;
-        }
-        // Priority 2: logoLocal (if you have local logos)
-        else if (channel.logoLocal) {
+        } else if (channel.logoLocal) {
             logoUrl = `images/${channel.logoLocal}.webp`;
-        }
-        // Priority 3: fallback to default radio logo
-        else {
+        } else {
             logoUrl = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
         }
         
-        // Clear existing content
         this.radioLogoContainer.innerHTML = '';
         
-        // Create wrapper
         const wrapper = document.createElement('div');
         wrapper.className = 'radio-logo-wrapper';
         
-        // Create logo content container
         const logoContent = document.createElement('div');
         logoContent.className = 'radio-logo-content';
         
-        // Create logo image
         const img = document.createElement('img');
         img.className = 'radio-logo';
         img.src = logoUrl;
         img.alt = channel.name;
         
-        // Handle image load error
         img.onerror = () => {
             img.src = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
             img.alt = 'Radio';
@@ -143,16 +142,13 @@ class PlayerComponent {
         
         this.radioLogoContainer.appendChild(wrapper);
         
-        // Add station name
         const stationName = document.createElement('div');
         stationName.className = 'station-name';
         stationName.textContent = channel.name;
         this.radioLogoContainer.appendChild(stationName);
         
-        // Show logo container
         this.radioLogoContainer.style.display = 'flex';
         
-        // Fade out video player for radio
         if (this.videoPlayer) {
             this.videoPlayer.style.opacity = '0.3';
         }
@@ -171,17 +167,14 @@ class PlayerComponent {
         this.fullscreenBtn = document.getElementById('fullscreenToggleBtn');
         if (!this.fullscreenBtn) return;
         
-        // Initially hide the button
         this.hideFullscreenButton();
         
-        // Add click event to toggle fullscreen
         this.fullscreenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
             this.toggleFullscreen();
         });
         
-        // Show button when video container is touched/clicked
         if (this.videoContainer) {
             this.videoContainer.addEventListener('click', (e) => {
                 if (e.target === this.fullscreenBtn || this.fullscreenBtn.contains(e.target)) {
@@ -231,7 +224,6 @@ class PlayerComponent {
         }
         
         this.showFullscreenButton();
-        console.log("Fullscreen changed:", isFullscreen ? "Entered" : "Exited");
     }
     
     showFullscreenButton() {
@@ -308,11 +300,6 @@ class PlayerComponent {
             }, 100);
         }).catch(err => {
             console.error("Fullscreen request failed:", err);
-            if (this.videoPlayer && this.videoPlayer.requestFullscreen) {
-                this.videoPlayer.requestFullscreen().catch(e => {
-                    console.error("Video element fullscreen also failed:", e);
-                });
-            }
         });
     }
     
@@ -332,13 +319,6 @@ class PlayerComponent {
         
         exitFullscreen().then(() => {
             console.log("Fullscreen exited successfully");
-            setTimeout(() => {
-                if (screen.orientation && screen.orientation.unlock) {
-                    screen.orientation.unlock();
-                } else if (screen.unlockOrientation) {
-                    screen.unlockOrientation();
-                }
-            }, 100);
         }).catch(err => {
             console.error("Exit fullscreen failed:", err);
         });
@@ -388,20 +368,17 @@ class PlayerComponent {
         if (typeof shaka !== "undefined") {
             this.shakaPlayer = new shaka.Player(this.videoPlayer);
             
-            // Configure Shaka with better DRM support and headers
+            // Simplified configuration - remove deprecated options
             await this.shakaPlayer.configure({
                 drm: {
                     servers: {},
                     clearKeys: {},
-                    retryParameters: { maxAttempts: 5, timeout: 10000 },
-                    persistentSessionId: null,
-                    advanced: {}
+                    retryParameters: { maxAttempts: 5, timeout: 10000 }
                 },
                 streaming: {
                     rebufferingGoal: 2,
                     bufferingGoal: 10,
-                    retryParameters: { maxAttempts: 5, timeout: 10000 },
-                    useNativeHlsOnSafari: true
+                    retryParameters: { maxAttempts: 5, timeout: 10000 }
                 },
                 manifest: {
                     retryParameters: { maxAttempts: 5, timeout: 10000 }
@@ -420,11 +397,6 @@ class PlayerComponent {
                 this.handleDrmError(event.detail);
             });
             
-            this.shakaPlayer.addEventListener("drm", (event) => {
-                console.log("DRM event:", event);
-                this.updateDrmInfo("DRM license requested");
-            });
-            
             this.isShakaInitialized = true;
             return this.shakaPlayer;
         }
@@ -434,50 +406,30 @@ class PlayerComponent {
     setupShakaRequestFilters() {
         if (!this.shakaPlayer) return;
         
-        // Get networking engine
         const netEngine = this.shakaPlayer.getNetworkingEngine();
         if (!netEngine) return;
         
-        // Store current headers for use in filter
         const self = this;
         
-        // Register request filter for all requests
         netEngine.registerRequestFilter((type, request) => {
-            // Add headers for all requests
             if (self.currentHeaders) {
-                // User-Agent
                 if (self.currentHeaders['User-Agent']) {
                     request.headers['User-Agent'] = self.currentHeaders['User-Agent'];
                 }
-                // Referer
                 if (self.currentHeaders['Referer']) {
                     request.headers['Referer'] = self.currentHeaders['Referer'];
                 }
-                // Origin
                 if (self.currentHeaders['Origin']) {
                     request.headers['Origin'] = self.currentHeaders['Origin'];
                 }
-                // Accept
-                if (self.currentHeaders['Accept']) {
-                    request.headers['Accept'] = self.currentHeaders['Accept'];
-                }
-                // Accept-Language
-                if (self.currentHeaders['Accept-Language']) {
-                    request.headers['Accept-Language'] = self.currentHeaders['Accept-Language'];
-                }
-                // Authorization
-                if (self.currentHeaders['Authorization']) {
-                    request.headers['Authorization'] = self.currentHeaders['Authorization'];
-                }
-                // Any other custom headers
+                
                 Object.keys(self.currentHeaders).forEach(key => {
-                    if (!['User-Agent', 'Referer', 'Origin', 'Accept', 'Accept-Language', 'Authorization'].includes(key)) {
+                    if (!['User-Agent', 'Referer', 'Origin'].includes(key)) {
                         request.headers[key] = self.currentHeaders[key];
                     }
                 });
             }
             
-            // Log headers for debugging (optional)
             if (request.uris && request.uris.length > 0) {
                 console.log(`Requesting: ${request.uris[0]}`);
                 console.log('Headers:', request.headers);
@@ -488,35 +440,19 @@ class PlayerComponent {
     setupHlsRequestFilters(hlsConfig, headers) {
         if (!headers) return hlsConfig;
         
-        // Configure HLS.js with headers
         hlsConfig.xhrSetup = (xhr, url) => {
-            // Add User-Agent
             if (headers['User-Agent']) {
                 xhr.setRequestHeader('User-Agent', headers['User-Agent']);
             }
-            // Add Referer
             if (headers['Referer']) {
                 xhr.setRequestHeader('Referer', headers['Referer']);
             }
-            // Add Origin
             if (headers['Origin']) {
                 xhr.setRequestHeader('Origin', headers['Origin']);
             }
-            // Add Accept
-            if (headers['Accept']) {
-                xhr.setRequestHeader('Accept', headers['Accept']);
-            }
-            // Add Accept-Language
-            if (headers['Accept-Language']) {
-                xhr.setRequestHeader('Accept-Language', headers['Accept-Language']);
-            }
-            // Add Authorization
-            if (headers['Authorization']) {
-                xhr.setRequestHeader('Authorization', headers['Authorization']);
-            }
-            // Add any other custom headers
+            
             Object.keys(headers).forEach(key => {
-                if (!['User-Agent', 'Referer', 'Origin', 'Accept', 'Accept-Language', 'Authorization'].includes(key)) {
+                if (!['User-Agent', 'Referer', 'Origin'].includes(key)) {
                     xhr.setRequestHeader(key, headers[key]);
                 }
             });
@@ -536,12 +472,6 @@ class PlayerComponent {
             this.showError("DRM system not supported in this browser. Please use a compatible browser.");
         } else if (error.code === 6002) {
             this.showError("DRM license request failed. Please check your internet connection.");
-        } else if (error.code === 6003) {
-            this.showError("DRM license expired or invalid.");
-        }
-        
-        if (error.detail && error.detail.error) {
-            console.error("DRM Error Details:", error.detail.error);
         }
     }
     
@@ -560,12 +490,6 @@ class PlayerComponent {
     configureDrmForPlatform(drmConfig, streamUrl) {
         const drmServers = {};
         const drmAdvanced = {};
-        const isDash = streamUrl.includes(".mpd") || streamUrl.includes("manifest.mpd");
-        
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        const isChrome = /Chrome/.test(navigator.userAgent) && !/Edge/.test(navigator.userAgent);
-        const isEdge = /Edge/.test(navigator.userAgent);
-        const isFirefox = /Firefox/.test(navigator.userAgent);
         
         if (drmConfig) {
             if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
@@ -600,18 +524,6 @@ class PlayerComponent {
                     clearKeys[kid] = key;
                 }
                 return { clearKeys, servers: drmServers, advanced: drmAdvanced };
-            }
-        }
-        
-        if (Object.keys(drmServers).length === 0 && isDash) {
-            if (streamUrl.includes('widevine') || streamUrl.includes('cenc')) {
-                drmServers['com.widevine.alpha'] = 'https://proxy.uat.widevine.com/proxy?provider=widevine_test';
-                console.log("⚠️ Using default Widevine test server");
-            }
-            
-            if (isSafari && (streamUrl.includes('fairplay') || streamUrl.includes('hls'))) {
-                drmServers['com.apple.fairplay'] = 'https://fairplay-license-server.com/license';
-                console.log("⚠️ Using default FairPlay test server");
             }
         }
         
@@ -668,7 +580,6 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        // Store headers for use in request filters
         this.currentHeaders = headers;
         
         await this.destroyPlayers();
@@ -691,13 +602,13 @@ class PlayerComponent {
                 this.loadStream(url, drmConfig, headers, true);
             } else if (this.loadRetryCount >= this.maxRetries) {
                 this.hideLoader();
-                console.error("Failed to load stream after multiple attempts");
+                this.showError("Failed to load stream after multiple attempts. The stream may be offline or requires a VPN.");
             }
         }, 30000);
         
         try {
             if (isDash) {
-                console.log("Loading DASH stream with header support");
+                console.log("Loading DASH stream");
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
@@ -713,14 +624,9 @@ class PlayerComponent {
                     drmConfigObj.advanced = drmSettings.advanced;
                 }
                 
-                if (Object.keys(drmSettings.servers).length > 0) {
-                    console.log("DRM Servers configured:", drmSettings.servers);
-                    this.updateDrmInfo(`DRM: ${Object.keys(drmSettings.servers).join(', ')}`);
-                }
-                
                 if (Object.keys(drmSettings.clearKeys).length > 0) {
                     console.log("ClearKeys configured:", Object.keys(drmSettings.clearKeys).length);
-                    this.updateDrmInfo("DRM: ClearKey encryption detected");
+                    this.updateDrmInfo(`DRM: ClearKey encryption`);
                 }
                 
                 await player.configure({ drm: drmConfigObj });
@@ -740,27 +646,7 @@ class PlayerComponent {
                 return true;
             } 
             else if (isHls) {
-                console.log("Loading HLS stream with header support");
-                
-                const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-                
-                if (isSafari && drmConfig && drmConfig.fairplayLicenseUrl) {
-                    console.log("Using native HLS with FairPlay DRM on Safari");
-                    if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
-                        if (drmConfig.fairplayCertificateUrl) {
-                            const certificate = await this.loadFairPlayCertificate(drmConfig.fairplayCertificateUrl);
-                            if (certificate) {
-                                this.videoPlayer.setServerCertificate(certificate);
-                            }
-                        }
-                        this.videoPlayer.src = url;
-                        await this.videoPlayer.play();
-                        clearTimeout(loadTimeout);
-                        this.loadRetryCount = 0;
-                        this.hideLoader();
-                        return true;
-                    }
-                }
+                console.log("Loading HLS stream");
                 
                 if (Hls.isSupported()) {
                     return new Promise((resolve, reject) => {
@@ -775,14 +661,9 @@ class PlayerComponent {
                             manifestLoadTimeOut: 20000,
                             manifestLoadingTimeOut: 20000,
                             levelLoadingTimeOut: 20000,
-                            fragLoadingTimeOut: 20000,
-                            drm: {
-                                widevineLicenseUrl: drmConfig?.widevineLicenseUrl || drmConfig?.widevine,
-                                playreadyLicenseUrl: drmConfig?.playreadyLicenseUrl || drmConfig?.playready
-                            }
+                            fragLoadingTimeOut: 20000
                         };
                         
-                        // Setup headers for HLS.js
                         if (headers) {
                             hlsConfig = this.setupHlsRequestFilters(hlsConfig, headers);
                         }
@@ -812,11 +693,6 @@ class PlayerComponent {
                         
                         this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                             console.error("HLS Error:", data);
-                            
-                            if (data.details === 'keyLoadingError' || data.details === 'keySystemError') {
-                                console.error("DRM key loading error");
-                                this.showError("DRM license error. Content may be protected.");
-                            }
                             
                             if (data.fatal && !resolved) {
                                 if (data.type === 'networkError' && !isRetry && this.loadRetryCount < this.maxRetries) {
@@ -876,7 +752,7 @@ class PlayerComponent {
                 }
             }
             else {
-                console.log("Loading direct stream (MP3/audio)");
+                console.log("Loading direct stream");
                 this.videoPlayer.src = url;
                 await this.videoPlayer.play();
                 clearTimeout(loadTimeout);
@@ -888,8 +764,9 @@ class PlayerComponent {
             clearTimeout(loadTimeout);
             console.error("loadStream error:", err);
             
-            if (err.message && (err.message.includes('drm') || err.message.includes('license') || err.message.includes('DRM'))) {
-                this.showError("DRM license error. Please ensure your browser supports the required DRM system.");
+            // Check for mixed content error
+            if (err.message && err.message.includes('SSL') || err.message.includes('https')) {
+                this.showError("⚠️ Mixed Content Error: The stream uses HTTP but your site is HTTPS. Try accessing the site via HTTP instead.");
             }
             
             if (!isRetry && this.loadRetryCount < this.maxRetries) {
@@ -903,17 +780,6 @@ class PlayerComponent {
             this.hideLoader();
             console.error(`Cannot play stream: ${err.message || "unknown error"}`);
             return false;
-        }
-    }
-    
-    async loadFairPlayCertificate(certificateUrl) {
-        try {
-            const response = await fetch(certificateUrl);
-            const certData = await response.arrayBuffer();
-            return certData;
-        } catch (error) {
-            console.error("Failed to load FairPlay certificate:", error);
-            return null;
         }
     }
     
@@ -944,7 +810,6 @@ class PlayerComponent {
         
         this.showLoader("Loading channel...");
         
-        // Show or hide radio logo based on channel type
         if (channel.type === "Radio") {
             this.showRadioLogo(channel);
         } else {
@@ -955,32 +820,20 @@ class PlayerComponent {
             console.log("Switching to channel:", channel.name);
             this.currentChannel = channel;
             
-            if (this.drmNoticeSpan) {
-                this.drmNoticeSpan.innerHTML = '';
-            }
-            
             let drmConfig = null;
             let headers = null;
             
-            // Extract DRM configuration from channel
             if (channel.drm) {
                 drmConfig = channel.drm;
                 
                 if (drmConfig.widevineLicenseUrl || drmConfig.widevine) {
                     console.log("Channel uses Widevine DRM");
                 }
-                if (drmConfig.fairplayLicenseUrl || drmConfig.fairplay) {
-                    console.log("Channel uses FairPlay DRM");
-                }
-                if (drmConfig.playreadyLicenseUrl || drmConfig.playready) {
-                    console.log("Channel uses PlayReady DRM");
-                }
                 if (drmConfig.keys) {
                     console.log("Channel uses ClearKey encryption");
                 }
             }
             
-            // Extract headers from channel
             if (channel.headers) {
                 headers = channel.headers;
                 console.log("Using custom headers for this channel");
@@ -1007,7 +860,7 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
-                this.showError(`Failed to play ${channel.name}. The stream may be protected or unavailable.`);
+                this.showError(`Failed to play ${channel.name}. The stream may be offline or requires a VPN.`);
             }
             
             return success;
