@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH JW PLAYER AS MAIN ========================
+// ======================== PLAYER COMPONENT WITH DASH SUPPORT ========================
 
 class PlayerComponent {
     constructor() {
@@ -8,6 +8,7 @@ class PlayerComponent {
         this.videoContainer = null;
         this.radioLogoContainer = null;
         
+        this.shakaPlayer = null;
         this.jwPlayer = null;
         this.jwPlayerContainer = null;
         this.currentChannel = null;
@@ -23,18 +24,11 @@ class PlayerComponent {
         
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
+        this.shakaReady = false;
         
-        // Proxy for HTTP streams - using multiple options
-        this.proxyOptions = [
-            'https://api.allorigins.win/raw?url=',
-            'https://corsproxy.io/?',
-            'https://thingproxy.freeboard.io/fetch/'
-        ];
-        this.currentProxyIndex = 0;
-        this.useProxy = true;
-        
-        // For DASH streams that fail, try converting to HLS if possible
-        this.dashToHlsFallback = true;
+        // For DASH streams, we'll use Shaka Player with custom request filter
+        this.shakaUrl = null;
+        this.shakaHeaders = null;
     }
     
     render() {
@@ -42,8 +36,8 @@ class PlayerComponent {
         
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
-                <video id="videoPlayer" playsinline disablePictureInPicture autoplay style="display: none;"></video>
-                <div id="jwplayer-container" style="width: 100%; height: 100%;"></div>
+                <video id="videoPlayer" playsinline disablePictureInPicture autoplay></video>
+                <div id="jwplayer-container" style="width: 100%; height: 100%; display: none;"></div>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -96,47 +90,115 @@ class PlayerComponent {
         document.head.appendChild(script);
     }
     
-    getProxiedUrl(streamUrl) {
-        if (!this.useProxy) return streamUrl;
-        
-        // Only proxy HTTP streams on HTTPS sites
-        if (window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
-            const proxyUrl = this.proxyOptions[this.currentProxyIndex];
-            const encodedUrl = encodeURIComponent(streamUrl);
-            const proxiedUrl = proxyUrl + encodedUrl;
-            console.log(`Using proxy (${this.currentProxyIndex + 1}/${this.proxyOptions.length}): ${proxyUrl}`);
-            return proxiedUrl;
+    async initShakaPlayer(url, drmConfig = null, headers = null) {
+        return new Promise(async (resolve, reject) => {
+            if (typeof shaka === 'undefined') {
+                reject(new Error("Shaka Player not loaded"));
+                return;
+            }
+            
+            try {
+                // Destroy existing Shaka player
+                if (this.shakaPlayer) {
+                    await this.shakaPlayer.destroy();
+                    this.shakaPlayer = null;
+                }
+                
+                // Show video player, hide JW container
+                this.videoPlayer.style.display = 'block';
+                this.jwPlayerContainer.style.display = 'none';
+                
+                // Initialize Shaka Player
+                this.shakaPlayer = new shaka.Player(this.videoPlayer);
+                
+                // Configure Shaka Player
+                const config = {
+                    drm: {
+                        servers: {},
+                        clearKeys: {},
+                        retryParameters: { maxAttempts: 5, timeout: 10000 }
+                    },
+                    streaming: {
+                        rebufferingGoal: 2,
+                        bufferingGoal: 10,
+                        retryParameters: { maxAttempts: 5, timeout: 10000 }
+                    },
+                    manifest: {
+                        retryParameters: { maxAttempts: 5, timeout: 10000 }
+                    },
+                    abr: {
+                        enabled: true
+                    }
+                };
+                
+                // Add DRM configuration if present
+                if (drmConfig) {
+                    if (drmConfig.widevineLicenseUrl) {
+                        config.drm.servers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl;
+                    }
+                    if (drmConfig.playreadyLicenseUrl) {
+                        config.drm.servers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl;
+                    }
+                    if (drmConfig.fairplayLicenseUrl) {
+                        config.drm.servers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl;
+                    }
+                    // Handle ClearKey
+                    if (typeof drmConfig === 'object' && !drmConfig.widevineLicenseUrl && !drmConfig.playreadyLicenseUrl && !drmConfig.fairplayLicenseUrl) {
+                        config.drm.clearKeys = drmConfig;
+                    }
+                }
+                
+                await this.shakaPlayer.configure(config);
+                
+                // Setup request filter for headers
+                if (headers) {
+                    const netEngine = this.shakaPlayer.getNetworkingEngine();
+                    if (netEngine) {
+                        netEngine.registerRequestFilter((type, request) => {
+                            if (headers['User-Agent']) {
+                                request.headers['User-Agent'] = headers['User-Agent'];
+                            }
+                            if (headers['Referer']) {
+                                request.headers['Referer'] = headers['Referer'];
+                            }
+                            if (headers['Origin']) {
+                                request.headers['Origin'] = headers['Origin'];
+                            }
+                        });
+                    }
+                }
+                
+                // Load the manifest
+                await this.shakaPlayer.load(url);
+                
+                // Play the video
+                await this.videoPlayer.play().catch(e => console.warn("Autoplay blocked:", e));
+                
+                this.shakaReady = true;
+                resolve(true);
+                
+            } catch (error) {
+                console.error("Shaka Player error:", error);
+                reject(error);
+            }
+        });
+    }
+    
+    destroyShakaPlayer() {
+        if (this.shakaPlayer) {
+            try {
+                this.shakaPlayer.destroy();
+            } catch(e) {}
+            this.shakaPlayer = null;
         }
-        return streamUrl;
+        this.shakaReady = false;
     }
     
-    tryNextProxy() {
-        if (this.currentProxyIndex < this.proxyOptions.length - 1) {
-            this.currentProxyIndex++;
-            console.log(`Switching to proxy ${this.currentProxyIndex + 1}`);
-            return true;
-        }
-        return false;
-    }
-    
-    resetProxy() {
-        this.currentProxyIndex = 0;
-    }
-    
-    async tryAlternativeStream(url, channelName, headers) {
-        // Try to get the stream URL without proxy for HTTP streams
-        if (url.startsWith('http://')) {
-            console.log("Trying direct HTTP (may be blocked by browser)...");
-            return this.initJWPlayerDirect(url, channelName, headers);
-        }
-        return false;
-    }
-    
-    initJWPlayerDirect(streamUrl, channelName, headers = null) {
+    initJWPlayer(streamUrl, channelName, headers = null) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayerDirect(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -146,15 +208,17 @@ class PlayerComponent {
             }
             
             if (this.jwPlayer) {
-                try { this.jwPlayer.remove(); } catch(e) {}
+                try {
+                    this.jwPlayer.remove();
+                } catch(e) {}
                 this.jwPlayer = null;
             }
             
             this.jwPlayerContainer.innerHTML = '';
             this.jwPlayerContainer.style.display = 'block';
-            if (this.videoPlayer) this.videoPlayer.style.display = 'none';
+            this.videoPlayer.style.display = 'none';
             
-            console.log("JW Player loading URL directly:", streamUrl);
+            console.log("JW Player loading URL:", streamUrl);
             
             const config = {
                 file: streamUrl,
@@ -176,115 +240,18 @@ class PlayerComponent {
                     if (!resolved) {
                         resolved = true;
                         this.jwPlayerReady = true;
-                        console.log("✅ JW Player ready (direct)");
-                        resolve(true);
-                    }
-                });
-                
-                this.jwPlayer.on('error', (error) => {
-                    console.error("JW Player error (direct):", error);
-                    if (!resolved) {
-                        resolved = true;
-                        reject(error);
-                    }
-                });
-                
-                setTimeout(() => {
-                    if (!resolved) {
-                        resolved = true;
-                        reject(new Error("JW Player load timeout"));
-                    }
-                }, 30000);
-                
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-    
-    initJWPlayer(streamUrl, channelName, headers = null, useProxy = true) {
-        return new Promise((resolve, reject) => {
-            if (!this.jwPlayerLoaded) {
-                this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers, useProxy).then(resolve).catch(reject), 500);
-                return;
-            }
-            
-            if (typeof jwplayer === 'undefined') {
-                reject(new Error("JW Player not available"));
-                return;
-            }
-            
-            if (this.jwPlayer) {
-                try { this.jwPlayer.remove(); } catch(e) {}
-                this.jwPlayer = null;
-            }
-            
-            this.jwPlayerContainer.innerHTML = '';
-            this.jwPlayerContainer.style.display = 'block';
-            if (this.videoPlayer) this.videoPlayer.style.display = 'none';
-            
-            let finalUrl = streamUrl;
-            if (useProxy && this.useProxy) {
-                finalUrl = this.getProxiedUrl(streamUrl);
-            }
-            
-            console.log("JW Player loading URL:", finalUrl);
-            
-            const config = {
-                file: finalUrl,
-                title: channelName,
-                width: '100%',
-                height: '100%',
-                aspectratio: '16:9',
-                autostart: true,
-                primary: 'html5',
-                preload: 'auto',
-                abouttext: 'JUZT IPTV',
-                aboutlink: '#',
-                skin: { name: 'seven' }
-            };
-            
-            try {
-                this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
-                
-                let resolved = false;
-                
-                this.jwPlayer.on('ready', () => {
-                    if (!resolved) {
-                        resolved = true;
-                        this.jwPlayerReady = true;
                         console.log("✅ JW Player ready");
                         resolve(true);
                     }
                 });
                 
-                this.jwPlayer.on('error', async (error) => {
+                this.jwPlayer.on('error', (error) => {
                     console.error("JW Player error:", error);
-                    
-                    // If DASH stream fails with proxy, try direct HTTP
-                    if (!resolved && useProxy && streamUrl.includes('.mpd')) {
-                        console.log("DASH stream failed with proxy, trying direct HTTP...");
-                        resolved = true;
-                        try {
-                            const directSuccess = await this.tryAlternativeStream(streamUrl, channelName, headers);
-                            if (directSuccess) {
-                                resolve(true);
-                            } else {
-                                reject(error);
-                            }
-                        } catch(e) {
-                            reject(error);
-                        }
-                    } else if (!resolved) {
+                    if (!resolved) {
                         resolved = true;
                         reject(error);
                     }
                 });
-                
-                this.jwPlayer.on('play', () => console.log("▶️ JW Player playing"));
-                this.jwPlayer.on('pause', () => console.log("⏸️ JW Player paused"));
-                this.jwPlayer.on('buffer', () => console.log("⏳ JW Player buffering"));
                 
                 setTimeout(() => {
                     if (!resolved) {
@@ -294,7 +261,6 @@ class PlayerComponent {
                 }, 30000);
                 
             } catch (error) {
-                console.error("JW Player init error:", error);
                 reject(error);
             }
         });
@@ -310,10 +276,9 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         if (this.jwPlayerContainer) {
             this.jwPlayerContainer.innerHTML = '';
+            this.jwPlayerContainer.style.display = 'none';
         }
-        if (this.videoPlayer) {
-            this.videoPlayer.style.display = 'block';
-        }
+        this.videoPlayer.style.display = 'block';
     }
     
     showRadioLogo(channel) {
@@ -457,59 +422,91 @@ class PlayerComponent {
     }
     
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
-        console.log("Loading stream with JW Player:", url);
+        console.log("Loading stream:", url);
         
         const isDash = url.includes(".mpd") || url.includes("manifest.mpd");
-        const isHttp = url.startsWith('http://');
+        const isHls = url.includes(".m3u8");
         
-        this.showLoader("Loading stream...");
-        
-        try {
-            await this.destroyJWPlayer();
+        // For DASH streams (Kapamilya, ALLTV2, GMA7, TV5, GTV, Kapatid)
+        if (isDash) {
+            console.log("🎬 DASH stream detected, using Shaka Player");
+            this.showLoader("Loading DASH stream...");
             
-            // For HTTP streams, try with proxy first
-            if (isHttp) {
-                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers, true);
-                if (success) {
-                    this.hideLoader();
-                    this.resetProxy();
-                    return true;
-                }
-            } else {
-                // HTTPS streams - no proxy needed
-                const success = await this.initJWPlayerDirect(url, this.currentChannel?.name || "Channel", headers);
+            try {
+                // Destroy both players
+                this.destroyJWPlayer();
+                this.destroyShakaPlayer();
+                
+                const success = await this.initShakaPlayer(url, drmConfig, headers);
+                
                 if (success) {
                     this.hideLoader();
                     return true;
                 }
+            } catch (error) {
+                console.error("Shaka Player failed:", error);
+                
+                if (!isRetry && this.loadRetryCount < this.maxRetries) {
+                    this.loadRetryCount++;
+                    this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                    await new Promise(r => setTimeout(r, 2000));
+                    return this.loadStream(url, drmConfig, headers, true);
+                }
+                
+                this.hideLoader();
+                this.showError(`Failed to load DASH stream: ${error.message}`);
+                return false;
             }
-            
-        } catch (error) {
-            console.error("JW Player failed:", error);
-            
-            // Try next proxy if available
-            if (isHttp && this.tryNextProxy()) {
-                this.updateLoaderMessage(`Retrying with alternative proxy...`);
-                await new Promise(r => setTimeout(r, 1000));
-                return this.loadStream(url, drmConfig, headers, true);
-            }
-            
-            // Retry without changing proxy
-            if (!isRetry && this.loadRetryCount < this.maxRetries) {
-                this.loadRetryCount++;
-                this.resetProxy();
-                this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                await new Promise(r => setTimeout(r, 2000));
-                return this.loadStream(url, drmConfig, headers, true);
-            }
-            
-            this.hideLoader();
-            this.showError(`Failed to load stream. The stream may be offline.`);
-            return false;
         }
         
-        this.hideLoader();
-        return false;
+        // For HLS streams (Abante Radyo, etc.)
+        if (isHls) {
+            console.log("🎬 HLS stream detected, using JW Player");
+            this.showLoader("Loading HLS stream...");
+            
+            try {
+                this.destroyShakaPlayer();
+                this.destroyJWPlayer();
+                
+                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
+                
+                if (success) {
+                    this.hideLoader();
+                    return true;
+                }
+            } catch (error) {
+                console.error("JW Player failed:", error);
+                
+                if (!isRetry && this.loadRetryCount < this.maxRetries) {
+                    this.loadRetryCount++;
+                    this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                    await new Promise(r => setTimeout(r, 2000));
+                    return this.loadStream(url, drmConfig, headers, true);
+                }
+                
+                this.hideLoader();
+                this.showError(`Failed to load HLS stream: ${error.message}`);
+                return false;
+            }
+        }
+        
+        // Fallback: direct video element
+        console.log("🎬 Using direct video element");
+        this.showLoader("Loading stream...");
+        this.destroyJWPlayer();
+        this.destroyShakaPlayer();
+        this.videoPlayer.style.display = 'block';
+        this.videoPlayer.src = url;
+        
+        try {
+            await this.videoPlayer.play();
+            this.hideLoader();
+            return true;
+        } catch (error) {
+            this.hideLoader();
+            this.showError(`Failed to play stream: ${error.message}`);
+            return false;
+        }
     }
     
     async playChannel(channel) {
@@ -530,7 +527,6 @@ class PlayerComponent {
         
         this.isLoading = true;
         this.loadRetryCount = 0;
-        this.resetProxy();
         this.showLoader("Loading channel...");
         
         if (channel.type === "Radio") {
@@ -546,8 +542,20 @@ class PlayerComponent {
             let drmConfig = null;
             let headers = null;
             
-            if (channel.drm) drmConfig = channel.drm;
-            if (channel.headers) headers = channel.headers;
+            // Extract DRM configuration
+            if (channel.drm) {
+                drmConfig = channel.drm;
+                console.log("DRM config detected");
+            }
+            
+            // Extract headers
+            if (channel.headers) {
+                headers = channel.headers;
+                console.log("Using custom headers");
+                if (headers['User-Agent']) console.log("  - User-Agent set");
+                if (headers['Referer']) console.log("  - Referer:", headers['Referer']);
+                if (headers['Origin']) console.log("  - Origin:", headers['Origin']);
+            }
             
             const success = await this.loadStream(channel.streamUrl, drmConfig, headers);
             
@@ -558,7 +566,7 @@ class PlayerComponent {
                 }
                 console.log("✅ Channel playing successfully:", channel.name);
             } else {
-                this.showError(`Failed to play ${channel.name}. The stream may be offline.`);
+                this.showError(`Failed to play ${channel.name}`);
             }
             
             return success;
