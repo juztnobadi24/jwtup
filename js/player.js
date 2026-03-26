@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH DASH SUPPORT ========================
+// ======================== PLAYER COMPONENT - SIMPLIFIED ========================
 
 class PlayerComponent {
     constructor() {
@@ -8,7 +8,6 @@ class PlayerComponent {
         this.videoContainer = null;
         this.radioLogoContainer = null;
         
-        this.shakaPlayer = null;
         this.jwPlayer = null;
         this.jwPlayerContainer = null;
         this.currentChannel = null;
@@ -24,11 +23,6 @@ class PlayerComponent {
         
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
-        this.shakaReady = false;
-        
-        // For DASH streams, we'll use Shaka Player with custom request filter
-        this.shakaUrl = null;
-        this.shakaHeaders = null;
     }
     
     render() {
@@ -36,8 +30,8 @@ class PlayerComponent {
         
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
-                <video id="videoPlayer" playsinline disablePictureInPicture autoplay></video>
-                <div id="jwplayer-container" style="width: 100%; height: 100%; display: none;"></div>
+                <video id="videoPlayer" playsinline disablePictureInPicture autoplay style="display: none;"></video>
+                <div id="jwplayer-container" style="width: 100%; height: 100%;"></div>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -90,115 +84,11 @@ class PlayerComponent {
         document.head.appendChild(script);
     }
     
-    async initShakaPlayer(url, drmConfig = null, headers = null) {
-        return new Promise(async (resolve, reject) => {
-            if (typeof shaka === 'undefined') {
-                reject(new Error("Shaka Player not loaded"));
-                return;
-            }
-            
-            try {
-                // Destroy existing Shaka player
-                if (this.shakaPlayer) {
-                    await this.shakaPlayer.destroy();
-                    this.shakaPlayer = null;
-                }
-                
-                // Show video player, hide JW container
-                this.videoPlayer.style.display = 'block';
-                this.jwPlayerContainer.style.display = 'none';
-                
-                // Initialize Shaka Player
-                this.shakaPlayer = new shaka.Player(this.videoPlayer);
-                
-                // Configure Shaka Player
-                const config = {
-                    drm: {
-                        servers: {},
-                        clearKeys: {},
-                        retryParameters: { maxAttempts: 5, timeout: 10000 }
-                    },
-                    streaming: {
-                        rebufferingGoal: 2,
-                        bufferingGoal: 10,
-                        retryParameters: { maxAttempts: 5, timeout: 10000 }
-                    },
-                    manifest: {
-                        retryParameters: { maxAttempts: 5, timeout: 10000 }
-                    },
-                    abr: {
-                        enabled: true
-                    }
-                };
-                
-                // Add DRM configuration if present
-                if (drmConfig) {
-                    if (drmConfig.widevineLicenseUrl) {
-                        config.drm.servers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl;
-                    }
-                    if (drmConfig.playreadyLicenseUrl) {
-                        config.drm.servers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl;
-                    }
-                    if (drmConfig.fairplayLicenseUrl) {
-                        config.drm.servers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl;
-                    }
-                    // Handle ClearKey
-                    if (typeof drmConfig === 'object' && !drmConfig.widevineLicenseUrl && !drmConfig.playreadyLicenseUrl && !drmConfig.fairplayLicenseUrl) {
-                        config.drm.clearKeys = drmConfig;
-                    }
-                }
-                
-                await this.shakaPlayer.configure(config);
-                
-                // Setup request filter for headers
-                if (headers) {
-                    const netEngine = this.shakaPlayer.getNetworkingEngine();
-                    if (netEngine) {
-                        netEngine.registerRequestFilter((type, request) => {
-                            if (headers['User-Agent']) {
-                                request.headers['User-Agent'] = headers['User-Agent'];
-                            }
-                            if (headers['Referer']) {
-                                request.headers['Referer'] = headers['Referer'];
-                            }
-                            if (headers['Origin']) {
-                                request.headers['Origin'] = headers['Origin'];
-                            }
-                        });
-                    }
-                }
-                
-                // Load the manifest
-                await this.shakaPlayer.load(url);
-                
-                // Play the video
-                await this.videoPlayer.play().catch(e => console.warn("Autoplay blocked:", e));
-                
-                this.shakaReady = true;
-                resolve(true);
-                
-            } catch (error) {
-                console.error("Shaka Player error:", error);
-                reject(error);
-            }
-        });
-    }
-    
-    destroyShakaPlayer() {
-        if (this.shakaPlayer) {
-            try {
-                this.shakaPlayer.destroy();
-            } catch(e) {}
-            this.shakaPlayer = null;
-        }
-        this.shakaReady = false;
-    }
-    
-    initJWPlayer(streamUrl, channelName, headers = null) {
+    initJWPlayer(streamUrl, channelName) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -220,6 +110,7 @@ class PlayerComponent {
             
             console.log("JW Player loading URL:", streamUrl);
             
+            // Simple JW Player configuration
             const config = {
                 file: streamUrl,
                 title: channelName,
@@ -253,6 +144,9 @@ class PlayerComponent {
                     }
                 });
                 
+                this.jwPlayer.on('play', () => console.log("▶️ Playing"));
+                this.jwPlayer.on('pause', () => console.log("⏸️ Paused"));
+                
                 setTimeout(() => {
                     if (!resolved) {
                         resolved = true;
@@ -261,6 +155,7 @@ class PlayerComponent {
                 }, 30000);
                 
             } catch (error) {
+                console.error("JW Player init error:", error);
                 reject(error);
             }
         });
@@ -276,7 +171,6 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         if (this.jwPlayerContainer) {
             this.jwPlayerContainer.innerHTML = '';
-            this.jwPlayerContainer.style.display = 'none';
         }
         this.videoPlayer.style.display = 'block';
     }
@@ -424,89 +318,34 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        const isDash = url.includes(".mpd") || url.includes("manifest.mpd");
-        const isHls = url.includes(".m3u8");
-        
-        // For DASH streams (Kapamilya, ALLTV2, GMA7, TV5, GTV, Kapatid)
-        if (isDash) {
-            console.log("🎬 DASH stream detected, using Shaka Player");
-            this.showLoader("Loading DASH stream...");
-            
-            try {
-                // Destroy both players
-                this.destroyJWPlayer();
-                this.destroyShakaPlayer();
-                
-                const success = await this.initShakaPlayer(url, drmConfig, headers);
-                
-                if (success) {
-                    this.hideLoader();
-                    return true;
-                }
-            } catch (error) {
-                console.error("Shaka Player failed:", error);
-                
-                if (!isRetry && this.loadRetryCount < this.maxRetries) {
-                    this.loadRetryCount++;
-                    this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                    await new Promise(r => setTimeout(r, 2000));
-                    return this.loadStream(url, drmConfig, headers, true);
-                }
-                
-                this.hideLoader();
-                this.showError(`Failed to load DASH stream: ${error.message}`);
-                return false;
-            }
-        }
-        
-        // For HLS streams (Abante Radyo, etc.)
-        if (isHls) {
-            console.log("🎬 HLS stream detected, using JW Player");
-            this.showLoader("Loading HLS stream...");
-            
-            try {
-                this.destroyShakaPlayer();
-                this.destroyJWPlayer();
-                
-                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
-                
-                if (success) {
-                    this.hideLoader();
-                    return true;
-                }
-            } catch (error) {
-                console.error("JW Player failed:", error);
-                
-                if (!isRetry && this.loadRetryCount < this.maxRetries) {
-                    this.loadRetryCount++;
-                    this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                    await new Promise(r => setTimeout(r, 2000));
-                    return this.loadStream(url, drmConfig, headers, true);
-                }
-                
-                this.hideLoader();
-                this.showError(`Failed to load HLS stream: ${error.message}`);
-                return false;
-            }
-        }
-        
-        // Fallback: direct video element
-        console.log("🎬 Using direct video element");
         this.showLoader("Loading stream...");
-        this.destroyJWPlayer();
-        this.destroyShakaPlayer();
-        this.videoPlayer.style.display = 'block';
-        this.videoPlayer.src = url;
         
         try {
-            await this.videoPlayer.play();
-            this.hideLoader();
-            return true;
+            await this.destroyJWPlayer();
+            
+            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel");
+            
+            if (success) {
+                this.hideLoader();
+                return true;
+            }
         } catch (error) {
+            console.error("JW Player failed:", error);
+            
+            if (!isRetry && this.loadRetryCount < this.maxRetries) {
+                this.loadRetryCount++;
+                this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                await new Promise(r => setTimeout(r, 2000));
+                return this.loadStream(url, drmConfig, headers, true);
+            }
+            
             this.hideLoader();
-            this.showError(`Failed to play stream: ${error.message}`);
+            this.showError(`Failed to load stream. The stream may be offline.`);
             return false;
         }
+        
+        this.hideLoader();
+        return false;
     }
     
     async playChannel(channel) {
@@ -542,20 +381,8 @@ class PlayerComponent {
             let drmConfig = null;
             let headers = null;
             
-            // Extract DRM configuration
-            if (channel.drm) {
-                drmConfig = channel.drm;
-                console.log("DRM config detected");
-            }
-            
-            // Extract headers
-            if (channel.headers) {
-                headers = channel.headers;
-                console.log("Using custom headers");
-                if (headers['User-Agent']) console.log("  - User-Agent set");
-                if (headers['Referer']) console.log("  - Referer:", headers['Referer']);
-                if (headers['Origin']) console.log("  - Origin:", headers['Origin']);
-            }
+            if (channel.drm) drmConfig = channel.drm;
+            if (channel.headers) headers = channel.headers;
             
             const success = await this.loadStream(channel.streamUrl, drmConfig, headers);
             
