@@ -24,17 +24,17 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
         
-        // Proxy for HTTP streams
-        this.proxyUrl = 'https://api.allorigins.win/raw?url=';
+        // Proxy for HTTP streams - using multiple options
+        this.proxyOptions = [
+            'https://api.allorigins.win/raw?url=',
+            'https://corsproxy.io/?',
+            'https://thingproxy.freeboard.io/fetch/'
+        ];
+        this.currentProxyIndex = 0;
         this.useProxy = true;
         
-        // Try alternative proxies if main fails
-        this.proxyFallbacks = [
-            'https://corsproxy.io/?',
-            'https://thingproxy.freeboard.io/fetch/',
-            'https://cors-anywhere.herokuapp.com/'
-        ];
-        this.currentProxyIndex = -1;
+        // For DASH streams that fail, try converting to HLS if possible
+        this.dashToHlsFallback = true;
     }
     
     render() {
@@ -101,37 +101,42 @@ class PlayerComponent {
         
         // Only proxy HTTP streams on HTTPS sites
         if (window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
-            // Use fallback proxy if set
-            let proxyUrl = this.proxyUrl;
-            if (this.currentProxyIndex >= 0 && this.proxyFallbacks[this.currentProxyIndex]) {
-                proxyUrl = this.proxyFallbacks[this.currentProxyIndex];
-            }
+            const proxyUrl = this.proxyOptions[this.currentProxyIndex];
             const encodedUrl = encodeURIComponent(streamUrl);
             const proxiedUrl = proxyUrl + encodedUrl;
-            console.log(`Using proxy: ${proxyUrl}`);
+            console.log(`Using proxy (${this.currentProxyIndex + 1}/${this.proxyOptions.length}): ${proxyUrl}`);
             return proxiedUrl;
         }
         return streamUrl;
     }
     
     tryNextProxy() {
-        if (this.currentProxyIndex < this.proxyFallbacks.length - 1) {
+        if (this.currentProxyIndex < this.proxyOptions.length - 1) {
             this.currentProxyIndex++;
-            console.log(`Switching to fallback proxy ${this.currentProxyIndex + 1}`);
+            console.log(`Switching to proxy ${this.currentProxyIndex + 1}`);
             return true;
         }
         return false;
     }
     
     resetProxy() {
-        this.currentProxyIndex = -1;
+        this.currentProxyIndex = 0;
     }
     
-    initJWPlayer(streamUrl, channelName, headers = null) {
+    async tryAlternativeStream(url, channelName, headers) {
+        // Try to get the stream URL without proxy for HTTP streams
+        if (url.startsWith('http://')) {
+            console.log("Trying direct HTTP (may be blocked by browser)...");
+            return this.initJWPlayerDirect(url, channelName, headers);
+        }
+        return false;
+    }
+    
+    initJWPlayerDirect(streamUrl, channelName, headers = null) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayerDirect(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -141,9 +146,7 @@ class PlayerComponent {
             }
             
             if (this.jwPlayer) {
-                try {
-                    this.jwPlayer.remove();
-                } catch(e) {}
+                try { this.jwPlayer.remove(); } catch(e) {}
                 this.jwPlayer = null;
             }
             
@@ -151,10 +154,83 @@ class PlayerComponent {
             this.jwPlayerContainer.style.display = 'block';
             if (this.videoPlayer) this.videoPlayer.style.display = 'none';
             
-            const finalUrl = this.getProxiedUrl(streamUrl);
+            console.log("JW Player loading URL directly:", streamUrl);
+            
+            const config = {
+                file: streamUrl,
+                title: channelName,
+                width: '100%',
+                height: '100%',
+                aspectratio: '16:9',
+                autostart: true,
+                primary: 'html5',
+                preload: 'auto'
+            };
+            
+            try {
+                this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
+                
+                let resolved = false;
+                
+                this.jwPlayer.on('ready', () => {
+                    if (!resolved) {
+                        resolved = true;
+                        this.jwPlayerReady = true;
+                        console.log("✅ JW Player ready (direct)");
+                        resolve(true);
+                    }
+                });
+                
+                this.jwPlayer.on('error', (error) => {
+                    console.error("JW Player error (direct):", error);
+                    if (!resolved) {
+                        resolved = true;
+                        reject(error);
+                    }
+                });
+                
+                setTimeout(() => {
+                    if (!resolved) {
+                        resolved = true;
+                        reject(new Error("JW Player load timeout"));
+                    }
+                }, 30000);
+                
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+    
+    initJWPlayer(streamUrl, channelName, headers = null, useProxy = true) {
+        return new Promise((resolve, reject) => {
+            if (!this.jwPlayerLoaded) {
+                this.loadJWPlayerScript();
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers, useProxy).then(resolve).catch(reject), 500);
+                return;
+            }
+            
+            if (typeof jwplayer === 'undefined') {
+                reject(new Error("JW Player not available"));
+                return;
+            }
+            
+            if (this.jwPlayer) {
+                try { this.jwPlayer.remove(); } catch(e) {}
+                this.jwPlayer = null;
+            }
+            
+            this.jwPlayerContainer.innerHTML = '';
+            this.jwPlayerContainer.style.display = 'block';
+            if (this.videoPlayer) this.videoPlayer.style.display = 'none';
+            
+            let finalUrl = streamUrl;
+            if (useProxy && this.useProxy) {
+                finalUrl = this.getProxiedUrl(streamUrl);
+            }
+            
             console.log("JW Player loading URL:", finalUrl);
             
-            // Configure JW Player
             const config = {
                 file: finalUrl,
                 title: channelName,
@@ -166,18 +242,8 @@ class PlayerComponent {
                 preload: 'auto',
                 abouttext: 'JUZT IPTV',
                 aboutlink: '#',
-                skin: {
-                    name: 'seven'
-                }
+                skin: { name: 'seven' }
             };
-            
-            // Add custom headers if provided (JW Player may not support all)
-            if (headers && headers['User-Agent']) {
-                config.playlist = [{
-                    file: finalUrl,
-                    title: channelName
-                }];
-            }
             
             try {
                 this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
@@ -193,25 +259,32 @@ class PlayerComponent {
                     }
                 });
                 
-                this.jwPlayer.on('error', (error) => {
+                this.jwPlayer.on('error', async (error) => {
                     console.error("JW Player error:", error);
-                    if (!resolved) {
+                    
+                    // If DASH stream fails with proxy, try direct HTTP
+                    if (!resolved && useProxy && streamUrl.includes('.mpd')) {
+                        console.log("DASH stream failed with proxy, trying direct HTTP...");
+                        resolved = true;
+                        try {
+                            const directSuccess = await this.tryAlternativeStream(streamUrl, channelName, headers);
+                            if (directSuccess) {
+                                resolve(true);
+                            } else {
+                                reject(error);
+                            }
+                        } catch(e) {
+                            reject(error);
+                        }
+                    } else if (!resolved) {
                         resolved = true;
                         reject(error);
                     }
                 });
                 
-                this.jwPlayer.on('play', () => {
-                    console.log("▶️ JW Player playing");
-                });
-                
-                this.jwPlayer.on('pause', () => {
-                    console.log("⏸️ JW Player paused");
-                });
-                
-                this.jwPlayer.on('buffer', () => {
-                    console.log("⏳ JW Player buffering");
-                });
+                this.jwPlayer.on('play', () => console.log("▶️ JW Player playing"));
+                this.jwPlayer.on('pause', () => console.log("⏸️ JW Player paused"));
+                this.jwPlayer.on('buffer', () => console.log("⏳ JW Player buffering"));
                 
                 setTimeout(() => {
                     if (!resolved) {
@@ -313,7 +386,6 @@ class PlayerComponent {
         
         if (this.fullscreenBtn) {
             this.fullscreenBtn.innerHTML = isFullscreen ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
-            this.fullscreenBtn.title = isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen';
         }
         this.showFullscreenButton();
     }
@@ -387,24 +459,36 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream with JW Player:", url);
         
+        const isDash = url.includes(".mpd") || url.includes("manifest.mpd");
+        const isHttp = url.startsWith('http://');
+        
         this.showLoader("Loading stream...");
         
         try {
             await this.destroyJWPlayer();
             
-            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
-            
-            if (success) {
-                this.hideLoader();
-                this.resetProxy();
-                return true;
+            // For HTTP streams, try with proxy first
+            if (isHttp) {
+                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers, true);
+                if (success) {
+                    this.hideLoader();
+                    this.resetProxy();
+                    return true;
+                }
+            } else {
+                // HTTPS streams - no proxy needed
+                const success = await this.initJWPlayerDirect(url, this.currentChannel?.name || "Channel", headers);
+                if (success) {
+                    this.hideLoader();
+                    return true;
+                }
             }
             
         } catch (error) {
             console.error("JW Player failed:", error);
             
-            // Try fallback proxy if available
-            if (this.tryNextProxy()) {
+            // Try next proxy if available
+            if (isHttp && this.tryNextProxy()) {
                 this.updateLoaderMessage(`Retrying with alternative proxy...`);
                 await new Promise(r => setTimeout(r, 1000));
                 return this.loadStream(url, drmConfig, headers, true);
@@ -420,7 +504,7 @@ class PlayerComponent {
             }
             
             this.hideLoader();
-            this.showError(`Failed to load stream: ${error.message || "Unknown error"}`);
+            this.showError(`Failed to load stream. The stream may be offline.`);
             return false;
         }
         
