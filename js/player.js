@@ -25,6 +25,35 @@ class PlayerComponent {
         this.fullscreenTimeout = null;
         this.isFullscreenBtnVisible = false;
         this.isFullscreen = false;
+        
+        // CORS proxy settings
+        this.useCorsProxy = true; // Enable proxy for problematic URLs
+        this.corsProxies = [
+            'https://corsproxy.io/?',
+            'https://api.allorigins.win/raw?url=',
+            'https://cors-anywhere.herokuapp.com/'
+        ];
+        this.currentProxyIndex = 0;
+    }
+    
+    getProxiedUrl(url) {
+        // Check if URL needs proxying
+        const needsProxy = this.useCorsProxy && (
+            url.includes('supabase.co') ||
+            url.includes('akamaized.net') && url.includes('AuthInfo') // Supabase-like auth URLs
+        );
+        
+        if (needsProxy) {
+            console.log("Using CORS proxy for URL:", url.substring(0, 100) + "...");
+            const proxy = this.corsProxies[this.currentProxyIndex];
+            return proxy + encodeURIComponent(url);
+        }
+        return url;
+    }
+    
+    switchToNextProxy() {
+        this.currentProxyIndex = (this.currentProxyIndex + 1) % this.corsProxies.length;
+        console.log(`Switched to proxy ${this.currentProxyIndex + 1}/${this.corsProxies.length}: ${this.corsProxies[this.currentProxyIndex]}`);
     }
     
     render() {
@@ -32,7 +61,7 @@ class PlayerComponent {
         
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
-                <video id="videoPlayer" playsinline disablePictureInPicture autoplay></video>
+                <video id="videoPlayer" playsinline disablePictureInPicture autoplay crossorigin="anonymous"></video>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -66,11 +95,9 @@ class PlayerComponent {
     showRadioLogo(channel) {
         if (!this.radioLogoContainer) return;
         
-        // Check if it's a radio channel
         const isRadio = channel.type === "Radio";
         
         if (!isRadio) {
-            // Hide logo for TV channels
             this.radioLogoContainer.style.display = 'none';
             if (this.videoPlayer) {
                 this.videoPlayer.style.opacity = '1';
@@ -78,40 +105,29 @@ class PlayerComponent {
             return;
         }
         
-        // Try to get logo from multiple sources
         let logoUrl = null;
         
-        // Priority 1: logo from channel object
-        if (channel.logo) {
+        if (channel.logo && channel.logo.startsWith('http')) {
             logoUrl = channel.logo;
-        }
-        // Priority 2: logoLocal (if you have local logos)
-        else if (channel.logoLocal) {
+        } else if (channel.logoLocal) {
             logoUrl = `images/${channel.logoLocal}.webp`;
-        }
-        // Priority 3: fallback to default radio logo
-        else {
+        } else {
             logoUrl = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
         }
         
-        // Clear existing content
         this.radioLogoContainer.innerHTML = '';
         
-        // Create wrapper
         const wrapper = document.createElement('div');
         wrapper.className = 'radio-logo-wrapper';
         
-        // Create logo content container
         const logoContent = document.createElement('div');
         logoContent.className = 'radio-logo-content';
         
-        // Create logo image
         const img = document.createElement('img');
         img.className = 'radio-logo';
         img.src = logoUrl;
         img.alt = channel.name;
         
-        // Handle image load error
         img.onerror = () => {
             img.src = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
             img.alt = 'Radio';
@@ -119,19 +135,15 @@ class PlayerComponent {
         
         logoContent.appendChild(img);
         wrapper.appendChild(logoContent);
-        
         this.radioLogoContainer.appendChild(wrapper);
         
-        // Add station name
         const stationName = document.createElement('div');
         stationName.className = 'station-name';
         stationName.textContent = channel.name;
         this.radioLogoContainer.appendChild(stationName);
         
-        // Show logo container
         this.radioLogoContainer.style.display = 'flex';
         
-        // Fade out video player for radio
         if (this.videoPlayer) {
             this.videoPlayer.style.opacity = '0.3';
         }
@@ -150,17 +162,14 @@ class PlayerComponent {
         this.fullscreenBtn = document.getElementById('fullscreenToggleBtn');
         if (!this.fullscreenBtn) return;
         
-        // Initially hide the button
         this.hideFullscreenButton();
         
-        // Add click event to toggle fullscreen
         this.fullscreenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
             this.toggleFullscreen();
         });
         
-        // Show button when video container is touched/clicked
         if (this.videoContainer) {
             this.videoContainer.addEventListener('click', (e) => {
                 if (e.target === this.fullscreenBtn || this.fullscreenBtn.contains(e.target)) {
@@ -210,7 +219,6 @@ class PlayerComponent {
         }
         
         this.showFullscreenButton();
-        console.log("Fullscreen changed:", isFullscreen ? "Entered" : "Exited");
     }
     
     showFullscreenButton() {
@@ -287,11 +295,6 @@ class PlayerComponent {
             }, 100);
         }).catch(err => {
             console.error("Fullscreen request failed:", err);
-            if (this.videoPlayer && this.videoPlayer.requestFullscreen) {
-                this.videoPlayer.requestFullscreen().catch(e => {
-                    console.error("Video element fullscreen also failed:", e);
-                });
-            }
         });
     }
     
@@ -365,7 +368,6 @@ class PlayerComponent {
     async initShaka() {
         if (this.shakaPlayer) return this.shakaPlayer;
         if (typeof shaka !== "undefined") {
-            // Use attach method instead of constructor with mediaElement (deprecated)
             this.shakaPlayer = new shaka.Player();
             await this.shakaPlayer.attach(this.videoPlayer);
             
@@ -373,20 +375,60 @@ class PlayerComponent {
                 drm: {
                     servers: {},
                     clearKeys: {},
-                    retryParameters: { maxAttempts: 3 }
+                    retryParameters: { 
+                        maxAttempts: 5,
+                        baseDelay: 1000,
+                        backoffFactor: 2,
+                        fuzzFactor: 0.5
+                    }
                 },
                 streaming: {
                     rebufferingGoal: 2,
                     bufferingGoal: 10,
-                    retryParameters: { maxAttempts: 3 }
+                    retryParameters: { 
+                        maxAttempts: 5,
+                        baseDelay: 1000,
+                        backoffFactor: 2,
+                        fuzzFactor: 0.5
+                    },
+                    ignoreTextStreamFailures: true,
+                    alwaysStreamText: false,
+                    startAtSegmentBoundary: false,
+                    smallGapLimit: 0.5,
+                    jumpLargeGaps: true
                 },
                 manifest: {
-                    retryParameters: { maxAttempts: 3 }
+                    retryParameters: { 
+                        maxAttempts: 5,
+                        baseDelay: 1000,
+                        backoffFactor: 2,
+                        fuzzFactor: 0.5
+                    },
+                    dash: {
+                        ignoreMinBufferTime: true,
+                        ignoreSuggestedPresentationDelay: false,
+                        ignoreEmptyAdaptationSet: true,
+                        autoCorrectDrift: true
+                    }
+                },
+                abr: {
+                    enabled: true,
+                    defaultBandwidthEstimate: 1e6,
+                    restrictions: {
+                        minBitrate: 0,
+                        maxBitrate: Infinity
+                    }
                 }
             });
             
             this.shakaPlayer.addEventListener("error", (event) => {
-                console.error("Shaka error", event.detail);
+                const error = event.detail;
+                console.error("Shaka error:", error);
+                
+                if (error.code === 1002) {
+                    console.warn("Network error - trying next proxy if available");
+                    this.switchToNextProxy();
+                }
             });
             
             this.isShakaInitialized = true;
@@ -397,6 +439,15 @@ class PlayerComponent {
     
     showError(msg) {
         console.error(msg);
+        if (this.errorMessageDiv) {
+            this.errorMessageDiv.textContent = msg;
+            this.errorMessageDiv.classList.add("show");
+            setTimeout(() => {
+                if (this.errorMessageDiv) {
+                    this.errorMessageDiv.classList.remove("show");
+                }
+            }, 8000);
+        }
         this.hideLoader();
     }
     
@@ -434,7 +485,15 @@ class PlayerComponent {
     }
     
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
-        console.log("Loading stream:", url);
+        console.log("Loading stream:", url.substring(0, 100) + "...");
+        
+        // Apply CORS proxy if needed
+        const originalUrl = url;
+        url = this.getProxiedUrl(url);
+        
+        if (url !== originalUrl) {
+            console.log("Proxied URL:", url.substring(0, 100) + "...");
+        }
         
         await this.destroyPlayers();
         
@@ -453,20 +512,29 @@ class PlayerComponent {
                 this.loadRetryCount++;
                 console.log(`Retrying stream load (${this.loadRetryCount}/${this.maxRetries})...`);
                 this.updateLoaderMessage(`Timeout, retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                this.loadStream(url, drmConfig, headers, true);
+                this.loadStream(originalUrl, drmConfig, headers, true);
             } else if (this.loadRetryCount >= this.maxRetries) {
                 this.hideLoader();
-                console.error("Failed to load stream after multiple attempts");
+                this.showError("Failed to load stream after multiple attempts. The stream may be unavailable or region-locked.");
             }
         }, 15000);
         
         try {
-            // Default headers for many streaming services
             const defaultHeaders = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-                'Referer': url.includes('akamaized.net') ? 'https://www.iwanttfc.com/' : undefined,
-                'Origin': url.includes('akamaized.net') ? 'https://www.iwanttfc.com' : undefined
+                'Accept': '*/*',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Connection': 'keep-alive',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'cross-site'
             };
+            
+            if (originalUrl.includes('akamaized.net')) {
+                defaultHeaders['Referer'] = 'https://www.iwanttfc.com/';
+                defaultHeaders['Origin'] = 'https://www.iwanttfc.com';
+            }
             
             const finalHeaders = { ...defaultHeaders, ...headers };
             
@@ -475,50 +543,37 @@ class PlayerComponent {
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
-                // Configure DRM if provided
-                if (drmConfig) {
-                    const drmObj = {};
-                    if (drmConfig.keys && Array.isArray(drmConfig.keys)) {
-                        const clearKeys = {};
-                        drmConfig.keys.forEach(key => {
-                            if (key.kid && key.k) clearKeys[key.kid] = key.k;
-                        });
-                        drmObj.clearKeys = clearKeys;
-                    } else if (typeof drmConfig === "object") {
-                        const clearKeys = {};
-                        for (const [kid, key] of Object.entries(drmConfig)) {
-                            clearKeys[kid] = key;
-                        }
-                        drmObj.clearKeys = clearKeys;
+                if (drmConfig && Object.keys(drmConfig).length > 0) {
+                    console.log("Configuring DRM with clear keys");
+                    const clearKeys = {};
+                    for (const [kid, key] of Object.entries(drmConfig)) {
+                        clearKeys[kid] = key;
                     }
-                    await player.configure({ drm: drmObj });
-                } else {
-                    await player.configure({ drm: { clearKeys: {} } });
+                    await player.configure({ drm: { clearKeys: clearKeys } });
                 }
                 
-                // Set custom headers for manifest and segment requests
-                if (finalHeaders) {
-                    player.getNetworkingEngine().registerRequestFilter((type, request) => {
-                        if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
-                            type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
-                            if (finalHeaders['User-Agent']) {
-                                request.headers['User-Agent'] = finalHeaders['User-Agent'];
-                            }
-                            if (finalHeaders['Referer']) {
-                                request.headers['Referer'] = finalHeaders['Referer'];
-                            }
-                            if (finalHeaders['Origin']) {
-                                request.headers['Origin'] = finalHeaders['Origin'];
+                player.getNetworkingEngine().registerRequestFilter((type, request) => {
+                    if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
+                        type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+                        for (const [key, value] of Object.entries(finalHeaders)) {
+                            if (value) {
+                                request.headers[key] = value;
                             }
                         }
-                    });
-                }
+                    }
+                });
                 
-                await player.load(url);
+                try {
+                    await player.load(url);
+                    console.log("DASH stream loaded successfully");
+                } catch (loadError) {
+                    console.error("Failed to load DASH stream:", loadError);
+                    throw loadError;
+                }
                 
                 setTimeout(() => {
                     if (this.videoPlayer && !this.videoPlayer.paused) {
-                        this.videoPlayer.play().catch(e => console.warn("Play attempt:", e));
+                        this.videoPlayer.play().catch(e => console.warn("Autoplay blocked:", e));
                     }
                 }, 100);
                 
@@ -534,7 +589,7 @@ class PlayerComponent {
                         let resolved = false;
                         let timeoutId = null;
                         
-                        this.hlsPlayer = new Hls({
+                        const hlsConfig = {
                             enableWorker: true,
                             lowLatencyMode: true,
                             autoStartLoad: true,
@@ -544,17 +599,15 @@ class PlayerComponent {
                             levelLoadingTimeOut: 15000,
                             fragLoadingTimeOut: 15000,
                             xhrSetup: (xhr, xhrUrl) => {
-                                if (finalHeaders['User-Agent']) {
-                                    xhr.setRequestHeader("User-Agent", finalHeaders['User-Agent']);
-                                }
-                                if (finalHeaders['Referer']) {
-                                    xhr.setRequestHeader("Referer", finalHeaders['Referer']);
-                                }
-                                if (finalHeaders['Origin']) {
-                                    xhr.setRequestHeader("Origin", finalHeaders['Origin']);
+                                for (const [key, value] of Object.entries(finalHeaders)) {
+                                    if (value) {
+                                        xhr.setRequestHeader(key, value);
+                                    }
                                 }
                             }
-                        });
+                        };
+                        
+                        this.hlsPlayer = new Hls(hlsConfig);
                         
                         this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
                             if (!resolved) {
@@ -580,25 +633,11 @@ class PlayerComponent {
                         this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                             console.error("HLS Error:", data);
                             if (data.fatal && !resolved) {
-                                if (data.type === 'networkError' && !isRetry && this.loadRetryCount < this.maxRetries) {
-                                    resolved = true;
-                                    if (timeoutId) clearTimeout(timeoutId);
-                                    clearTimeout(loadTimeout);
-                                    this.loadRetryCount++;
-                                    console.log(`Retrying HLS stream (${this.loadRetryCount}/${this.maxRetries})...`);
-                                    this.updateLoaderMessage(`Network error, retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                                    setTimeout(() => {
-                                        this.loadStream(url, drmConfig, headers, true)
-                                            .then(resolve)
-                                            .catch(reject);
-                                    }, 2000);
-                                } else if (data.type !== 'networkError') {
-                                    resolved = true;
-                                    if (timeoutId) clearTimeout(timeoutId);
-                                    clearTimeout(loadTimeout);
-                                    this.hideLoader();
-                                    reject(new Error(data.details || "HLS stream error"));
-                                }
+                                resolved = true;
+                                if (timeoutId) clearTimeout(timeoutId);
+                                clearTimeout(loadTimeout);
+                                this.hideLoader();
+                                reject(new Error(data.details || "HLS stream error"));
                             }
                         });
                         
@@ -610,7 +649,7 @@ class PlayerComponent {
                                     this.loadRetryCount++;
                                     console.log(`Manifest timeout, retrying (${this.loadRetryCount}/${this.maxRetries})...`);
                                     this.updateLoaderMessage(`Loading timeout, retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                                    this.loadStream(url, drmConfig, headers, true)
+                                    this.loadStream(originalUrl, drmConfig, headers, true)
                                         .then(resolve)
                                         .catch(reject);
                                 } else {
@@ -637,7 +676,7 @@ class PlayerComponent {
                 }
             }
             else {
-                console.log("Loading direct stream (MP3/audio)");
+                console.log("Loading direct stream");
                 this.videoPlayer.src = url;
                 await this.videoPlayer.play();
                 clearTimeout(loadTimeout);
@@ -654,11 +693,12 @@ class PlayerComponent {
                 console.log(`Retrying after error (${this.loadRetryCount}/${this.maxRetries})...`);
                 this.updateLoaderMessage(`Error, retrying (${this.loadRetryCount}/${this.maxRetries})...`);
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                return this.loadStream(url, drmConfig, headers, true);
+                return this.loadStream(originalUrl, drmConfig, headers, true);
             }
             
             this.hideLoader();
-            console.error(`Cannot play stream: ${err.message || "unknown error"}`);
+            const errorMsg = err.message || err.toString() || "unknown error";
+            this.showError(`Cannot play stream: ${errorMsg}`);
             return false;
         }
     }
@@ -666,6 +706,7 @@ class PlayerComponent {
     async playChannel(channel) {
         if (!channel || !channel.streamUrl) {
             console.error("Invalid channel: missing stream URL");
+            this.showError("Invalid channel: missing stream URL");
             return false;
         }
         
@@ -690,7 +731,6 @@ class PlayerComponent {
         
         this.showLoader("Loading channel...");
         
-        // Show or hide radio logo based on channel type
         if (channel.type === "Radio") {
             this.showRadioLogo(channel);
         } else {
@@ -700,10 +740,6 @@ class PlayerComponent {
         try {
             console.log("Switching to channel:", channel.name);
             this.currentChannel = channel;
-            
-            if (this.drmNoticeSpan) {
-                this.drmNoticeSpan.innerHTML = '';
-            }
             
             let drmConfig = null;
             let headers = null;
@@ -722,7 +758,6 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
-                this.showError(`Failed to play ${channel.name}. Stream may be unavailable.`);
             }
             
             return success;
