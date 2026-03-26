@@ -702,3 +702,45 @@
         padding: 3px 6px;
     }
 }
+
+/* JW Player Container */
+#jwplayer-container {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+}
+
+/* Ensure JW Player fits properly */
+.jwplayer {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Hide video element when not in use */
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+}
+
+/* Radio logo positioning when using JW Player */
+.video-container:has(#jwplayer-container[style*="display: block"]) .radio-logo-container {
+    z-index: 10;
+}
+
+/* Fullscreen adjustments for JW Player */
+.video-container:fullscreen #jwplayer-container,
+.video-container:-webkit-full-screen #jwplayer-container,
+.video-container:-moz-full-screen #jwplayer-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.video-container:fullscreen .jwplayer,
+.video-container:-webkit-full-screen .jwplayer,
+.video-container:-moz-full-screen .jwplayer {
+    width: 100% !important;
+    height: 100% !important;
+}
