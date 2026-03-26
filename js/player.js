@@ -27,10 +27,15 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
         
-        // CORS proxy to handle HTTP streams on HTTPS sites
-        // Using a public proxy - you can also host your own
-        this.proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        this.useProxy = true; // Set to false to disable proxy
+        // Multiple proxy options for fallback
+        this.proxyOptions = [
+            'https://api.allorigins.win/raw?url=',
+            'https://corsproxy.io/?',
+            'https://thingproxy.freeboard.io/fetch/',
+            'https://cors-anywhere.herokuapp.com/'
+        ];
+        this.currentProxyIndex = 0;
+        this.useProxy = true;
     }
     
     render() {
@@ -92,16 +97,33 @@ class PlayerComponent {
         document.head.appendChild(script);
     }
     
-    // Convert HTTP URL to HTTPS proxy URL
     getProxiedUrl(streamUrl) {
-        // If site is HTTPS and stream is HTTP, use proxy
-        if (this.useProxy && window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
-            // For CORS Anywhere, we need to encode the URL
-            const proxiedUrl = this.proxyUrl + streamUrl;
-            console.log("Using proxy for HTTP stream:", proxiedUrl);
-            return proxiedUrl;
+        if (!this.useProxy) return streamUrl;
+        
+        // Only proxy HTTP streams on HTTPS sites
+        if (window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
+            const proxyUrl = this.proxyOptions[this.currentProxyIndex];
+            if (proxyUrl) {
+                const encodedUrl = encodeURIComponent(streamUrl);
+                const proxiedUrl = proxyUrl + encodedUrl;
+                console.log(`Using proxy (${this.currentProxyIndex + 1}/${this.proxyOptions.length}): ${proxyUrl}`);
+                return proxiedUrl;
+            }
         }
         return streamUrl;
+    }
+    
+    tryNextProxy() {
+        if (this.currentProxyIndex < this.proxyOptions.length - 1) {
+            this.currentProxyIndex++;
+            console.log(`Switching to proxy ${this.currentProxyIndex + 1}`);
+            return true;
+        }
+        return false;
+    }
+    
+    resetProxy() {
+        this.currentProxyIndex = 0;
     }
     
     initJWPlayer(streamUrl, channelName) {
@@ -128,12 +150,9 @@ class PlayerComponent {
             this.jwPlayerContainer.style.display = 'block';
             if (this.videoPlayer) this.videoPlayer.style.display = 'none';
             
-            // Get proxied URL for HTTP streams
             const finalUrl = this.getProxiedUrl(streamUrl);
-            
             console.log("JW Player loading URL:", finalUrl);
             
-            // JW Player configuration
             const config = {
                 file: finalUrl,
                 title: channelName,
@@ -196,11 +215,6 @@ class PlayerComponent {
         if (this.videoPlayer) {
             this.videoPlayer.style.display = 'block';
         }
-    }
-    
-    shouldUseJWPlayer(url) {
-        // Always use JW Player for HTTP streams (will be proxied)
-        return url.startsWith('http://');
     }
     
     showRadioLogo(channel) {
@@ -383,30 +397,46 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        const useJWPlayer = this.shouldUseJWPlayer(url);
+        const useJWPlayer = url.startsWith('http://');
         
         if (useJWPlayer) {
             this.showLoader("Loading stream...");
             
             try {
                 await this.destroyPlayers();
-                await this.initJWPlayer(url, this.currentChannel?.name || "Channel");
+                
+                const finalUrl = this.getProxiedUrl(url);
+                await this.initJWPlayer(finalUrl, this.currentChannel?.name || "Channel");
                 this.hideLoader();
+                this.resetProxy();
                 return true;
+                
             } catch (error) {
-                console.error("JW Player failed:", error);
+                console.error(`JW Player failed with proxy ${this.currentProxyIndex + 1}:`, error);
+                
+                // Try next proxy if available
+                if (this.tryNextProxy()) {
+                    this.showLoader(`Retrying with alternative proxy...`);
+                    await new Promise(r => setTimeout(r, 1000));
+                    return this.loadStream(url, drmConfig, headers, true);
+                }
+                
+                // All proxies failed, try retry
                 if (!isRetry && this.loadRetryCount < this.maxRetries) {
                     this.loadRetryCount++;
+                    this.resetProxy();
+                    this.showLoader(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
                     await new Promise(r => setTimeout(r, 2000));
                     return this.loadStream(url, drmConfig, headers, true);
                 }
+                
                 this.hideLoader();
-                this.showError("Failed to load stream. The stream may be offline.");
+                this.showError("Failed to load stream. The stream may be offline or requires a VPN.");
                 return false;
             }
         }
         
-        // Custom player for HTTPS streams
+        // Use custom player for HTTPS streams
         this.showLoader("Loading stream...");
         await this.destroyPlayers();
         
@@ -416,7 +446,12 @@ class PlayerComponent {
             if (isHls && Hls.isSupported()) {
                 return new Promise((resolve, reject) => {
                     let resolved = false;
-                    let hlsConfig = { enableWorker: true, autoStartLoad: true };
+                    let hlsConfig = { 
+                        enableWorker: true, 
+                        autoStartLoad: true,
+                        maxBufferLength: 30,
+                        maxMaxBufferLength: 60
+                    };
                     
                     if (headers) {
                         hlsConfig.xhrSetup = (xhr, reqUrl) => {
@@ -427,6 +462,7 @@ class PlayerComponent {
                     }
                     
                     this.hlsPlayer = new Hls(hlsConfig);
+                    
                     this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
                         if (!resolved) {
                             resolved = true;
@@ -435,16 +471,25 @@ class PlayerComponent {
                             resolve(true);
                         }
                     });
+                    
                     this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                        if (data.fatal && !resolved) reject(new Error(data.details));
+                        if (data.fatal && !resolved) {
+                            reject(new Error(data.details));
+                        }
                     });
+                    
                     this.hlsPlayer.loadSource(url);
                     this.hlsPlayer.attachMedia(this.videoPlayer);
                     
                     setTimeout(() => {
-                        if (!resolved) reject(new Error("Timeout"));
+                        if (!resolved) reject(new Error("Timeout loading HLS stream"));
                     }, 20000);
                 });
+            } else if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
+                this.videoPlayer.src = url;
+                await this.videoPlayer.play();
+                this.hideLoader();
+                return true;
             } else {
                 this.videoPlayer.src = url;
                 await this.videoPlayer.play();
@@ -454,6 +499,15 @@ class PlayerComponent {
         } catch (err) {
             console.error("Custom player error:", err);
             this.hideLoader();
+            
+            if (!isRetry && this.loadRetryCount < this.maxRetries) {
+                this.loadRetryCount++;
+                this.showLoader(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                await new Promise(r => setTimeout(r, 2000));
+                return this.loadStream(url, drmConfig, headers, true);
+            }
+            
+            this.showError(`Failed to play stream: ${err.message}`);
             return false;
         }
     }
@@ -475,6 +529,7 @@ class PlayerComponent {
         
         this.isLoading = true;
         this.loadRetryCount = 0;
+        this.resetProxy();
         this.showLoader("Loading channel...");
         
         if (channel.type === "Radio") {
@@ -500,6 +555,7 @@ class PlayerComponent {
                 if (window.sidebarComponent) {
                     window.sidebarComponent.updateActiveChannel(channel.id);
                 }
+                console.log("✅ Channel playing successfully:", channel.name);
             } else {
                 this.showError(`Failed to play ${channel.name}`);
             }
@@ -507,7 +563,7 @@ class PlayerComponent {
             return success;
         } catch (error) {
             console.error("Error in playChannel:", error);
-            this.showError(`Error playing ${channel.name}`);
+            this.showError(`Error playing ${channel.name}: ${error.message}`);
             return false;
         } finally {
             setTimeout(() => { this.isLoading = false; }, 500);
