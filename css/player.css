@@ -635,3 +635,46 @@
         box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.4);
     }
 }
+
+
+
+
+
+
+/* DRM Info Display */
+.drm-info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: #9aa2bf;
+    z-index: 15;
+    pointer-events: none;
+    animation: fadeInUp 0.3s ease;
+}
+
+.drm-info i {
+    color: #f97316;
+    margin-right: 6px;
+}
+
+@media (max-width: 640px) {
+    .drm-info {
+        bottom: 8px;
+        left: 8px;
+        padding: 4px 10px;
+        font-size: 0.65rem;
+    }
+}
+
+.video-container:fullscreen .drm-info,
+.video-container:-webkit-full-screen .drm-info {
+    bottom: 20px;
+    left: 20px;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+}
