@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH HEADERS SUPPORT ========================
+// ======================== PLAYER COMPONENT WITH HLS PLAYER FOR HTTP ========================
 
 class PlayerComponent {
     constructor() {
@@ -8,8 +8,7 @@ class PlayerComponent {
         this.videoContainer = null;
         this.radioLogoContainer = null;
         
-        this.jwPlayer = null;
-        this.jwPlayerContainer = null;
+        this.hlsPlayer = null;
         this.currentChannel = null;
         this.isLoading = false;
         this.loadRetryCount = 0;
@@ -20,12 +19,6 @@ class PlayerComponent {
         this.fullscreenTimeout = null;
         this.isFullscreenBtnVisible = false;
         this.isFullscreen = false;
-        
-        this.jwPlayerReady = false;
-        this.jwPlayerLoaded = false;
-        
-        // Store current headers for use in playlist
-        this.currentHeaders = null;
     }
     
     render() {
@@ -33,8 +26,7 @@ class PlayerComponent {
         
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
-                <video id="videoPlayer" playsinline disablePictureInPicture autoplay style="display: none;"></video>
-                <div id="jwplayer-container" style="width: 100%; height: 100%;"></div>
+                <video id="videoPlayer" playsinline disablePictureInPicture autoplay controls></video>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -47,152 +39,19 @@ class PlayerComponent {
         this.errorMessageDiv = document.getElementById("errorMessage");
         this.videoContainer = document.getElementById("videoContainer");
         this.radioLogoContainer = document.getElementById("radioLogoContainer");
-        this.jwPlayerContainer = document.getElementById("jwplayer-container");
         
         if (this.videoPlayer) {
-            this.videoPlayer.removeAttribute("controls");
-            this.videoPlayer.controls = false;
+            // Enable native controls for better HTTP stream support
+            this.videoPlayer.controls = true;
             this.videoPlayer.autoplay = true;
         }
         
         this.setupFullscreenButton();
-        this.loadJWPlayerScript();
         
         window.domElements = {
             videoPlayer: this.videoPlayer,
             errorMessage: this.errorMessageDiv
         };
-    }
-    
-    loadJWPlayerScript() {
-        if (this.jwPlayerLoaded) return;
-        
-        if (typeof jwplayer !== 'undefined') {
-            this.jwPlayerLoaded = true;
-            console.log("✅ JW Player already loaded");
-            return;
-        }
-        
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jwplayer.com/libraries/4t00MwmP.js';
-        script.async = true;
-        script.onload = () => {
-            this.jwPlayerLoaded = true;
-            console.log("✅ JW Player script loaded");
-        };
-        script.onerror = () => {
-            console.error("❌ Failed to load JW Player");
-            this.jwPlayerLoaded = false;
-        };
-        document.head.appendChild(script);
-    }
-    
-    initJWPlayer(streamUrl, channelName, headers = null) {
-        return new Promise((resolve, reject) => {
-            if (!this.jwPlayerLoaded) {
-                this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
-                return;
-            }
-            
-            if (typeof jwplayer === 'undefined') {
-                reject(new Error("JW Player not available"));
-                return;
-            }
-            
-            if (this.jwPlayer) {
-                try {
-                    this.jwPlayer.remove();
-                } catch(e) {}
-                this.jwPlayer = null;
-            }
-            
-            this.jwPlayerContainer.innerHTML = '';
-            this.jwPlayerContainer.style.display = 'block';
-            this.videoPlayer.style.display = 'none';
-            
-            console.log("JW Player loading URL:", streamUrl);
-            if (headers) {
-                console.log("With headers:", Object.keys(headers));
-            }
-            
-            // Create playlist item with headers if available
-            let playlistItem = {
-                file: streamUrl,
-                title: channelName
-            };
-            
-            // JW Player supports custom headers via playlist item (limited support)
-            if (headers) {
-                // Some JW Player versions support custom headers
-                if (headers['User-Agent']) {
-                    playlistItem.userAgent = headers['User-Agent'];
-                }
-                // For Referer, we need to use a different approach
-                // JW Player doesn't natively support custom Referer headers
-            }
-            
-            const config = {
-                playlist: [playlistItem],
-                width: '100%',
-                height: '100%',
-                aspectratio: '16:9',
-                autostart: true,
-                primary: 'html5',
-                preload: 'auto'
-            };
-            
-            try {
-                this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
-                
-                let resolved = false;
-                
-                this.jwPlayer.on('ready', () => {
-                    if (!resolved) {
-                        resolved = true;
-                        this.jwPlayerReady = true;
-                        console.log("✅ JW Player ready");
-                        resolve(true);
-                    }
-                });
-                
-                this.jwPlayer.on('error', (error) => {
-                    console.error("JW Player error:", error);
-                    if (!resolved) {
-                        resolved = true;
-                        reject(error);
-                    }
-                });
-                
-                this.jwPlayer.on('play', () => console.log("▶️ Playing"));
-                this.jwPlayer.on('pause', () => console.log("⏸️ Paused"));
-                
-                setTimeout(() => {
-                    if (!resolved) {
-                        resolved = true;
-                        reject(new Error("JW Player load timeout"));
-                    }
-                }, 30000);
-                
-            } catch (error) {
-                console.error("JW Player init error:", error);
-                reject(error);
-            }
-        });
-    }
-    
-    destroyJWPlayer() {
-        if (this.jwPlayer) {
-            try {
-                this.jwPlayer.remove();
-            } catch(e) {}
-            this.jwPlayer = null;
-        }
-        this.jwPlayerReady = false;
-        if (this.jwPlayerContainer) {
-            this.jwPlayerContainer.innerHTML = '';
-        }
-        this.videoPlayer.style.display = 'block';
     }
     
     showRadioLogo(channel) {
@@ -202,6 +61,9 @@ class PlayerComponent {
         
         if (!isRadio) {
             this.radioLogoContainer.style.display = 'none';
+            if (this.videoPlayer) {
+                this.videoPlayer.style.opacity = '1';
+            }
             return;
         }
         
@@ -231,10 +93,19 @@ class PlayerComponent {
         this.radioLogoContainer.appendChild(stationName);
         
         this.radioLogoContainer.style.display = 'flex';
+        
+        if (this.videoPlayer) {
+            this.videoPlayer.style.opacity = '0.3';
+        }
     }
     
     hideRadioLogo() {
-        if (this.radioLogoContainer) this.radioLogoContainer.style.display = 'none';
+        if (this.radioLogoContainer) {
+            this.radioLogoContainer.style.display = 'none';
+        }
+        if (this.videoPlayer) {
+            this.videoPlayer.style.opacity = '1';
+        }
     }
     
     setupFullscreenButton() {
@@ -252,6 +123,11 @@ class PlayerComponent {
         if (this.videoContainer) {
             this.videoContainer.addEventListener('click', () => this.showFullscreenButton());
             this.videoContainer.addEventListener('touchstart', () => this.showFullscreenButton());
+        }
+        
+        if (this.videoPlayer) {
+            this.videoPlayer.addEventListener('click', () => this.showFullscreenButton());
+            this.videoPlayer.addEventListener('touchstart', () => this.showFullscreenButton());
         }
         
         document.addEventListener('fullscreenchange', () => this.onFullscreenChange());
@@ -338,40 +214,144 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        this.showLoader("Loading stream...");
+        const isHls = url.includes(".m3u8");
+        const isHttp = url.startsWith('http://');
         
-        try {
-            await this.destroyJWPlayer();
-            
-            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
-            
-            if (success) {
-                this.hideLoader();
-                return true;
-            }
-        } catch (error) {
-            console.error("JW Player failed:", error);
-            
-            if (!isRetry && this.loadRetryCount < this.maxRetries) {
-                this.loadRetryCount++;
-                this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                await new Promise(r => setTimeout(r, 2000));
-                return this.loadStream(url, drmConfig, headers, true);
-            }
-            
-            this.hideLoader();
-            
-            // Show specific error message for Kapatid Channel
-            if (url.includes('kapatid') || url.includes('qp-pldt')) {
-                this.showError(`Kapatid Channel requires VPN or is geo-restricted. Please check your connection.`);
-            } else {
-                this.showError(`Failed to load stream. The stream may be offline.`);
-            }
-            return false;
+        // Destroy existing HLS player
+        if (this.hlsPlayer) {
+            this.hlsPlayer.destroy();
+            this.hlsPlayer = null;
         }
         
-        this.hideLoader();
-        return false;
+        // Clear video source
+        this.videoPlayer.removeAttribute("src");
+        this.videoPlayer.load();
+        
+        if (isHls) {
+            console.log("🎬 HLS stream detected, using HLS.js");
+            this.showLoader("Loading HLS stream...");
+            
+            try {
+                if (Hls.isSupported()) {
+                    return new Promise((resolve, reject) => {
+                        let resolved = false;
+                        
+                        this.hlsPlayer = new Hls({
+                            enableWorker: true,
+                            lowLatencyMode: true,
+                            autoStartLoad: true,
+                            startPosition: -1,
+                            manifestLoadTimeOut: 20000,
+                            manifestLoadingTimeOut: 20000,
+                            levelLoadingTimeOut: 20000,
+                            fragLoadingTimeOut: 20000
+                        });
+                        
+                        // Add custom headers if provided
+                        if (headers) {
+                            this.hlsPlayer.on(Hls.Events.MEDIA_ATTACHING, () => {
+                                if (headers['User-Agent']) {
+                                    // HLS.js doesn't directly support custom headers
+                                    // But we can try to set them via xhrSetup
+                                }
+                            });
+                        }
+                        
+                        this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+                            if (!resolved) {
+                                resolved = true;
+                                this.videoPlayer.play()
+                                    .then(() => {
+                                        console.log("✅ HLS playback started");
+                                        this.hideLoader();
+                                        resolve(true);
+                                    })
+                                    .catch(e => {
+                                        console.warn("Autoplay blocked:", e);
+                                        this.hideLoader();
+                                        resolve(true);
+                                    });
+                            }
+                        });
+                        
+                        this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+                            console.error("HLS Error:", data);
+                            if (data.fatal && !resolved) {
+                                resolved = true;
+                                this.hideLoader();
+                                reject(new Error(data.details || "HLS stream error"));
+                            }
+                        });
+                        
+                        this.hlsPlayer.loadSource(url);
+                        this.hlsPlayer.attachMedia(this.videoPlayer);
+                        
+                        setTimeout(() => {
+                            if (!resolved) {
+                                resolved = true;
+                                reject(new Error("HLS load timeout"));
+                            }
+                        }, 30000);
+                    });
+                } else if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
+                    this.videoPlayer.src = url;
+                    await this.videoPlayer.play();
+                    this.hideLoader();
+                    return true;
+                } else {
+                    throw new Error("HLS not supported");
+                }
+            } catch (error) {
+                console.error("HLS playback failed:", error);
+                this.hideLoader();
+                return false;
+            }
+        } else {
+            // For all other streams (including HTTP DASH), use native video element
+            console.log("🎬 Using native video element for:", url);
+            this.showLoader("Loading stream...");
+            
+            try {
+                // Set the source directly
+                this.videoPlayer.src = url;
+                
+                // Add custom headers? Native video element can't set custom headers
+                // But some browsers may send the default User-Agent
+                
+                // Wait for canplay event
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => reject(new Error("Load timeout")), 30000);
+                    
+                    this.videoPlayer.oncanplay = () => {
+                        clearTimeout(timeout);
+                        resolve();
+                    };
+                    
+                    this.videoPlayer.onerror = (e) => {
+                        clearTimeout(timeout);
+                        reject(new Error("Video error"));
+                    };
+                });
+                
+                await this.videoPlayer.play();
+                this.hideLoader();
+                return true;
+                
+            } catch (error) {
+                console.error("Native playback failed:", error);
+                this.hideLoader();
+                
+                if (!isRetry && this.loadRetryCount < this.maxRetries) {
+                    this.loadRetryCount++;
+                    this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                    await new Promise(r => setTimeout(r, 2000));
+                    return this.loadStream(url, drmConfig, headers, true);
+                }
+                
+                this.showError(`Cannot play ${url.split('/').pop()}`);
+                return false;
+            }
+        }
     }
     
     async playChannel(channel) {
