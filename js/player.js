@@ -27,8 +27,10 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
         
-        // CORS proxy for HTTP streams (optional)
-        this.proxyUrl = null; // Set to 'https://cors-anywhere.herokuapp.com/' if needed
+        // CORS proxy to handle HTTP streams on HTTPS sites
+        // Using a public proxy - you can also host your own
+        this.proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        this.useProxy = true; // Set to false to disable proxy
     }
     
     render() {
@@ -90,6 +92,18 @@ class PlayerComponent {
         document.head.appendChild(script);
     }
     
+    // Convert HTTP URL to HTTPS proxy URL
+    getProxiedUrl(streamUrl) {
+        // If site is HTTPS and stream is HTTP, use proxy
+        if (this.useProxy && window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
+            // For CORS Anywhere, we need to encode the URL
+            const proxiedUrl = this.proxyUrl + streamUrl;
+            console.log("Using proxy for HTTP stream:", proxiedUrl);
+            return proxiedUrl;
+        }
+        return streamUrl;
+    }
+    
     initJWPlayer(streamUrl, channelName) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
@@ -114,14 +128,12 @@ class PlayerComponent {
             this.jwPlayerContainer.style.display = 'block';
             if (this.videoPlayer) this.videoPlayer.style.display = 'none';
             
-            // Use proxy if configured and stream is HTTP on HTTPS page
-            let finalUrl = streamUrl;
-            if (this.proxyUrl && window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
-                finalUrl = this.proxyUrl + streamUrl;
-                console.log("Using proxy for HTTP stream:", finalUrl);
-            }
+            // Get proxied URL for HTTP streams
+            const finalUrl = this.getProxiedUrl(streamUrl);
             
-            // JW Player configuration - simplified for HTTP streams
+            console.log("JW Player loading URL:", finalUrl);
+            
+            // JW Player configuration
             const config = {
                 file: finalUrl,
                 title: channelName,
@@ -133,11 +145,6 @@ class PlayerComponent {
                 preload: 'auto'
             };
             
-            // For DASH streams, let JW Player handle it
-            if (finalUrl.includes('.mpd') || finalUrl.includes('manifest.mpd')) {
-                console.log("DASH stream detected");
-            }
-            
             try {
                 this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
                 
@@ -147,6 +154,7 @@ class PlayerComponent {
                     if (!resolved) {
                         resolved = true;
                         this.jwPlayerReady = true;
+                        console.log("✅ JW Player ready");
                         resolve(true);
                     }
                 });
@@ -191,7 +199,7 @@ class PlayerComponent {
     }
     
     shouldUseJWPlayer(url) {
-        // Always use JW Player for HTTP streams - it handles mixed content better
+        // Always use JW Player for HTTP streams (will be proxied)
         return url.startsWith('http://');
     }
     
@@ -398,7 +406,7 @@ class PlayerComponent {
             }
         }
         
-        // Custom player for HTTPS streams (keep existing logic but simplified)
+        // Custom player for HTTPS streams
         this.showLoader("Loading stream...");
         await this.destroyPlayers();
         
