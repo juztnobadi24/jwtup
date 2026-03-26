@@ -122,12 +122,12 @@ class PlayerComponent {
         console.log("📥 Loading JW Player script...");
     }
     
-    initJWPlayer(streamUrl, channelName, drmConfig = null) {
+    initJWPlayer(streamUrl, channelName, headers = null) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
                 // Wait for script to load
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName, drmConfig).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -151,9 +151,15 @@ class PlayerComponent {
             this.jwPlayerContainer.style.display = 'block';
             if (this.videoPlayer) this.videoPlayer.style.display = 'none';
             
+            // IMPORTANT: Ensure URL uses HTTP protocol if it's HTTP
+            // JW Player will respect the protocol we pass
+            const finalUrl = streamUrl;
+            
+            console.log("🎬 JW Player loading URL:", finalUrl);
+            
             // Setup JW Player configuration
             const config = {
-                file: streamUrl,
+                file: finalUrl,
                 title: channelName,
                 width: '100%',
                 height: '100%',
@@ -165,32 +171,29 @@ class PlayerComponent {
                 aboutlink: '#',
                 skin: {
                     name: 'seven'
-                }
+                },
+                // Disable any protocol upgrades
+                androidhls: true,
+                hlshtml: true,
+                // Allow insecure content
+                allow: 'autoplay; encrypted-media',
+                // Disable forced HTTPS
+                secure: false
             };
             
-            // Add DRM configuration if provided
-            if (drmConfig) {
-                const drmSettings = {};
-                if (drmConfig.widevineLicenseUrl) {
-                    drmSettings.widevine = {
-                        url: drmConfig.widevineLicenseUrl
-                    };
-                }
-                if (drmConfig.playreadyLicenseUrl) {
-                    drmSettings.playready = {
-                        url: drmConfig.playreadyLicenseUrl
-                    };
-                }
-                if (drmConfig.fairplayLicenseUrl) {
-                    drmSettings.fairplay = {
-                        url: drmConfig.fairplayLicenseUrl,
-                        certificateurl: drmConfig.fairplayCertificateUrl
-                    };
-                }
-                if (Object.keys(drmSettings).length > 0) {
-                    config.drm = drmSettings;
-                    console.log("🔐 JW Player DRM configured:", drmSettings);
-                }
+            // Add custom headers if provided
+            if (headers) {
+                config.advertising = {
+                    client: 'none'
+                };
+                
+                // JW Player supports custom headers via playlist items
+                config.playlist = [{
+                    file: finalUrl,
+                    title: channelName,
+                    // Custom headers can be added here for some versions
+                    ...(headers['User-Agent'] && { 'User-Agent': headers['User-Agent'] })
+                }];
             }
             
             // Initialize JW Player
@@ -224,11 +227,14 @@ class PlayerComponent {
                 });
                 
                 // Timeout for loading
-                setTimeout(() => {
+                const timeoutId = setTimeout(() => {
                     if (!this.jwPlayerReady) {
                         reject(new Error("JW Player load timeout"));
                     }
                 }, 30000);
+                
+                // Clear timeout on success
+                this.jwPlayer.on('ready', () => clearTimeout(timeoutId));
                 
             } catch (error) {
                 console.error("❌ JW Player initialization error:", error);
@@ -255,23 +261,11 @@ class PlayerComponent {
     }
     
     shouldUseJWPlayer(url) {
-        // Use JW Player for:
-        // 1. HTTP streams (to avoid mixed content issues)
-        // 2. Streams that failed with native player
-        // 3. Streams with specific DRM that JW Player handles better
+        // Use JW Player for HTTP streams
         const isHttp = url.startsWith('http://');
-        const isHttps = url.startsWith('https://');
-        const hasAuth = url.includes('AuthInfo=');
         
-        // Force JW Player for HTTP streams
         if (isHttp) {
             console.log("🌐 HTTP stream detected, using JW Player");
-            return true;
-        }
-        
-        // Use JW Player for streams with authentication (they often have issues)
-        if (hasAuth) {
-            console.log("🔑 Authenticated stream detected, using JW Player for better compatibility");
             return true;
         }
         
@@ -282,11 +276,9 @@ class PlayerComponent {
     showRadioLogo(channel) {
         if (!this.radioLogoContainer) return;
         
-        // Check if it's a radio channel
         const isRadio = channel.type === "Radio";
         
         if (!isRadio) {
-            // Hide logo for TV channels
             this.radioLogoContainer.style.display = 'none';
             if (this.videoPlayer) {
                 this.videoPlayer.style.opacity = '1';
@@ -294,40 +286,29 @@ class PlayerComponent {
             return;
         }
         
-        // Try to get logo from multiple sources
         let logoUrl = null;
         
-        // Priority 1: logo from channel object
         if (channel.logo) {
             logoUrl = channel.logo;
-        }
-        // Priority 2: logoLocal (if you have local logos)
-        else if (channel.logoLocal) {
+        } else if (channel.logoLocal) {
             logoUrl = `images/${channel.logoLocal}.webp`;
-        }
-        // Priority 3: fallback to default radio logo
-        else {
+        } else {
             logoUrl = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
         }
         
-        // Clear existing content
         this.radioLogoContainer.innerHTML = '';
         
-        // Create wrapper
         const wrapper = document.createElement('div');
         wrapper.className = 'radio-logo-wrapper';
         
-        // Create logo content container
         const logoContent = document.createElement('div');
         logoContent.className = 'radio-logo-content';
         
-        // Create logo image
         const img = document.createElement('img');
         img.className = 'radio-logo';
         img.src = logoUrl;
         img.alt = channel.name;
         
-        // Handle image load error
         img.onerror = () => {
             img.src = 'https://via.placeholder.com/200x200/1a1e2c/f97316?text=📻';
             img.alt = 'Radio';
@@ -338,16 +319,13 @@ class PlayerComponent {
         
         this.radioLogoContainer.appendChild(wrapper);
         
-        // Add station name
         const stationName = document.createElement('div');
         stationName.className = 'station-name';
         stationName.textContent = channel.name;
         this.radioLogoContainer.appendChild(stationName);
         
-        // Show logo container
         this.radioLogoContainer.style.display = 'flex';
         
-        // Fade out video player for radio
         if (this.videoPlayer) {
             this.videoPlayer.style.opacity = '0.3';
         }
@@ -366,17 +344,14 @@ class PlayerComponent {
         this.fullscreenBtn = document.getElementById('fullscreenToggleBtn');
         if (!this.fullscreenBtn) return;
         
-        // Initially hide the button
         this.hideFullscreenButton();
         
-        // Add click event to toggle fullscreen
         this.fullscreenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
             this.toggleFullscreen();
         });
         
-        // Show button when video container is touched/clicked
         if (this.videoContainer) {
             this.videoContainer.addEventListener('click', (e) => {
                 if (e.target === this.fullscreenBtn || this.fullscreenBtn.contains(e.target)) {
@@ -426,7 +401,6 @@ class PlayerComponent {
         }
         
         this.showFullscreenButton();
-        console.log("Fullscreen changed:", isFullscreen ? "Entered" : "Exited");
     }
     
     showFullscreenButton() {
@@ -503,11 +477,6 @@ class PlayerComponent {
             }, 100);
         }).catch(err => {
             console.error("Fullscreen request failed:", err);
-            if (this.videoPlayer && this.videoPlayer.requestFullscreen) {
-                this.videoPlayer.requestFullscreen().catch(e => {
-                    console.error("Video element fullscreen also failed:", e);
-                });
-            }
         });
     }
     
@@ -527,13 +496,6 @@ class PlayerComponent {
         
         exitFullscreen().then(() => {
             console.log("Fullscreen exited successfully");
-            setTimeout(() => {
-                if (screen.orientation && screen.orientation.unlock) {
-                    screen.orientation.unlock();
-                } else if (screen.unlockOrientation) {
-                    screen.unlockOrientation();
-                }
-            }, 100);
         }).catch(err => {
             console.error("Exit fullscreen failed:", err);
         });
@@ -547,7 +509,6 @@ class PlayerComponent {
             this.exitFullscreen();
         }
         
-        // Destroy JW Player
         this.destroyJWPlayer();
         
         if (this.videoPlayer) {
@@ -586,7 +547,6 @@ class PlayerComponent {
         if (typeof shaka !== "undefined") {
             this.shakaPlayer = new shaka.Player(this.videoPlayer);
             
-            // Simplified configuration - remove deprecated options
             await this.shakaPlayer.configure({
                 drm: {
                     servers: {},
@@ -602,17 +562,14 @@ class PlayerComponent {
                     retryParameters: { maxAttempts: 5, timeout: 10000 }
                 },
                 abr: {
-                    enabled: true,
-                    defaultBandwidthEstimate: 1000000
+                    enabled: true
                 }
             });
             
-            // Setup request filters for headers
             this.setupShakaRequestFilters();
             
             this.shakaPlayer.addEventListener("error", (event) => {
                 console.error("Shaka error", event.detail);
-                this.handleDrmError(event.detail);
             });
             
             this.isShakaInitialized = true;
@@ -650,7 +607,6 @@ class PlayerComponent {
             
             if (request.uris && request.uris.length > 0) {
                 console.log(`Requesting: ${request.uris[0]}`);
-                console.log('Headers:', request.headers);
             }
         });
     }
@@ -674,8 +630,6 @@ class PlayerComponent {
                     xhr.setRequestHeader(key, headers[key]);
                 }
             });
-            
-            console.log(`HLS Request: ${url}`);
         };
         
         return hlsConfig;
@@ -683,14 +637,6 @@ class PlayerComponent {
     
     handleDrmError(error) {
         console.error("DRM Error:", error);
-        
-        if (error.code === 6000) {
-            this.showError("DRM license error. Your browser may not support the required DRM system.");
-        } else if (error.code === 6001) {
-            this.showError("DRM system not supported in this browser. Please use a compatible browser.");
-        } else if (error.code === 6002) {
-            this.showError("DRM license request failed. Please check your internet connection.");
-        }
     }
     
     updateDrmInfo(message) {
@@ -712,9 +658,7 @@ class PlayerComponent {
         if (drmConfig) {
             if (drmConfig.widevineLicenseUrl) {
                 drmServers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl;
-                console.log("✅ Widevine license server configured");
             }
-            
             if (drmConfig.fairplayLicenseUrl) {
                 drmServers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl;
                 if (drmConfig.fairplayCertificateUrl) {
@@ -722,12 +666,9 @@ class PlayerComponent {
                         serverCertificateUri: drmConfig.fairplayCertificateUrl
                     };
                 }
-                console.log("✅ FairPlay license server configured");
             }
-            
             if (drmConfig.playreadyLicenseUrl) {
                 drmServers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl;
-                console.log("✅ PlayReady license server configured");
             }
         }
         
@@ -784,7 +725,6 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        // Store headers for use in request filters
         this.currentHeaders = headers;
         
         // Check if we should use JW Player
@@ -795,11 +735,10 @@ class PlayerComponent {
             this.showLoader("Loading stream with JW Player...");
             
             try {
-                // Destroy existing players
                 await this.destroyPlayers();
                 
-                // Initialize JW Player
-                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", drmConfig);
+                // Initialize JW Player - pass headers for potential future use
+                const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
                 
                 if (success) {
                     this.hideLoader();
@@ -842,7 +781,7 @@ class PlayerComponent {
                 this.loadStream(url, drmConfig, headers, true);
             } else if (this.loadRetryCount >= this.maxRetries) {
                 this.hideLoader();
-                this.showError("Failed to load stream after multiple attempts. The stream may be offline.");
+                this.showError("Failed to load stream after multiple attempts.");
             }
         }, 30000);
         
@@ -864,13 +803,7 @@ class PlayerComponent {
                     drmConfigObj.advanced = drmSettings.advanced;
                 }
                 
-                if (Object.keys(drmSettings.clearKeys).length > 0) {
-                    console.log("ClearKeys configured:", Object.keys(drmSettings.clearKeys).length);
-                }
-                
                 await player.configure({ drm: drmConfigObj });
-                
-                // Load the manifest
                 await player.load(url);
                 
                 setTimeout(() => {
@@ -1044,7 +977,6 @@ class PlayerComponent {
         
         this.showLoader("Loading channel...");
         
-        // Show or hide radio logo based on channel type
         if (channel.type === "Radio") {
             this.showRadioLogo(channel);
         } else {
@@ -1058,22 +990,10 @@ class PlayerComponent {
             let drmConfig = null;
             let headers = null;
             
-            // Extract DRM configuration from channel
             if (channel.drm) {
                 drmConfig = channel.drm;
-                
-                if (drmConfig.widevineLicenseUrl) {
-                    console.log("Channel uses Widevine DRM");
-                }
-                if (drmConfig.fairplayLicenseUrl) {
-                    console.log("Channel uses FairPlay DRM");
-                }
-                if (drmConfig.playreadyLicenseUrl) {
-                    console.log("Channel uses PlayReady DRM");
-                }
             }
             
-            // Extract headers from channel
             if (channel.headers) {
                 headers = channel.headers;
                 console.log("Using custom headers for this channel");
