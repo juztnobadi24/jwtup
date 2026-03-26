@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH HTTP/HTTPS AUTO-SWITCH ========================
+// ======================== PLAYER COMPONENT WITH HTTP FIX ========================
 
 class PlayerComponent {
     constructor() {
@@ -31,25 +31,6 @@ class PlayerComponent {
         // JW Player ready flag
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
-        
-        // DRM configuration
-        this.drmConfigurations = {
-            widevine: {
-                servers: {
-                    'com.widevine.alpha': ''
-                }
-            },
-            fairplay: {
-                servers: {
-                    'com.apple.fairplay': ''
-                }
-            },
-            playready: {
-                servers: {
-                    'com.microsoft.playready': ''
-                }
-            }
-        };
     }
     
     render() {
@@ -126,7 +107,6 @@ class PlayerComponent {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                // Wait for script to load
                 setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
@@ -151,9 +131,15 @@ class PlayerComponent {
             this.jwPlayerContainer.style.display = 'block';
             if (this.videoPlayer) this.videoPlayer.style.display = 'none';
             
-            // IMPORTANT: Ensure URL uses HTTP protocol if it's HTTP
-            // JW Player will respect the protocol we pass
-            const finalUrl = streamUrl;
+            // Ensure URL uses HTTP protocol (remove any HTTPS upgrade)
+            let finalUrl = streamUrl;
+            
+            // If the page is HTTPS but stream is HTTP, we need to handle it
+            if (window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
+                console.warn("⚠️ HTTPS page loading HTTP stream. This may cause mixed content issues.");
+                // Keep as HTTP - let the browser decide
+                finalUrl = streamUrl;
+            }
             
             console.log("🎬 JW Player loading URL:", finalUrl);
             
@@ -176,23 +162,23 @@ class PlayerComponent {
                 androidhls: true,
                 hlshtml: true,
                 // Allow insecure content
-                allow: 'autoplay; encrypted-media',
-                // Disable forced HTTPS
-                secure: false
+                allow: 'autoplay; encrypted-media'
             };
             
-            // Add custom headers if provided
-            if (headers) {
-                config.advertising = {
-                    client: 'none'
-                };
-                
-                // JW Player supports custom headers via playlist items
+            // For DASH streams, JW Player may need additional configuration
+            if (finalUrl.includes('.mpd') || finalUrl.includes('manifest.mpd')) {
+                console.log("🎬 DASH stream detected, configuring JW Player for DASH");
+                // JW Player can handle DASH natively with the right configuration
+                config.primary = 'html5';
+                config.dash = true;
+            }
+            
+            // Add custom headers if provided (JW Player may not support all headers)
+            if (headers && headers['User-Agent']) {
+                // Some JW Player versions support custom headers via playlist
                 config.playlist = [{
                     file: finalUrl,
-                    title: channelName,
-                    // Custom headers can be added here for some versions
-                    ...(headers['User-Agent'] && { 'User-Agent': headers['User-Agent'] })
+                    title: channelName
                 }];
             }
             
@@ -233,7 +219,6 @@ class PlayerComponent {
                     }
                 }, 30000);
                 
-                // Clear timeout on success
                 this.jwPlayer.on('ready', () => clearTimeout(timeoutId));
                 
             } catch (error) {
@@ -261,12 +246,21 @@ class PlayerComponent {
     }
     
     shouldUseJWPlayer(url) {
-        // Use JW Player for HTTP streams
+        // Use JW Player for HTTP streams to avoid mixed content issues
         const isHttp = url.startsWith('http://');
+        const isHttps = url.startsWith('https://');
+        const hasAuth = url.includes('AuthInfo=');
         
+        // Force JW Player for HTTP streams
         if (isHttp) {
             console.log("🌐 HTTP stream detected, using JW Player");
             return true;
+        }
+        
+        // For HTTPS streams with authentication, try custom player first
+        if (hasAuth && isHttps) {
+            console.log("🔑 Authenticated HTTPS stream, using custom player");
+            return false;
         }
         
         // Default to custom player for HTTPS streams
@@ -597,16 +591,6 @@ class PlayerComponent {
                 if (self.currentHeaders['Origin']) {
                     request.headers['Origin'] = self.currentHeaders['Origin'];
                 }
-                
-                Object.keys(self.currentHeaders).forEach(key => {
-                    if (!['User-Agent', 'Referer', 'Origin'].includes(key)) {
-                        request.headers[key] = self.currentHeaders[key];
-                    }
-                });
-            }
-            
-            if (request.uris && request.uris.length > 0) {
-                console.log(`Requesting: ${request.uris[0]}`);
             }
         });
     }
@@ -624,55 +608,9 @@ class PlayerComponent {
             if (headers['Origin']) {
                 xhr.setRequestHeader('Origin', headers['Origin']);
             }
-            
-            Object.keys(headers).forEach(key => {
-                if (!['User-Agent', 'Referer', 'Origin'].includes(key)) {
-                    xhr.setRequestHeader(key, headers[key]);
-                }
-            });
         };
         
         return hlsConfig;
-    }
-    
-    handleDrmError(error) {
-        console.error("DRM Error:", error);
-    }
-    
-    updateDrmInfo(message) {
-        if (this.drmInfoDiv) {
-            this.drmInfoDiv.textContent = message;
-            this.drmInfoDiv.style.display = 'block';
-            setTimeout(() => {
-                if (this.drmInfoDiv) {
-                    this.drmInfoDiv.style.display = 'none';
-                }
-            }, 3000);
-        }
-    }
-    
-    configureDrmForPlatform(drmConfig, streamUrl) {
-        const drmServers = {};
-        const drmAdvanced = {};
-        
-        if (drmConfig) {
-            if (drmConfig.widevineLicenseUrl) {
-                drmServers['com.widevine.alpha'] = drmConfig.widevineLicenseUrl;
-            }
-            if (drmConfig.fairplayLicenseUrl) {
-                drmServers['com.apple.fairplay'] = drmConfig.fairplayLicenseUrl;
-                if (drmConfig.fairplayCertificateUrl) {
-                    drmAdvanced['com.apple.fairplay'] = {
-                        serverCertificateUri: drmConfig.fairplayCertificateUrl
-                    };
-                }
-            }
-            if (drmConfig.playreadyLicenseUrl) {
-                drmServers['com.microsoft.playready'] = drmConfig.playreadyLicenseUrl;
-            }
-        }
-        
-        return { clearKeys: {}, servers: drmServers, advanced: drmAdvanced };
     }
     
     showError(msg) {
@@ -727,7 +665,6 @@ class PlayerComponent {
         
         this.currentHeaders = headers;
         
-        // Check if we should use JW Player
         const useJWPlayer = this.shouldUseJWPlayer(url);
         
         if (useJWPlayer) {
@@ -737,7 +674,6 @@ class PlayerComponent {
             try {
                 await this.destroyPlayers();
                 
-                // Initialize JW Player - pass headers for potential future use
                 const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
                 
                 if (success) {
@@ -791,19 +727,6 @@ class PlayerComponent {
                 const player = await this.initShaka();
                 if (!player) throw new Error("Shaka Player not loaded");
                 
-                const drmSettings = this.configureDrmForPlatform(drmConfig, url);
-                
-                const drmConfigObj = {
-                    servers: drmSettings.servers,
-                    clearKeys: drmSettings.clearKeys,
-                    retryParameters: { maxAttempts: 5, timeout: 15000 }
-                };
-                
-                if (Object.keys(drmSettings.advanced).length > 0) {
-                    drmConfigObj.advanced = drmSettings.advanced;
-                }
-                
-                await player.configure({ drm: drmConfigObj });
                 await player.load(url);
                 
                 setTimeout(() => {
@@ -1020,7 +943,7 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
-                this.showError(`Failed to play ${channel.name}. The stream may be offline or requires a VPN.`);
+                this.showError(`Failed to play ${channel.name}. The stream may be offline.`);
             }
             
             return success;
