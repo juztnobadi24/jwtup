@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT - SIMPLIFIED ========================
+// ======================== PLAYER COMPONENT WITH HEADERS SUPPORT ========================
 
 class PlayerComponent {
     constructor() {
@@ -23,6 +23,9 @@ class PlayerComponent {
         
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
+        
+        // Store current headers for use in playlist
+        this.currentHeaders = null;
     }
     
     render() {
@@ -84,11 +87,11 @@ class PlayerComponent {
         document.head.appendChild(script);
     }
     
-    initJWPlayer(streamUrl, channelName) {
+    initJWPlayer(streamUrl, channelName, headers = null) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -109,11 +112,28 @@ class PlayerComponent {
             this.videoPlayer.style.display = 'none';
             
             console.log("JW Player loading URL:", streamUrl);
+            if (headers) {
+                console.log("With headers:", Object.keys(headers));
+            }
             
-            // Simple JW Player configuration
-            const config = {
+            // Create playlist item with headers if available
+            let playlistItem = {
                 file: streamUrl,
-                title: channelName,
+                title: channelName
+            };
+            
+            // JW Player supports custom headers via playlist item (limited support)
+            if (headers) {
+                // Some JW Player versions support custom headers
+                if (headers['User-Agent']) {
+                    playlistItem.userAgent = headers['User-Agent'];
+                }
+                // For Referer, we need to use a different approach
+                // JW Player doesn't natively support custom Referer headers
+            }
+            
+            const config = {
+                playlist: [playlistItem],
                 width: '100%',
                 height: '100%',
                 aspectratio: '16:9',
@@ -323,7 +343,7 @@ class PlayerComponent {
         try {
             await this.destroyJWPlayer();
             
-            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel");
+            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
             
             if (success) {
                 this.hideLoader();
@@ -340,7 +360,13 @@ class PlayerComponent {
             }
             
             this.hideLoader();
-            this.showError(`Failed to load stream. The stream may be offline.`);
+            
+            // Show specific error message for Kapatid Channel
+            if (url.includes('kapatid') || url.includes('qp-pldt')) {
+                this.showError(`Kapatid Channel requires VPN or is geo-restricted. Please check your connection.`);
+            } else {
+                this.showError(`Failed to load stream. The stream may be offline.`);
+            }
             return false;
         }
         
