@@ -1,4 +1,4 @@
-// ======================== PLAYER COMPONENT WITH PROXY SUPPORT ========================
+// ======================== PLAYER COMPONENT WITH JW PLAYER AS MAIN ========================
 
 class PlayerComponent {
     constructor() {
@@ -8,11 +8,8 @@ class PlayerComponent {
         this.videoContainer = null;
         this.radioLogoContainer = null;
         
-        this.shakaPlayer = null;
-        this.hlsPlayer = null;
         this.jwPlayer = null;
         this.jwPlayerContainer = null;
-        this.isShakaInitialized = false;
         this.currentChannel = null;
         this.isLoading = false;
         this.loadRetryCount = 0;
@@ -27,15 +24,17 @@ class PlayerComponent {
         this.jwPlayerReady = false;
         this.jwPlayerLoaded = false;
         
-        // Multiple proxy options for fallback
-        this.proxyOptions = [
-            'https://api.allorigins.win/raw?url=',
+        // Proxy for HTTP streams
+        this.proxyUrl = 'https://api.allorigins.win/raw?url=';
+        this.useProxy = true;
+        
+        // Try alternative proxies if main fails
+        this.proxyFallbacks = [
             'https://corsproxy.io/?',
             'https://thingproxy.freeboard.io/fetch/',
             'https://cors-anywhere.herokuapp.com/'
         ];
-        this.currentProxyIndex = 0;
-        this.useProxy = true;
+        this.currentProxyIndex = -1;
     }
     
     render() {
@@ -44,7 +43,7 @@ class PlayerComponent {
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
                 <video id="videoPlayer" playsinline disablePictureInPicture autoplay style="display: none;"></video>
-                <div id="jwplayer-container" style="width: 100%; height: 100%; display: none;"></div>
+                <div id="jwplayer-container" style="width: 100%; height: 100%;"></div>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -102,35 +101,37 @@ class PlayerComponent {
         
         // Only proxy HTTP streams on HTTPS sites
         if (window.location.protocol === 'https:' && streamUrl.startsWith('http://')) {
-            const proxyUrl = this.proxyOptions[this.currentProxyIndex];
-            if (proxyUrl) {
-                const encodedUrl = encodeURIComponent(streamUrl);
-                const proxiedUrl = proxyUrl + encodedUrl;
-                console.log(`Using proxy (${this.currentProxyIndex + 1}/${this.proxyOptions.length}): ${proxyUrl}`);
-                return proxiedUrl;
+            // Use fallback proxy if set
+            let proxyUrl = this.proxyUrl;
+            if (this.currentProxyIndex >= 0 && this.proxyFallbacks[this.currentProxyIndex]) {
+                proxyUrl = this.proxyFallbacks[this.currentProxyIndex];
             }
+            const encodedUrl = encodeURIComponent(streamUrl);
+            const proxiedUrl = proxyUrl + encodedUrl;
+            console.log(`Using proxy: ${proxyUrl}`);
+            return proxiedUrl;
         }
         return streamUrl;
     }
     
     tryNextProxy() {
-        if (this.currentProxyIndex < this.proxyOptions.length - 1) {
+        if (this.currentProxyIndex < this.proxyFallbacks.length - 1) {
             this.currentProxyIndex++;
-            console.log(`Switching to proxy ${this.currentProxyIndex + 1}`);
+            console.log(`Switching to fallback proxy ${this.currentProxyIndex + 1}`);
             return true;
         }
         return false;
     }
     
     resetProxy() {
-        this.currentProxyIndex = 0;
+        this.currentProxyIndex = -1;
     }
     
-    initJWPlayer(streamUrl, channelName) {
+    initJWPlayer(streamUrl, channelName, headers = null) {
         return new Promise((resolve, reject) => {
             if (!this.jwPlayerLoaded) {
                 this.loadJWPlayerScript();
-                setTimeout(() => this.initJWPlayer(streamUrl, channelName).then(resolve).catch(reject), 500);
+                setTimeout(() => this.initJWPlayer(streamUrl, channelName, headers).then(resolve).catch(reject), 500);
                 return;
             }
             
@@ -153,6 +154,7 @@ class PlayerComponent {
             const finalUrl = this.getProxiedUrl(streamUrl);
             console.log("JW Player loading URL:", finalUrl);
             
+            // Configure JW Player
             const config = {
                 file: finalUrl,
                 title: channelName,
@@ -161,8 +163,21 @@ class PlayerComponent {
                 aspectratio: '16:9',
                 autostart: true,
                 primary: 'html5',
-                preload: 'auto'
+                preload: 'auto',
+                abouttext: 'JUZT IPTV',
+                aboutlink: '#',
+                skin: {
+                    name: 'seven'
+                }
             };
+            
+            // Add custom headers if provided (JW Player may not support all)
+            if (headers && headers['User-Agent']) {
+                config.playlist = [{
+                    file: finalUrl,
+                    title: channelName
+                }];
+            }
             
             try {
                 this.jwPlayer = jwplayer(this.jwPlayerContainer.id).setup(config);
@@ -184,6 +199,18 @@ class PlayerComponent {
                         resolved = true;
                         reject(error);
                     }
+                });
+                
+                this.jwPlayer.on('play', () => {
+                    console.log("▶️ JW Player playing");
+                });
+                
+                this.jwPlayer.on('pause', () => {
+                    console.log("⏸️ JW Player paused");
+                });
+                
+                this.jwPlayer.on('buffer', () => {
+                    console.log("⏳ JW Player buffering");
                 });
                 
                 setTimeout(() => {
@@ -209,7 +236,6 @@ class PlayerComponent {
         }
         this.jwPlayerReady = false;
         if (this.jwPlayerContainer) {
-            this.jwPlayerContainer.style.display = 'none';
             this.jwPlayerContainer.innerHTML = '';
         }
         if (this.videoPlayer) {
@@ -224,7 +250,6 @@ class PlayerComponent {
         
         if (!isRadio) {
             this.radioLogoContainer.style.display = 'none';
-            if (this.videoPlayer) this.videoPlayer.style.opacity = '1';
             return;
         }
         
@@ -254,12 +279,10 @@ class PlayerComponent {
         this.radioLogoContainer.appendChild(stationName);
         
         this.radioLogoContainer.style.display = 'flex';
-        if (this.videoPlayer) this.videoPlayer.style.opacity = '0.3';
     }
     
     hideRadioLogo() {
         if (this.radioLogoContainer) this.radioLogoContainer.style.display = 'none';
-        if (this.videoPlayer) this.videoPlayer.style.opacity = '1';
     }
     
     setupFullscreenButton() {
@@ -277,11 +300,6 @@ class PlayerComponent {
         if (this.videoContainer) {
             this.videoContainer.addEventListener('click', () => this.showFullscreenButton());
             this.videoContainer.addEventListener('touchstart', () => this.showFullscreenButton());
-        }
-        
-        if (this.videoPlayer) {
-            this.videoPlayer.addEventListener('click', () => this.showFullscreenButton());
-            this.videoPlayer.addEventListener('touchstart', () => this.showFullscreenButton());
         }
         
         document.addEventListener('fullscreenchange', () => this.onFullscreenChange());
@@ -331,34 +349,6 @@ class PlayerComponent {
         if (exit) exit.call(document);
     }
     
-    async destroyPlayers() {
-        this.isLoading = false;
-        this.hideLoader();
-        
-        if (this.isFullscreen) this.exitFullscreen();
-        this.destroyJWPlayer();
-        
-        if (this.videoPlayer) {
-            try {
-                this.videoPlayer.pause();
-                this.videoPlayer.removeAttribute("src");
-                this.videoPlayer.load();
-            } catch(e) {}
-        }
-        
-        if (this.shakaPlayer) {
-            try { await this.shakaPlayer.destroy(); } catch(e) {}
-            this.shakaPlayer = null;
-        }
-        
-        if (this.hlsPlayer) {
-            try { this.hlsPlayer.destroy(); } catch(e) {}
-            this.hlsPlayer = null;
-        }
-        
-        this.isShakaInitialized = false;
-    }
-    
     showError(msg) {
         console.error(msg);
         if (this.errorMessageDiv) {
@@ -395,130 +385,57 @@ class PlayerComponent {
     }
     
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
-        console.log("Loading stream:", url);
+        console.log("Loading stream with JW Player:", url);
         
-        const useJWPlayer = url.startsWith('http://');
+        this.showLoader("Loading stream...");
         
-        if (useJWPlayer) {
-            this.showLoader("Loading stream...");
+        try {
+            await this.destroyJWPlayer();
             
-            try {
-                await this.destroyPlayers();
-                
-                const finalUrl = this.getProxiedUrl(url);
-                await this.initJWPlayer(finalUrl, this.currentChannel?.name || "Channel");
+            const success = await this.initJWPlayer(url, this.currentChannel?.name || "Channel", headers);
+            
+            if (success) {
                 this.hideLoader();
                 this.resetProxy();
                 return true;
-                
-            } catch (error) {
-                console.error(`JW Player failed with proxy ${this.currentProxyIndex + 1}:`, error);
-                
-                // Try next proxy if available
-                if (this.tryNextProxy()) {
-                    this.showLoader(`Retrying with alternative proxy...`);
-                    await new Promise(r => setTimeout(r, 1000));
-                    return this.loadStream(url, drmConfig, headers, true);
-                }
-                
-                // All proxies failed, try retry
-                if (!isRetry && this.loadRetryCount < this.maxRetries) {
-                    this.loadRetryCount++;
-                    this.resetProxy();
-                    this.showLoader(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
-                    await new Promise(r => setTimeout(r, 2000));
-                    return this.loadStream(url, drmConfig, headers, true);
-                }
-                
-                this.hideLoader();
-                this.showError("Failed to load stream. The stream may be offline or requires a VPN.");
-                return false;
             }
-        }
-        
-        // Use custom player for HTTPS streams
-        this.showLoader("Loading stream...");
-        await this.destroyPlayers();
-        
-        const isHls = url.includes(".m3u8");
-        
-        try {
-            if (isHls && Hls.isSupported()) {
-                return new Promise((resolve, reject) => {
-                    let resolved = false;
-                    let hlsConfig = { 
-                        enableWorker: true, 
-                        autoStartLoad: true,
-                        maxBufferLength: 30,
-                        maxMaxBufferLength: 60
-                    };
-                    
-                    if (headers) {
-                        hlsConfig.xhrSetup = (xhr, reqUrl) => {
-                            if (headers['User-Agent']) xhr.setRequestHeader('User-Agent', headers['User-Agent']);
-                            if (headers['Referer']) xhr.setRequestHeader('Referer', headers['Referer']);
-                            if (headers['Origin']) xhr.setRequestHeader('Origin', headers['Origin']);
-                        };
-                    }
-                    
-                    this.hlsPlayer = new Hls(hlsConfig);
-                    
-                    this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                        if (!resolved) {
-                            resolved = true;
-                            this.videoPlayer.play().catch(e => console.warn("Autoplay blocked"));
-                            this.hideLoader();
-                            resolve(true);
-                        }
-                    });
-                    
-                    this.hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                        if (data.fatal && !resolved) {
-                            reject(new Error(data.details));
-                        }
-                    });
-                    
-                    this.hlsPlayer.loadSource(url);
-                    this.hlsPlayer.attachMedia(this.videoPlayer);
-                    
-                    setTimeout(() => {
-                        if (!resolved) reject(new Error("Timeout loading HLS stream"));
-                    }, 20000);
-                });
-            } else if (this.videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
-                this.videoPlayer.src = url;
-                await this.videoPlayer.play();
-                this.hideLoader();
-                return true;
-            } else {
-                this.videoPlayer.src = url;
-                await this.videoPlayer.play();
-                this.hideLoader();
-                return true;
-            }
-        } catch (err) {
-            console.error("Custom player error:", err);
-            this.hideLoader();
             
+        } catch (error) {
+            console.error("JW Player failed:", error);
+            
+            // Try fallback proxy if available
+            if (this.tryNextProxy()) {
+                this.updateLoaderMessage(`Retrying with alternative proxy...`);
+                await new Promise(r => setTimeout(r, 1000));
+                return this.loadStream(url, drmConfig, headers, true);
+            }
+            
+            // Retry without changing proxy
             if (!isRetry && this.loadRetryCount < this.maxRetries) {
                 this.loadRetryCount++;
-                this.showLoader(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
+                this.resetProxy();
+                this.updateLoaderMessage(`Retrying (${this.loadRetryCount}/${this.maxRetries})...`);
                 await new Promise(r => setTimeout(r, 2000));
                 return this.loadStream(url, drmConfig, headers, true);
             }
             
-            this.showError(`Failed to play stream: ${err.message}`);
+            this.hideLoader();
+            this.showError(`Failed to load stream: ${error.message || "Unknown error"}`);
             return false;
         }
+        
+        this.hideLoader();
+        return false;
     }
     
     async playChannel(channel) {
         if (!channel || !channel.streamUrl) {
-            console.error("Invalid channel");
+            console.error("Invalid channel: missing stream URL");
             return false;
         }
         
         if (this.isLoading) {
+            console.log("Already loading a channel, waiting...");
             await new Promise(resolve => {
                 const check = setInterval(() => {
                     if (!this.isLoading) { clearInterval(check); resolve(); }
@@ -557,7 +474,7 @@ class PlayerComponent {
                 }
                 console.log("✅ Channel playing successfully:", channel.name);
             } else {
-                this.showError(`Failed to play ${channel.name}`);
+                this.showError(`Failed to play ${channel.name}. The stream may be offline.`);
             }
             
             return success;
