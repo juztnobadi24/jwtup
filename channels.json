@@ -1092,5 +1092,133 @@
     "drm": {
       "cc26110bb0d29d0e4452d42602846080": "4a2e5782e26a3e2d7dd0431205c14518"
     }
+  },
+
+
+
+  {
+    "name": "TV Maria",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/c/c1/TV_MARIA_logo.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.42:1234/stream/tvmaria/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "A2Z",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f8/A2Z_Channel_11_Logo.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/a2z/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Animax",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/animax.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/animax/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Buko",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/6/67/BuKo_Channel_%282021-.n.v.%29.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/buko/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Cartoon Network HD",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/cartoonnetwork.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.42:1234/stream/cartoonnetworkhd/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Cartoonito",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/cartoonito.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "https://cdn1.skygo.mn/live/disk1/Boomerang/HLS-FTA/Boomerang.m3u8"
+  },
+  {
+    "name": "Crime & Investigation",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/crimeandinvestigation.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/crimeinvestigation/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "DepEd TV",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/russel/images/f/f3/DepEd_TV_Logo_2020.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/depedtv/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Discovery Asia",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f0/Discovery-asia.png/220px-Discovery-asia.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "https://cdn09jtedge.indihometv.com/joss/194/discoveryasia/index.m3u8"
+  },
+  {
+    "name": "Discovery Channel SD",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/discoverychannel.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.42:1234/stream/discoverychannelsd/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Dreamworks HD",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/beindreamwork.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/dreamworkshd/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Dreamworks Tagalized",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/beindreamwork.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/dreamworkstagalized/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "DZBB",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/DZBB594.svg/1200px-DZBB594.svg.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "https://stream.gmanews.tv/ioslive/livestream/playlist.m3u8"
+  },
+  {
+    "name": "Fashion TV HD",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/fashion.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/fashiontvhd/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Lotus Macau",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/lotustv.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.42:1234/stream/lotusmacau/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
+  },
+  {
+    "name": "Love Nature",
+    "type": "TV",
+    "logo": "https://logo.iptveditor.com/lovenature.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "https://cdn09jtedge.indihometv.com/joss/194/lovenature/index.m3u8"
+  },
+  {
+    "name": "Media Pilipinas MPTV",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/russel/images/8/8d/MPTV_Logo_2023.png",
+    "category": "CIGNALPLAY",
+    "streamUrl": "http://45.89.149.150:1234/stream/mediapilipinasmptv/master.m3u8?u=admin&p=80a779923c1e6f6b94d84bb0000806f2fa70e870e44aae2ba36957e603b750f4"
   }
+
+
+
+
+
+  
 ]
