@@ -3,7 +3,7 @@
     "name": "Abante Radyo",
     "type": "TV",
     "logo": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
-    "category": "3rstv",
+    "category": "News",
     "streamUrl": "https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8"
   },
   {
@@ -244,7 +244,7 @@
     "name": "Bilyonaryo News Channel",
     "type": "TV",
     "logo": "https://www.lyngsat.com/logo/tv/bb/bilyonaryo-news-channel-ph.png",
-    "category": "3rstv",
+    "category": "News",
     "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
   },
   {
