@@ -6,6 +6,133 @@ let playerComponent;
 let fullscreenManager;
 let gestureControls;
 
+// ======================== PWA INSTALLER CLASS ========================
+class PWAInstaller {
+    constructor() {
+        this.deferredPrompt = null;
+        this.isInstalled = false;
+        this.isInstalling = false;
+        this.installButton = null;
+        this.setupListeners();
+    }
+
+    setupListeners() {
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            this.deferredPrompt = e;
+            console.log('PWA install prompt available');
+            
+            // Show install button in settings if available
+            this.updateInstallButton();
+        });
+
+        // Listen for app installed event
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            this.isInstalled = true;
+            this.deferredPrompt = null;
+            
+            // Hide install button
+            this.updateInstallButton();
+            
+            // Show success message
+            if (window.showToast) {
+                window.showToast('JUZT installed successfully! 🎉');
+            }
+        });
+    }
+
+    async promptInstall() {
+        if (!this.deferredPrompt || this.isInstalling) {
+            console.log('No install prompt available or installation in progress');
+            return false;
+        }
+
+        this.isInstalling = true;
+        
+        try {
+            // Show the install prompt
+            this.deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            const { outcome } = await this.deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+                this.isInstalled = true;
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            
+            // Clear the deferred prompt
+            this.deferredPrompt = null;
+            return outcome === 'accepted';
+        } catch (error) {
+            console.error('Error showing install prompt:', error);
+            return false;
+        } finally {
+            this.isInstalling = false;
+            this.updateInstallButton();
+        }
+    }
+
+    updateInstallButton() {
+        // Check if install button exists in DOM
+        const installBtn = document.getElementById('installAppBtn');
+        if (!installBtn) return;
+        
+        // Show button only if install is available and app is not installed
+        const canInstall = this.deferredPrompt !== null && !this.isInstalled;
+        
+        if (canInstall) {
+            installBtn.style.display = 'flex';
+        } else {
+            installBtn.style.display = 'none';
+        }
+    }
+
+    getInstallStatus() {
+        return {
+            canInstall: this.deferredPrompt !== null,
+            isInstalled: this.isInstalled
+        };
+    }
+}
+
+// ======================== SERVICE WORKER REGISTRATION ========================
+async function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        try {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log('Service Worker registered with scope:', registration.scope);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                console.log('Service Worker update found!');
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        console.log('New Service Worker available, refresh to update');
+                        if (window.showToast) {
+                            window.showToast('Update available! Refresh to get latest version.', 5000);
+                        }
+                    }
+                });
+            });
+            
+            return true;
+        } catch (error) {
+            console.error('Service Worker registration failed:', error);
+            return false;
+        }
+    }
+    console.log('Service Worker not supported');
+    return false;
+}
+
 // Load channels from JSON
 async function loadChannelsFromJson() {
     try {
@@ -227,6 +354,12 @@ async function initApp() {
     // Start in TV mode
     onModeChange("tv");
     
+    // Register Service Worker for PWA
+    await registerServiceWorker();
+    
+    // Initialize PWA Installer
+    window.pwaInstaller = new PWAInstaller();
+    
     // Initialize Firebase features (chat & notifications)
     initFirebaseFeatures();
     
@@ -247,6 +380,10 @@ async function initApp() {
     console.log(`📺 Loaded ${window.channelsData.length} channels`);
     console.log(`📺 TV Channels: ${window.channelsData.filter(ch => ch.type === "TV").length}`);
     console.log(`🎵 Radio Stations: ${window.channelsData.filter(ch => ch.type === "Radio").length}`);
+    
+    // PWA Install Status Log
+    const pwaStatus = window.pwaInstaller.getInstallStatus();
+    console.log(`📱 PWA Status: ${pwaStatus.isInstalled ? 'Installed' : 'Not Installed'}, Can Install: ${pwaStatus.canInstall}`);
 }
 
 // Handle page visibility changes (for notifications)
