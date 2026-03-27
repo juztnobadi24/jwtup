@@ -717,16 +717,6 @@
     }
   },
   {
-    "name": "Jeepney-tv",
-    "type": "TV",
-    "logo": "https://i.imgur.com/d7VflLp.jpeg",
-    "category": "Mixed",
-    "streamUrl": "https://abslive.akamaized.net/dash/live/2027618/jeepneytv/manifest.mpd",
-    "drm": {
-      "dc9fec234a5841bb8d06e92042c741ec": "225676f32612dc803cb4d0f950d063d0"
-    }
-  },
-  {
     "name": "Kapamilya Channel",
     "type": "TV",
     "logo": "https://i.imgur.com/WcYS3S3.png",
