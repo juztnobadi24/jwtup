@@ -1334,5 +1334,13 @@
     "category": "FM",
     "streamUrl": "https://stream.zeno.fm/klewk28qlqquv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/-Y6IS9jaU9PriXP_3E3JHF4c-256Ob8Pl-9D5q48VjE/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvMjI5Y2YzNmYtZDJlMi00ZGRlLWJhMTMtZDUwYWMyOGM2NjMwL2ltYWdlLz91PTE3Mzk4NjUxMjIwMDA.webp"
-  }
+  },
+   {
+  "name": "Furiosa: A Mad Max Saga",
+  "type": "TV",
+  "logo": "https://image.tmdb.org/t/p/w500/8LJNxJ6q3XST5tQn5sJvL7jC8xV.jpg",
+  "category": "Movies",
+  "streamUrl": "https://vidlink.pro/movie/786892",
+  "isEmbed": true
+}
 ]
