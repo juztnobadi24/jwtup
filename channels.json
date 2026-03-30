@@ -653,7 +653,7 @@
     "name": "Good Life",
     "type": "TV",
     "logo": "",
-    "category": "Religion and Education",
+    "category": "Religion",
     "streamUrl": "https://2-fss-2.streamhoster.com/pl_118/201450-1248872-1/chunklist.m3u8"
   },
   {
@@ -711,7 +711,7 @@
     "name": "HITS Movies",
     "type": "TV",
     "logo": "https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/391_144.png",
-    "category": "Cignal",
+    "category": "Movies",
     "streamUrl": "https://qp-pldt-pillipinas-live-bpk-02-prod.akamaized.net/bpk-tv/dr_hitsmovies/default/index.mpd"
   },
   {
@@ -725,7 +725,7 @@
     "name": "Hope Tv",
     "type": "TV",
     "logo": "",
-    "category": "Religion and Education",
+    "category": "Religion",
     "streamUrl": "https://cdn-kr-icn.becdn.net/hcorg_ROeXKL3HV6a/s/jsl_7A1swL7Fhlh/master.m3u8?fbclid=IwY2xjawNK_SdleHRuA2FlbQIxMABicmlkETFiOGd1TE93NE9IUWYzbFZyAR6IbBfur0gqX9lkQWTuQYAWFoJLRNTSfiB2UyYW29t9DzQKcGplPu1LSw7sew_aem_ANrGgg4MQcqZ5iF4mxHzUQ"
   },
   {
@@ -766,7 +766,7 @@
     "name": "Kapamilya Channel",
     "type": "TV",
     "logo": "https://i.imgur.com/WcYS3S3.png",
-    "category": "Cignal",
+    "category": "Entertainment",
     "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/2e0ea750-65ce-44b5-bf75-d71d839512c5/index.mpd",
     "drm": {
       "bd17afb5dc9648a39be79ee3634dd4b8": "b475084a1a58857e18480e30fbb0e544"
@@ -1071,7 +1071,7 @@
     "name": "Ninja Kidz TV",
     "type": "TV",
     "logo": "https://i.imgur.com/7EngqUi.png",
-    "category": "Kids and Animation",
+    "category": "Kids",
     "streamUrl": "https://playworksdigital-ninjakidztv-1-us.xumo.wurl.tv/playlist.m3u8"
   },
   {
@@ -1194,7 +1194,7 @@
     "name": "Teleradyo",
     "type": "TV",
     "logo": "https://i.imgur.com/e1i8ffA.png",
-    "category": "Cignal",
+    "category": "News",
     "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
     "drm": {
       "47c093e0c9fd4f80839a0337da3dd876": "50547394045b3d047dc7d92f57b5fb33"
@@ -1249,7 +1249,7 @@
     "name": "Warner TV",
     "type": "TV",
     "logo": "https://i.imgur.com/vGEL2Ne.png",
-    "category": "Cignal",
+    "category": "Movies",
     "streamUrl": "https://qp-pldt-live-grp-11-prod.akamaized.net/out/u/dr_warnertvhd.mpd",
     "drm": {
       "7f2a9c6d1e5b4c8a8d10a2b7e1c9f344": "ae3d135d5ddd9e8f3a7bbfbfae0e40d1"
@@ -1300,6 +1300,34 @@
     "category": "Movies",
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210631/tracks-v1a1/mono.ts.m3u8"
   },
+   {
+    "name": "90.7 Love Radio",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://azura.loveradio.com.ph/listen/love_radio_manila/radio.mp3",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/3/32/Love_Radio_2021_logo.png?Love_Radio1184620647"
+},
+  {
+    "name": "91.5 Win Radio Manila",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/nz4ydgnu6hhvv?an-uid=4762660213158558940",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/Ev1_yutQykKjO56VRPMAd2sEQlmrQC9EVrP9p-0rGLo/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0k3b1NRbEFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0k5dkRNNmdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc0NDgyMzQxMjAwMA.webp"
+},
+  {
+    "name": "93.1 MONSTER RX",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://in-icecast.eradioportal.com:8443/monsterrrx",
+    "logo": "https://rx931.com/images/logo-main.png"
+},
+  {
+    "name": "94.7 Energy FM Cebu",
+    "type": "Radio",
+    "category": "FM",
+    "streamUrl": "https://stream.zeno.fm/4oa5m3ffwutuv?dyn-uid=4953455941537461585&an-uid=6788999058307340397&dot-uid=0c6f2204002afaac5e3f41c4&amb-uid=8063733765431834548&dbm-uid=CAESEJoN6FTvjvF3Bvl0e_kDWTg&aw_0_req_lsid=b60d41b87dd35514d9cf949f42a559c6",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/XG-MObHM6PEtkzagDXocTb6RTP9-7aVgC3rLPtQpTp0/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYzFmNWUxNTgtM2VmOS00MTYzLWE1NWItOTZhMjU2MjIzYmE5L2ltYWdlLz91PTE3MjgzNDg4NTkwMDA.webp"
+},
   {
     "name": "95.5 Star FM Cebu",
     "type": "Radio",
@@ -1335,12 +1363,13 @@
     "streamUrl": "https://stream.zeno.fm/klewk28qlqquv?aw_0_req_lsid=376d510357a82bad906197fa7ba84f93",
     "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/-Y6IS9jaU9PriXP_3E3JHF4c-256Ob8Pl-9D5q48VjE/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvMjI5Y2YzNmYtZDJlMi00ZGRlLWJhMTMtZDUwYWMyOGM2NjMwL2ltYWdlLz91PTE3Mzk4NjUxMjIwMDA.webp"
   },
-   {
+{
   "name": "Furiosa: A Mad Max Saga",
-  "type": "TV",
-  "logo": "https://image.tmdb.org/t/p/w500/8LJNxJ6q3XST5tQn5sJvL7jC8xV.jpg",
-  "category": "Movies",
+  "type": "Movies",
+  "logo": "https://tse1.mm.bing.net/th/id/OIP.MYcbrmMaKv4UOyGFv4UF_wHaHa?pid=Api&P=0&h=220",
+  "category": "Action",
   "streamUrl": "https://vidlink.pro/movie/786892",
   "isEmbed": true
 }
+  
 ]
