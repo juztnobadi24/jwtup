@@ -17,28 +17,18 @@ class PWAInstaller {
     }
 
     setupListeners() {
-        // Listen for beforeinstallprompt event
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
-            // Stash the event so it can be triggered later
             this.deferredPrompt = e;
             console.log('PWA install prompt available');
-            
-            // Show install button in settings if available
             this.updateInstallButton();
         });
 
-        // Listen for app installed event
         window.addEventListener('appinstalled', () => {
             console.log('PWA was installed');
             this.isInstalled = true;
             this.deferredPrompt = null;
-            
-            // Hide install button
             this.updateInstallButton();
-            
-            // Show success message
             if (window.showToast) {
                 window.showToast('JUZT installed successfully! 🎉');
             }
@@ -54,10 +44,7 @@ class PWAInstaller {
         this.isInstalling = true;
         
         try {
-            // Show the install prompt
             this.deferredPrompt.prompt();
-            
-            // Wait for the user to respond to the prompt
             const { outcome } = await this.deferredPrompt.userChoice;
             
             if (outcome === 'accepted') {
@@ -67,7 +54,6 @@ class PWAInstaller {
                 console.log('User dismissed the install prompt');
             }
             
-            // Clear the deferred prompt
             this.deferredPrompt = null;
             return outcome === 'accepted';
         } catch (error) {
@@ -80,11 +66,9 @@ class PWAInstaller {
     }
 
     updateInstallButton() {
-        // Check if install button exists in DOM
         const installBtn = document.getElementById('installAppBtn');
         if (!installBtn) return;
         
-        // Show button only if install is available and app is not installed
         const canInstall = this.deferredPrompt !== null && !this.isInstalled;
         
         if (canInstall) {
@@ -109,7 +93,6 @@ async function registerServiceWorker() {
             const registration = await navigator.serviceWorker.register('/sw.js');
             console.log('Service Worker registered with scope:', registration.scope);
             
-            // Check for updates
             registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
                 console.log('Service Worker update found!');
@@ -142,38 +125,61 @@ async function loadChannelsFromJson() {
         window.channelsData = jsonData.map((ch, index) => ({ 
             ...ch, 
             id: index + 1,
-            type: ch.type || (ch.category === "Radio" ? "Radio" : "TV")
+            type: ch.type || (ch.category === "Radio" ? "Radio" : 
+                   ch.category === "Movies" ? "Movies" : "TV")
         }));
         
+        // Add sample channels if needed
+        const hasTV = window.channelsData.some(ch => ch.type === "TV");
         const hasRadio = window.channelsData.some(ch => ch.type === "Radio");
+        const hasMovies = window.channelsData.some(ch => ch.type === "Movies");
+        
+        if (!hasTV) {
+            const tvSamples = [
+                { name: "Sample TV 1", type: "TV", category: "Entertainment", streamUrl: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: window.channelsData.length + 1 },
+                { name: "Sample TV 2", type: "TV", category: "News", streamUrl: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: window.channelsData.length + 2 }
+            ];
+            window.channelsData = [...window.channelsData, ...tvSamples];
+        }
+        
         if (!hasRadio) {
             const radioSamples = [
                 { name: "Heart FM", type: "Radio", category: "Music", streamUrl: "https://icecast.radio.com/heartfm.mp3", id: window.channelsData.length + 1 },
-                { name: "News Radio", type: "Radio", category: "News", streamUrl: "https://icecast.radio.com/news.mp3", id: window.channelsData.length + 2 },
-                { name: "Classic Rock Radio", type: "Radio", category: "Music", streamUrl: "https://icecast.radio.com/rock.mp3", id: window.channelsData.length + 3 }
+                { name: "News Radio", type: "Radio", category: "News", streamUrl: "https://icecast.radio.com/news.mp3", id: window.channelsData.length + 2 }
             ];
             window.channelsData = [...window.channelsData, ...radioSamples];
+        }
+        
+        if (!hasMovies) {
+            const moviesSamples = [
+                { name: "Action Movies", type: "Movies", category: "Movies", streamUrl: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: window.channelsData.length + 1, isEmbed: false },
+                { name: "Classic Movies", type: "Movies", category: "Movies", streamUrl: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: window.channelsData.length + 2, isEmbed: false }
+            ];
+            window.channelsData = [...window.channelsData, ...moviesSamples];
         }
         
         return true;
     } catch (err) {
         console.warn("fetch failed, using fallback sample", err);
         const fallbackSample = [
-            { "name": "Kapamilya Channel", "type": "TV", "category": "Entertainment", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" },
-            { "name": "GMA 7", "type": "TV", "category": "Entertainment", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" },
-            { "name": "CNN International", "type": "TV", "category": "News", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" },
-            { "name": "Radio Sample 1", "type": "Radio", "category": "Music", "streamUrl": "https://icecast.radio.com/stream.mp3" },
-            { "name": "Radio Sample 2", "type": "Radio", "category": "News", "streamUrl": "https://icecast.radio.com/stream2.mp3" }
+            { "name": "Kapamilya Channel", "type": "TV", "category": "Entertainment", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: 1 },
+            { "name": "GMA 7", "type": "TV", "category": "Entertainment", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: 2 },
+            { "name": "CNN International", "type": "TV", "category": "News", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: 3 },
+            { "name": "Radio Sample 1", "type": "Radio", "category": "Music", "streamUrl": "https://icecast.radio.com/stream.mp3", id: 4 },
+            { "name": "Radio Sample 2", "type": "Radio", "category": "News", "streamUrl": "https://icecast.radio.com/stream2.mp3", id: 5 },
+            { "name": "Action Movies", "type": "Movies", "category": "Movies", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: 6 },
+            { "name": "Classic Movies", "type": "Movies", "category": "Movies", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", id: 7 }
         ];
-        window.channelsData = fallbackSample.map((ch, index) => ({ ...ch, id: index + 1 }));
+        window.channelsData = fallbackSample;
         showError("Loaded sample channels. Please ensure channels.json is in the same folder.");
         return true;
     }
 }
 
-// Mode change handler
+// Mode change handler - Supports TV, Radio, and Movies
 function onModeChange(mode) {
     window.currentMode = mode;
+    console.log(`Mode changed to: ${mode}`);
     
     // Update header UI
     if (headerComponent) headerComponent.updateModeUI(mode);
@@ -223,12 +229,11 @@ window.channelSwitchTimeout = null;
 async function onChannelSelect(channel) {
     if (!playerComponent) return;
     
-    console.log("Selected channel:", channel.name);
+    console.log("Selected channel:", channel.name, "Type:", channel.type);
     
-    // Prevent rapid switching - with force clear option
+    // Prevent rapid switching
     if (window.isSwitchingChannel) {
         console.log("Already switching channel, waiting...");
-        // Wait for the lock to clear instead of ignoring
         await new Promise(resolve => {
             const checkLock = setInterval(() => {
                 if (!window.isSwitchingChannel) {
@@ -236,7 +241,6 @@ async function onChannelSelect(channel) {
                     resolve();
                 }
             }, 100);
-            // Timeout after 3 seconds to prevent infinite wait
             setTimeout(() => {
                 clearInterval(checkLock);
                 console.log("Lock timeout, forcing clear...");
@@ -245,25 +249,19 @@ async function onChannelSelect(channel) {
                 resolve();
             }, 3000);
         });
-        // After waiting, continue to play the channel
         console.log("Lock cleared, playing channel...");
     }
     
     window.isSwitchingChannel = true;
     
-    // Clear any existing timeout
     if (window.channelSwitchTimeout) {
         clearTimeout(window.channelSwitchTimeout);
     }
     
     try {
-        // First, destroy current player before loading new one
         await playerComponent.destroyPlayers();
-        
-        // Small delay to ensure cleanup
         await new Promise(resolve => setTimeout(resolve, 100));
         
-        // Play the channel
         const success = await playerComponent.playChannel(channel);
         
         if (success) {
@@ -276,7 +274,6 @@ async function onChannelSelect(channel) {
         console.error("Error playing channel:", error);
         showError(`Error playing ${channel.name}: ${error.message}`);
     } finally {
-        // Reset switching flag after a delay
         window.channelSwitchTimeout = setTimeout(() => {
             window.isSwitchingChannel = false;
             window.channelSwitchTimeout = null;
@@ -286,9 +283,7 @@ async function onChannelSelect(channel) {
 
 // Initialize Firebase Chat features
 function initFirebaseFeatures() {
-    // Wait for DOM and Firebase to be ready
     setTimeout(() => {
-        // Check if Firebase is available and initialized
         if (typeof initFirebaseChat === 'function') {
             try {
                 initFirebaseChat();
@@ -311,7 +306,6 @@ async function initApp() {
     sidebarComponent = new SidebarComponent();
     playerComponent = new PlayerComponent();
     
-    // Store sidebar reference globally for player to use
     window.sidebarComponent = sidebarComponent;
     
     // Render components
@@ -346,7 +340,7 @@ async function initApp() {
     fullscreenManager = new FullscreenManager();
     fullscreenManager.init(videoContainer, videoPlayer, sidebar, header);
     
-    // Initialize Gesture Controls (brightness & volume)
+    // Initialize Gesture Controls
     if (videoPlayer && videoContainer) {
         gestureControls = new GestureControls(videoPlayer, videoContainer);
     }
@@ -360,10 +354,10 @@ async function initApp() {
     // Initialize PWA Installer
     window.pwaInstaller = new PWAInstaller();
     
-    // Initialize Firebase features (chat & notifications)
+    // Initialize Firebase features
     initFirebaseFeatures();
     
-    // Listen for orientation changes (log only)
+    // Listen for orientation changes
     window.addEventListener('orientationchange', () => {
         console.log("Orientation changed - manual fullscreen only");
     });
@@ -380,23 +374,21 @@ async function initApp() {
     console.log(`📺 Loaded ${window.channelsData.length} channels`);
     console.log(`📺 TV Channels: ${window.channelsData.filter(ch => ch.type === "TV").length}`);
     console.log(`🎵 Radio Stations: ${window.channelsData.filter(ch => ch.type === "Radio").length}`);
+    console.log(`🎬 Movies: ${window.channelsData.filter(ch => ch.type === "Movies").length}`);
     
-    // PWA Install Status Log
     const pwaStatus = window.pwaInstaller.getInstallStatus();
     console.log(`📱 PWA Status: ${pwaStatus.isInstalled ? 'Installed' : 'Not Installed'}, Can Install: ${pwaStatus.canInstall}`);
 }
 
-// Handle page visibility changes (for notifications)
+// Handle page visibility changes
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         console.log("App hidden - notifications will still work");
     } else {
         console.log("App visible - refreshing UI");
-        // Refresh channel list if needed
         if (sidebarComponent) {
             sidebarComponent.renderChannelList();
         }
-        // Clear any pending notifications
         if (window.firebaseChat) {
             const badge = document.querySelector('.message-badge');
             if (badge && document.hasFocus()) {
@@ -412,7 +404,6 @@ window.addEventListener('online', () => {
     showError("Connection restored! 🎉");
     console.log("App is online");
     
-    // Reload current channel if offline mode was active
     if (playerComponent && playerComponent.currentChannel) {
         setTimeout(() => {
             playerComponent.playChannel(playerComponent.currentChannel);
@@ -425,24 +416,20 @@ window.addEventListener('offline', () => {
     console.log("App is offline");
 });
 
-// Handle before unload to clean up
+// Handle before unload
 window.addEventListener('beforeunload', () => {
-    // Clean up Firebase listeners if needed
     if (window.firebaseChat && window.firebaseChat.destroy) {
         window.firebaseChat.destroy();
     }
     
-    // Clean up gesture controls
     if (gestureControls && gestureControls.destroy) {
         gestureControls.destroy();
     }
     
-    // Clean up fullscreen manager
     if (fullscreenManager && fullscreenManager.destroy) {
         fullscreenManager.destroy();
     }
     
-    // Clear switching lock
     if (window.channelSwitchTimeout) {
         clearTimeout(window.channelSwitchTimeout);
     }
