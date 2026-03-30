@@ -546,13 +546,21 @@ class SidebarComponent {
             const displayName = channel.name.length > 30 ? channel.name.slice(0, 28) + ".." : channel.name;
             const favIcon = isFavorite(channel.id) ? 'fas fa-star' : 'far fa-star';
             
-            // Get channel logo
+            // Check if it's a movie channel
+            const isMovie = channel.type === "Movies";
             const logoUrl = this.getChannelLogo(channel);
             
-            // If logo exists, use image, otherwise use first letter
-            const logoHtml = logoUrl 
-                ? `<img class="channel-logo-img" src="${logoUrl}" alt="${escapeHtml(channel.name)}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'channel-logo\'>${escapeHtml(channel.name.charAt(0).toUpperCase())}</div>'">`
-                : `<div class="channel-logo">${escapeHtml(channel.name.charAt(0).toUpperCase())}</div>`;
+            // Generate logo HTML
+            let logoHtml;
+            if (logoUrl) {
+                logoHtml = `<img class="channel-logo-img" src="${logoUrl}" alt="${escapeHtml(channel.name)}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'channel-logo\'><i class=\'fas fa-film\'></i></div>'">`;
+            } else if (isMovie) {
+                // Show movie icon for movie channels without logo
+                logoHtml = `<div class="channel-logo movie-logo"><i class="fas fa-film"></i></div>`;
+            } else {
+                // Show first letter for regular channels
+                logoHtml = `<div class="channel-logo">${escapeHtml(channel.name.charAt(0).toUpperCase())}</div>`;
+            }
             
             html += `
                 <div class="channel-item ${isActive ? 'active' : ''}" data-id="${channel.id}" data-channel-name="${escapeHtml(channel.name)}">
