@@ -327,6 +327,17 @@ class PlayerComponent {
         this.isLoading = false;
         this.hideLoader();
         
+        // Remove any embedded iframe
+        const existingIframe = this.videoContainer?.querySelector('.embed-iframe');
+        if (existingIframe) {
+            existingIframe.remove();
+        }
+        
+        // Restore custom fullscreen button when switching away from embedded content
+        if (this.fullscreenBtn) {
+            this.fullscreenBtn.style.display = 'flex';
+        }
+        
         if (this.isFullscreen) {
             this.exitFullscreen();
         }
@@ -336,6 +347,7 @@ class PlayerComponent {
                 this.videoPlayer.pause();
                 this.videoPlayer.removeAttribute("src");
                 this.videoPlayer.load();
+                this.videoPlayer.style.display = '';
             } catch (e) {
                 console.warn("Error clearing video:", e);
             }
@@ -423,6 +435,59 @@ class PlayerComponent {
                 loaderText.textContent = message;
             }
         }
+    }
+    
+    async loadEmbeddedContent(url, channel) {
+        // No loader for embedded content - just show immediately
+        console.log("Loading embedded content:", channel.name);
+        
+        // Remove any existing iframe
+        const existingIframe = this.videoContainer?.querySelector('.embed-iframe');
+        if (existingIframe) {
+            existingIframe.remove();
+        }
+        
+        // Hide video player
+        if (this.videoPlayer) {
+            this.videoPlayer.style.display = 'none';
+        }
+        
+        // Hide custom fullscreen button for embedded content
+        if (this.fullscreenBtn) {
+            this.fullscreenBtn.style.display = 'none';
+        }
+        
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.className = 'embed-iframe';
+        iframe.src = url;
+        iframe.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+            z-index: 20;
+            pointer-events: auto;
+        `;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture; microphone; camera';
+        iframe.allowFullscreen = true;
+        
+        iframe.onload = () => {
+            console.log("Embedded content loaded:", channel.name);
+        };
+        
+        iframe.onerror = () => {
+            console.error("Failed to load embedded content");
+            this.showError("Failed to load movie player");
+        };
+        
+        this.videoContainer.appendChild(iframe);
+        this.hideRadioLogo();
+        
+        return true;
     }
     
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
@@ -625,6 +690,42 @@ class PlayerComponent {
         if (!channel || !channel.streamUrl) {
             console.error("Invalid channel: missing stream URL");
             return false;
+        }
+        
+        // Check if this is an embedded content channel
+        if (channel.isEmbed === true) {
+            console.log("Loading embedded content:", channel.name);
+            this.currentChannel = channel;
+            
+            // Hide custom fullscreen button for embedded content
+            if (this.fullscreenBtn) {
+                this.fullscreenBtn.style.display = 'none';
+            }
+            
+            this.hideRadioLogo();
+            
+            if (this.videoPlayer) {
+                this.videoPlayer.style.display = 'none';
+            }
+            
+            await this.destroyPlayers();
+            
+            return await this.loadEmbeddedContent(channel.streamUrl, channel);
+        }
+        
+        // For regular streams, restore custom fullscreen button
+        if (this.fullscreenBtn) {
+            this.fullscreenBtn.style.display = 'flex';
+        }
+        
+        // For regular streams, remove iframe if present
+        const existingIframe = this.videoContainer?.querySelector('.embed-iframe');
+        if (existingIframe) {
+            existingIframe.remove();
+        }
+        
+        if (this.videoPlayer) {
+            this.videoPlayer.style.display = '';
         }
         
         if (this.isLoading) {
