@@ -278,8 +278,20 @@
 
 .channel-item.active {
     background: var(--bg-hover);
-    border-left-color: var(--accent);
+    border-left: 3px solid var(--accent);
     box-shadow: var(--shadow-sm);
+}
+
+/* Light theme - ensure border size is exactly the same */
+[data-theme="light"] .channel-item.active {
+    background: var(--bg-hover);
+    border-left: 3px solid var(--accent);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Ensure no other rules override the border */
+[data-theme="light"] .channel-item {
+    border-left: 3px solid transparent;
 }
 
 /* Channel Logo */
