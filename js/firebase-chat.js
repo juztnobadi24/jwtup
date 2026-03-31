@@ -18,10 +18,6 @@ class FirebaseChat {
         this.isInitialized = false;
         this.initPromise = null;
         
-        // Badge counters
-        this.unreadMessageCount = 0;
-        this.unreadAnnouncementCount = 0;
-        
         // User identification
         this.userId = null;
         this.userName = null;
@@ -138,22 +134,6 @@ class FirebaseChat {
         return this.readNotificationsSet.has(notificationId);
     }
     
-    getUnreadCount() {
-        return this.unreadMessageCount;
-    }
-    
-    getUnreadAnnouncementCount() {
-        return this.unreadAnnouncementCount;
-    }
-    
-    updateBadges() {
-        console.log("Updating badges - Messages:", this.unreadMessageCount, "Announcements:", this.unreadAnnouncementCount);
-        if (window.headerComponent) {
-            window.headerComponent.updateMessageBadge(this.unreadMessageCount);
-            window.headerComponent.updateAnnouncementBadge(this.unreadAnnouncementCount);
-        }
-    }
-    
     async setupCollections() {
         if (!this.db) return;
         
@@ -222,12 +202,8 @@ class FirebaseChat {
                         
                         newNotifications.forEach(notif => {
                             this.notifications.push(notif);
-                            if (!this.isNotificationRead(notif.id) && notif.timestampMs > this.lastMessageViewTime) {
-                                this.unreadAnnouncementCount++;
-                            }
                         });
                         this.notifications.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
-                        this.updateBadges();
                     }
                 } else {
                     console.log(`✅ User already has ${userNotifications.size} notifications`);
@@ -235,12 +211,8 @@ class FirebaseChat {
                         const notif = doc.data();
                         notif.id = doc.id;
                         this.notifications.push(notif);
-                        if (!this.isNotificationRead(notif.id) && notif.timestampMs > this.lastMessageViewTime) {
-                            this.unreadAnnouncementCount++;
-                        }
                     });
                     this.notifications.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
-                    this.updateBadges();
                 }
             } catch (error) {
                 console.error("Error loading existing notifications:", error);
@@ -263,13 +235,9 @@ class FirebaseChat {
                 notif.id = doc.id;
                 if (!this.notifications.some(n => n.id === notif.id)) {
                     this.notifications.push(notif);
-                    if (!this.isNotificationRead(notif.id) && notif.timestampMs > this.lastMessageViewTime) {
-                        this.unreadAnnouncementCount++;
-                    }
                 }
             });
             this.notifications.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
-            this.updateBadges();
             console.log(`✅ Loaded ${this.notifications.length} notifications without index`);
         } catch (error) {
             console.error("Error loading notifications without ordering:", error);
@@ -570,13 +538,9 @@ class FirebaseChat {
                 notif.id = doc.id;
                 if (!this.notifications.some(n => n.id === notif.id)) {
                     this.notifications.push(notif);
-                    if (!this.isNotificationRead(notif.id) && notif.timestampMs > this.lastMessageViewTime) {
-                        this.unreadAnnouncementCount++;
-                    }
                 }
             });
             this.notifications.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
-            this.updateBadges();
             console.log(`✅ Loaded ${this.notifications.length} announcements`);
         } catch (error) {
             console.error("Error loading announcements:", error);
@@ -634,13 +598,8 @@ class FirebaseChat {
         });
         window.dispatchEvent(event);
         
-        // Increment unread count if not from current user and not in focus
-        const messageTime = message.timestampMs || (message.timestamp?.toMillis?.() || Date.now());
-        if (message.userId !== this.userId && messageTime > this.lastMessageViewTime && !document.hasFocus()) {
-            this.unreadMessageCount++;
-            this.updateBadges();
-            this.playNotificationSound();
-        }
+        // Log new message without sound
+        console.log("New message from:", message.userName);
     }
     
     onNewNotification(notification) {
@@ -650,37 +609,10 @@ class FirebaseChat {
             this.notifications.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
             
             if (!this.isNotificationRead(notification.id)) {
-                // Increment unread announcement count
-                this.unreadAnnouncementCount++;
-                this.updateBadges();
-                
-                this.showBrowserNotification(notification);
+                console.log("New announcement:", notification.title);
                 const event = new CustomEvent('newNotification', { detail: notification });
                 window.dispatchEvent(event);
-                this.playNotificationSound();
             }
-        }
-    }
-    
-    playNotificationSound() {
-        try {
-            const audio = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
-            audio.volume = 0.3;
-            audio.play().catch(e => console.log("Audio play failed:", e));
-        } catch (e) {}
-    }
-    
-    showBrowserNotification(notification) {
-        if (!("Notification" in window)) return;
-        
-        if (Notification.permission === "granted") {
-            new Notification(notification.title, {
-                body: notification.message,
-                icon: "https://via.placeholder.com/64?text=JUZT",
-                tag: notification.id
-            });
-        } else if (Notification.permission !== "denied") {
-            Notification.requestPermission();
         }
     }
     
@@ -826,8 +758,6 @@ class FirebaseChat {
                 console.log("All announcements cleared");
                 
                 this.notifications = [];
-                this.unreadAnnouncementCount = 0;
-                this.updateBadges();
                 
                 return true;
             } catch (error) {
@@ -856,24 +786,11 @@ class FirebaseChat {
         if (index !== -1) {
             this.notifications[index].read = true;
         }
-        
-        // Decrement unread count
-        if (this.unreadAnnouncementCount > 0) {
-            this.unreadAnnouncementCount--;
-            this.updateBadges();
-        }
     }
     
     markAllMessagesAsRead() {
-        if (this.unreadMessageCount > 0) {
-            console.log("Marking all messages as read. Previous count:", this.unreadMessageCount);
-            this.unreadMessageCount = 0;
-            this.saveLastMessageViewTime();
-            this.updateBadges();
-            console.log("✅ All messages marked as read. Badge cleared.");
-        } else {
-            console.log("No unread messages to mark as read.");
-        }
+        this.saveLastMessageViewTime();
+        console.log("All messages marked as read.");
     }
     
     markAllNotificationsAsRead() {
@@ -902,13 +819,8 @@ class FirebaseChat {
             });
         }
         
-        if (markedCount > 0 || this.unreadAnnouncementCount > 0) {
+        if (markedCount > 0) {
             console.log(`Marked ${markedCount} announcements as read.`);
-            if (this.unreadAnnouncementCount > 0) {
-                this.unreadAnnouncementCount = 0;
-                this.updateBadges();
-                console.log("✅ Announcement badge cleared.");
-            }
         } else {
             console.log("No unread announcements to mark as read.");
         }
@@ -1184,11 +1096,6 @@ class ChatUI {
         this.modal.classList.add('show');
         this.isOpen = true;
         document.body.style.overflow = 'hidden';
-        
-        // Clear message badge immediately when opening chat
-        if (this.chatService) {
-            this.chatService.markAllMessagesAsRead();
-        }
         
         setTimeout(() => this.scrollToBottom(), 100);
     }
@@ -1540,11 +1447,6 @@ class NotificationsUI {
         this.isOpen = true;
         document.body.style.overflow = 'hidden';
         this.renderNotifications();
-        
-        // Clear announcement badge immediately when opening announcements
-        if (this.chatService) {
-            this.chatService.markAllNotificationsAsRead();
-        }
     }
     
     close() {
