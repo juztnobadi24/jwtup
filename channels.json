@@ -1396,6 +1396,14 @@
   "isEmbed": true
 },
   {
+  "name": "Facing the Giants (2006)",
+  "type": "Movies",
+  "logo": "https://www.themoviedb.org/t/p/w600_and_h900_face/1eY8O7fIGcmwetNqvwnnkQB0LYK.jpg",
+  "category": "Christian",
+  "streamUrl": "https://vidlink.pro/movie/18925",
+  "isEmbed": true
+},
+{
   "name": "Furiosa: A Mad Max Saga",
   "type": "Movies",
   "logo": "https://m.media-amazon.com/images/I/814hx5tswlL._AC_SY879_.jpg",
@@ -1412,6 +1420,14 @@
   "isEmbed": true
 },
 {
+  "name": "God's Not Dead (2014)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/yKUzBolWrwyByevBtDPfy3kIumv.jpg",
+  "category": "Christian",
+  "streamUrl": "https://vidlink.pro/movie/249660",
+  "isEmbed": true
+},
+{
   "name": "Hoppers (2026)",
   "type": "Movies",
   "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/xjtWQ2CL1mpmMNwuU5HeS4Iuwuu.jpg",
@@ -1419,6 +1435,30 @@
   "streamUrl": "https://vidlink.pro/movie/1327819",
   "isEmbed": true
 },
+{
+  "name": "Home Alone (1990)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg",
+  "category": "Comedy and Family",
+  "streamUrl": "https://vidlink.pro/movie/771",
+  "isEmbed": true
+},{
+  "name": "Home Alone 2: Lost in New York (1992)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/9CAkQ9nfrDaIAyncWndwg0tfC8g.jpg",
+  "category": "Comedy and Family",
+  "streamUrl": "https://vidlink.pro/movie/772",
+  "isEmbed": true
+},
+{
+  "name": "Home Alone 3 (1997)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/6uOadrCfle0n2LOOxHbgWEdnrm2.jpg",
+  "category": "Comedy and Family",
+  "streamUrl": "https://vidlink.pro/movie/9714",
+  "isEmbed": true
+},
+
 {
   "name": "How to Train Your Dragon (2025)",
   "type": "Movies",
@@ -1492,6 +1532,14 @@
   "isEmbed": true
 },
 {
+  "name": "The Parent Trap (1998)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/p4dGmi8u9W0HHyVXcgWPoiFfKTF.jpg",
+  "category": "Comedy and Family",
+  "streamUrl": "https://vidlink.pro/movie/9820",
+  "isEmbed": true
+},
+{
   "name": "The Prince of Egypt (1998)",
   "type": "Movies",
   "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/2xUjYwL6Ol7TLJPPKs7sYW5PWLX.jpg",
@@ -1505,6 +1553,14 @@
   "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg",
   "category": "Action",
   "streamUrl": "https://vidlink.pro/movie/1419406",
+  "isEmbed": true
+},
+{
+  "name": "The SpongeBob Movie: Search for SquarePants (2025)",
+  "type": "Movies",
+  "logo": "https://image.tmdb.org/t/p/w600_and_h900_face/xJnOMMsFASxNiFnG7v3TNIQ3ife.jpg",
+  "category": "Action",
+  "streamUrl": "https://vidlink.pro/movie/991494",
   "isEmbed": true
 },
 {
