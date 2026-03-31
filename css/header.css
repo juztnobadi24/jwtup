@@ -1,6 +1,6 @@
 /* Header Component Styles */
 .header {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
@@ -36,6 +36,37 @@
     align-items: center;
     gap: 12px;
     position: relative;
+}
+
+/* Icon with badge container */
+.icon-with-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Badge marker for dropdown icons */
+.badge-marker {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 18px;
+    height: 18px;
+    background: #ef4444;
+    color: white;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 /* Hamburger Menu */
@@ -90,33 +121,44 @@
     stroke: var(--accent);
 }
 
-/* Burger Badge */
-.burger-badge {
+/* Hamburger badge */
+.hamburger-badge {
     position: absolute;
-    top: -2px;
-    right: -2px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    color: white;
-    font-size: 0.6rem;
-    font-weight: bold;
+    top: -4px;
+    right: -4px;
     min-width: 18px;
     height: 18px;
-    border-radius: 10px;
-    display: none;
+    background: #ef4444;
+    color: white;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 4px;
+    padding: 0 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     z-index: 15;
-    box-shadow: var(--shadow-sm);
-    animation: badgePop 0.3s ease;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1;
 }
 
-.burger-badge.show {
-    display: flex;
+/* Badge animation */
+@keyframes badgePulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.burger-badge.pulse {
-    animation: badgePulse 0.5s ease;
+.badge-marker.update,
+.hamburger-badge.update {
+    animation: badgePulse 0.3s ease;
 }
 
 /* Dropdown Menu */
@@ -184,31 +226,6 @@
     color: var(--accent);
 }
 
-/* Dropdown Badges */
-.dropdown-badge {
-    position: relative;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    color: white;
-    font-size: 0.6rem;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 10px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    margin-left: 8px;
-}
-
-.dropdown-badge.show {
-    display: flex;
-}
-
-.dropdown-badge.pulse {
-    animation: badgePulse 0.5s ease;
-}
-
 /* Animations */
 @keyframes fadeInDown {
     from {
@@ -221,19 +238,62 @@
     }
 }
 
-@keyframes badgePulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+/* Mobile Responsive Badges */
+@media (max-width: 768px) {
+    .badge-marker {
+        min-width: 16px;
+        height: 16px;
+        font-size: 9px;
+        top: -5px;
+        right: -6px;
+    }
+    
+    .hamburger-badge {
+        min-width: 16px;
+        height: 16px;
+        font-size: 9px;
+        top: -3px;
+        right: -3px;
+    }
 }
 
-@keyframes badgePop {
-    0% { transform: scale(0); opacity: 0; }
-    80% { transform: scale(1.2); }
-    100% { transform: scale(1); opacity: 1; }
+@media (max-width: 640px) {
+    .badge-marker {
+        min-width: 14px;
+        height: 14px;
+        font-size: 8px;
+        top: -4px;
+        right: -5px;
+    }
+    
+    .hamburger-badge {
+        min-width: 14px;
+        height: 14px;
+        font-size: 8px;
+        top: -2px;
+        right: -2px;
+    }
 }
 
-/* Responsive */
+@media (max-width: 480px) {
+    .badge-marker {
+        min-width: 12px;
+        height: 12px;
+        font-size: 7px;
+        top: -3px;
+        right: -4px;
+    }
+    
+    .hamburger-badge {
+        min-width: 12px;
+        height: 12px;
+        font-size: 7px;
+        top: -2px;
+        right: -2px;
+    }
+}
+
+/* Responsive Header */
 @media (max-width: 768px) {
     .header {
         padding: 0.7rem 1rem;
@@ -272,14 +332,6 @@
     
     .dropdown-label {
         font-size: 0.8rem;
-    }
-    
-    .burger-badge {
-        min-width: 16px;
-        height: 16px;
-        font-size: 0.55rem;
-        top: -3px;
-        right: -3px;
     }
 }
 
