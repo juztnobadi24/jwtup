@@ -389,21 +389,6 @@ document.addEventListener('visibilitychange', () => {
         if (sidebarComponent) {
             sidebarComponent.renderChannelList();
         }
-        
-        // Clear badges when page gets focus and modals are open
-        if (window.firebaseChat) {
-            const chatModal = document.getElementById('chatModal');
-            const notifModal = document.getElementById('notificationsModal');
-            
-            if (chatModal && chatModal.classList.contains('show')) {
-                // Chat is open, clear message badge
-                window.firebaseChat.markAllMessagesAsRead();
-            }
-            if (notifModal && notifModal.classList.contains('show')) {
-                // Notifications are open, clear notification badge
-                window.firebaseChat.markAllNotificationsAsRead();
-            }
-        }
     }
 });
 
