@@ -651,6 +651,80 @@
     transform: none;
 }
 
+/* Light theme specific adjustments */
+[data-theme="light"] .chat-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] .chat-user-info {
+    background: rgba(0, 0, 0, 0.02);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] .chat-input {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .chat-input:focus {
+    border-color: var(--accent);
+    background: var(--bg-card);
+}
+
+[data-theme="light"] .message-avatar {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .chat-message.admin .message-avatar {
+    background: var(--accent);
+    color: white;
+}
+
+[data-theme="light"] .message-bubble {
+    background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .chat-message.own .message-bubble {
+    background: var(--accent);
+    color: white;
+}
+
+[data-theme="light"] .announcement-item {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] .announcement-item:hover {
+    background: var(--bg-hover);
+}
+
+[data-theme="light"] .announcement-icon {
+    background: rgba(249, 115, 22, 0.1);
+}
+
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-textarea {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .form-input:focus,
+[data-theme="light"] .form-textarea:focus {
+    border-color: var(--accent);
+    background: var(--bg-card);
+}
+
+[data-theme="light"] .btn-cancel {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .btn-cancel:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
