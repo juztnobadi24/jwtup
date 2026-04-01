@@ -1,4 +1,5 @@
 // ======================== PLAYER COMPONENT ========================
+// Now with separated slideshow functionality
 
 class PlayerComponent {
     constructor() {
@@ -20,18 +21,8 @@ class PlayerComponent {
         this.maxRetries = 2;
         this.loaderOverlay = null;
         
-        // Slideshow properties
-        this.slideshowContainer = null;
-        this.slideshowImages = [];
-        this.currentSlideIndex = 0;
-        this.originalSlideIndex = 0;
-        this.slideshowInterval = null;
-        this.slideshowEnabled = true;
-        this.slideshowDuration = 5000;
-        this.isLooping = true;
-        this.isSlideshowActive = false;
-        this.totalSlides = 0;
-        this.slideshowInitialized = false;
+        // Slideshow component
+        this.slideshow = null;
         
         // Fullscreen button elements
         this.fullscreenBtn = null;
@@ -46,14 +37,6 @@ class PlayerComponent {
         this.container.innerHTML = `
             <div class="video-container" id="videoContainer">
                 <video id="videoPlayer" playsinline disablePictureInPicture autoplay style="display: none;"></video>
-                <div class="slideshow-container" id="slideshowContainer" style="display: flex;">
-                    <div class="slideshow-wrapper" id="slideshowWrapper">
-                        <div class="slideshow-slides" id="slideshowSlides"></div>
-                        <button class="slideshow-prev" id="slideshowPrevBtn"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slideshow-next" id="slideshowNextBtn"><i class="fas fa-chevron-right"></i></button>
-                        <div class="slideshow-dots" id="slideshowDots"></div>
-                    </div>
-                </div>
                 <div class="radio-logo-container" id="radioLogoContainer" style="display: none;"></div>
                 <button class="fullscreen-toggle-btn" id="fullscreenToggleBtn">
                     <i class="fas fa-expand"></i>
@@ -66,9 +49,6 @@ class PlayerComponent {
         this.errorMessageDiv = document.getElementById("errorMessage");
         this.videoContainer = document.getElementById("videoContainer");
         this.radioLogoContainer = document.getElementById("radioLogoContainer");
-        this.slideshowContainer = document.getElementById("slideshowContainer");
-        this.slideshowSlides = document.getElementById("slideshowSlides");
-        this.slideshowDots = document.getElementById("slideshowDots");
         
         // Remove controls from video player
         if (this.videoPlayer) {
@@ -77,8 +57,9 @@ class PlayerComponent {
             this.videoPlayer.autoplay = true;
         }
         
-        // Setup slideshow
-        this.setupSlideshow();
+        // Initialize slideshow component
+        this.slideshow = new SlideshowComponent();
+        this.slideshow.init(this.videoContainer);
         
         // Setup fullscreen button
         this.setupFullscreenButton();
@@ -88,344 +69,6 @@ class PlayerComponent {
             videoPlayer: this.videoPlayer,
             errorMessage: this.errorMessageDiv
         };
-    }
-    
-    setupSlideshow() {
-        if (!this.slideshowContainer) return;
-        
-        // Define slideshow images with channel links
-        this.slideshowImages = [
-            {
-                image: "sdtv.jpg",
-                title: "Sdtv Network",
-                channelName: "Sdtv Network"
-            },
-            {
-                image: "https://image.tmdb.org/t/p/original/vDQb06miaaW7C2GUPeMNDmyqWec.jpg",
-                title: "The Prince of Egypt",
-                channelName: "The Prince of Egypt (1998)",
-                isMoviesCollection: true
-            },
-            {
-                image: "https://images.angelstudios.com/image/upload/q_auto,w_930,h_523,f_webp,c_scale/v1762380415/studio-app/catalog/2e4f0d11-1b19-4e6b-b8c1-a961c938fe2f",
-                title: "David",
-                channelName: "David (2025)",
-                isMoviesCollection: true
-            },
-            {
-                image: "https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/11/best-kids-family-movies-hbo-max.jpg",
-                title: "HBO Family",
-                channelName: "HBO Family"
-            },
-            {
-                image: "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2019/01/Aniplus_Asia_Winter_2019_Simulcast.png",
-                title: "AniPlus",
-                channelName: "AniPlus 2"
-            },
-            {
-                image: "https://library.sportingnews.com/styles/twitter_card_120x120/s3/2023-10/GFX-1143%20NBA%20TV%20schedule%20FTR.jpg?itok=B1xtr2Cl",
-                title: "NBA TV",
-                channelName: "NBA TV"
-            },
-            {
-                image: "https://cdn-images-3.listennotes.com/podcasts/barangay-love-stories-barangay-ls-971-RKoFbLgJBxS-vTnha6cPKXt.1400x1400.jpg",
-                title: "97.1 Barangay LS",
-                channelName: "97.1 Barangay LS",
-                isRadioCollection: true
-            },
-            {
-                image: "https://m.media-amazon.com/images/I/81DNOVqynxL.jpg",
-                title: "Kartoon Channel HD",
-                channelName: "Kartoon Channel HD"
-            }
-        ];
-        
-        this.totalSlides = this.slideshowImages.length;
-        
-        this.renderSlideshow();
-        
-        // Don't auto-start slideshow - wait for it to be shown
-        this.isSlideshowActive = true;
-        this.slideshowEnabled = true;
-        
-        // Attach navigation buttons
-        const prevBtn = document.getElementById("slideshowPrevBtn");
-        const nextBtn = document.getElementById("slideshowNextBtn");
-        
-        if (prevBtn) {
-            prevBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                this.prevSlide();
-                this.resetSlideshowTimer();
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                this.nextSlide();
-                this.resetSlideshowTimer();
-            });
-        }
-        
-        // Pause slideshow on hover
-        this.slideshowContainer.addEventListener("mouseenter", () => {
-            this.pauseSlideshow();
-        });
-        
-        this.slideshowContainer.addEventListener("mouseleave", () => {
-            this.resumeSlideshow();
-        });
-        
-        // Touch events for mobile
-        this.slideshowContainer.addEventListener("touchstart", (e) => {
-            this.touchStartX = e.touches[0].clientX;
-        });
-        
-        this.slideshowContainer.addEventListener("touchend", (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const diff = this.touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    this.nextSlide();
-                } else {
-                    this.prevSlide();
-                }
-                this.resetSlideshowTimer();
-            }
-        });
-        
-        this.slideshowInitialized = true;
-        
-        // Start slideshow only if no channel is playing
-        if (!this.currentChannel) {
-            this.startSlideshow();
-        } else {
-            // Slideshow is visible but paused because a channel is playing
-            this.pauseSlideshow();
-        }
-    }
-    
-    renderSlideshow() {
-        if (!this.slideshowSlides || !this.slideshowDots) return;
-        
-        // Create array for infinite loop by duplicating slides
-        const infiniteImages = [...this.slideshowImages, ...this.slideshowImages, ...this.slideshowImages];
-        
-        // Render slides
-        let slidesHtml = '';
-        let dotsHtml = '';
-        
-        // Only create dots for original images
-        this.slideshowImages.forEach((slide, index) => {
-            dotsHtml += `
-                <div class="slideshow-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
-            `;
-        });
-        
-        // Create slides with duplicate images for infinite loop
-        infiniteImages.forEach((slide, idx) => {
-            const originalIndex = idx % this.slideshowImages.length;
-            slidesHtml += `
-                <div class="slideshow-slide" data-index="${originalIndex}" data-channel="${slide.channelName || ''}" data-is-radio="${slide.isRadioCollection || false}" data-is-movies="${slide.isMoviesCollection || false}">
-                    <img src="${slide.image}" alt="${slide.title}" class="slideshow-image">
-                    <div class="slideshow-caption">
-                        <h3>${slide.title}</h3>
-                        <p>Click to play</p>
-                    </div>
-                </div>
-            `;
-        });
-        
-        this.slideshowSlides.innerHTML = slidesHtml;
-        this.slideshowDots.innerHTML = dotsHtml;
-        
-        // Set initial position to the middle set
-        const startPosition = -(this.slideshowImages.length * 100);
-        this.slideshowSlides.style.transform = `translateX(${startPosition}%)`;
-        this.currentSlideIndex = this.slideshowImages.length;
-        this.originalSlideIndex = 0;
-        
-        // Add click handlers to slides
-        document.querySelectorAll('.slideshow-slide').forEach(slide => {
-            slide.addEventListener('click', async () => {
-                const originalIndex = parseInt(slide.dataset.index);
-                const channelName = slide.dataset.channel;
-                const isRadio = slide.dataset.isRadio === 'true';
-                const isMovies = slide.dataset.isMovies === 'true';
-                
-                if (channelName) {
-                    const channel = window.channelsData.find(ch => ch.name === channelName);
-                    if (channel && typeof window.onChannelSelect === 'function') {
-                        await window.onChannelSelect(channel);
-                    }
-                } else if (isRadio) {
-                    if (typeof window.onModeChange === 'function') {
-                        window.onModeChange('radio');
-                    }
-                } else if (isMovies) {
-                    if (typeof window.onModeChange === 'function') {
-                        window.onModeChange('movies');
-                    }
-                }
-            });
-        });
-        
-        // Add click handlers to dots
-        document.querySelectorAll('.slideshow-dot').forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const index = parseInt(dot.dataset.index);
-                this.goToSlide(index);
-                this.resetSlideshowTimer();
-            });
-        });
-        
-        // Update active dot
-        this.updateActiveDot(0);
-    }
-    
-    updateActiveSlide(index) {
-        const slideWidth = this.slideshowContainer ? this.slideshowContainer.clientWidth : 0;
-        const position = -(index * 100);
-        
-        this.slideshowSlides.style.transition = 'transform 0.5s ease-in-out';
-        this.slideshowSlides.style.transform = `translateX(${position}%)`;
-        
-        setTimeout(() => {
-            if (index >= this.slideshowImages.length * 2) {
-                this.slideshowSlides.style.transition = 'none';
-                const resetPosition = -(this.slideshowImages.length * 100);
-                this.slideshowSlides.style.transform = `translateX(${resetPosition}%)`;
-                this.currentSlideIndex = this.slideshowImages.length;
-                this.slideshowSlides.offsetHeight;
-                this.slideshowSlides.style.transition = 'transform 0.5s ease-in-out';
-            } else if (index < this.slideshowImages.length) {
-                this.slideshowSlides.style.transition = 'none';
-                const resetPosition = -(this.slideshowImages.length * 2 * 100);
-                this.slideshowSlides.style.transform = `translateX(${resetPosition}%)`;
-                this.currentSlideIndex = this.slideshowImages.length * 2;
-                this.slideshowSlides.offsetHeight;
-                this.slideshowSlides.style.transition = 'transform 0.5s ease-in-out';
-            } else {
-                this.currentSlideIndex = index;
-            }
-        }, 500);
-        
-        const originalIndex = index % this.slideshowImages.length;
-        this.originalSlideIndex = originalIndex;
-        this.updateActiveDot(originalIndex);
-    }
-    
-    updateActiveDot(originalIndex) {
-        document.querySelectorAll('.slideshow-dot').forEach((dot, i) => {
-            if (i === originalIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-    }
-    
-    startSlideshow() {
-        if (this.slideshowInterval) {
-            clearInterval(this.slideshowInterval);
-        }
-        
-        if (!this.isSlideshowActive || !this.slideshowEnabled) return;
-        
-        this.slideshowInterval = setInterval(() => {
-            if (this.isSlideshowActive && this.slideshowEnabled && this.slideshowContainer && this.slideshowContainer.style.display !== 'none') {
-                this.nextSlide();
-            }
-        }, this.slideshowDuration);
-    }
-    
-    stopSlideshow() {
-        if (this.slideshowInterval) {
-            clearInterval(this.slideshowInterval);
-            this.slideshowInterval = null;
-        }
-        this.isSlideshowActive = false;
-        this.slideshowEnabled = false;
-    }
-    
-    pauseSlideshow() {
-        if (this.slideshowInterval) {
-            clearInterval(this.slideshowInterval);
-            this.slideshowInterval = null;
-        }
-    }
-    
-    resumeSlideshow() {
-        if (!this.isSlideshowActive || !this.slideshowEnabled) return;
-        
-        if (this.slideshowInterval) {
-            clearInterval(this.slideshowInterval);
-        }
-        
-        this.slideshowInterval = setInterval(() => {
-            if (this.isSlideshowActive && this.slideshowEnabled && this.slideshowContainer && this.slideshowContainer.style.display !== 'none') {
-                this.nextSlide();
-            }
-        }, this.slideshowDuration);
-    }
-    
-    resetSlideshowTimer() {
-        if (!this.isSlideshowActive || !this.slideshowEnabled) return;
-        
-        if (this.slideshowInterval) {
-            clearInterval(this.slideshowInterval);
-        }
-        
-        this.slideshowInterval = setInterval(() => {
-            if (this.isSlideshowActive && this.slideshowEnabled && this.slideshowContainer && this.slideshowContainer.style.display !== 'none') {
-                this.nextSlide();
-            }
-        }, this.slideshowDuration);
-    }
-    
-    nextSlide() {
-        let nextIndex = this.currentSlideIndex + 1;
-        this.updateActiveSlide(nextIndex);
-    }
-    
-    prevSlide() {
-        let prevIndex = this.currentSlideIndex - 1;
-        this.updateActiveSlide(prevIndex);
-    }
-    
-    goToSlide(originalIndex) {
-        const targetIndex = this.currentSlideIndex + (originalIndex - (this.currentSlideIndex % this.slideshowImages.length));
-        this.updateActiveSlide(targetIndex);
-    }
-    
-    showSlideshow() {
-        if (this.slideshowContainer) {
-            this.slideshowContainer.style.display = 'flex';
-            this.isSlideshowActive = true;
-            this.slideshowEnabled = true;
-            
-            // Don't reset position - keep current slide
-            this.startSlideshow();
-        }
-        if (this.videoPlayer) {
-            this.videoPlayer.style.display = 'none';
-        }
-        if (this.radioLogoContainer) {
-            this.radioLogoContainer.style.display = 'none';
-        }
-    }
-    
-    hideSlideshow() {
-        if (this.slideshowContainer) {
-            this.slideshowContainer.style.display = 'none';
-            this.isSlideshowActive = false;
-            this.pauseSlideshow();
-        }
-        if (this.videoPlayer) {
-            this.videoPlayer.style.display = '';
-        }
     }
     
     showRadioLogo(channel) {
@@ -442,7 +85,9 @@ class PlayerComponent {
         }
         
         // Hide slideshow when radio is playing
-        this.hideSlideshow();
+        if (this.slideshow) {
+            this.slideshow.hideSlideshow();
+        }
         
         let logoUrl = null;
         
@@ -670,8 +315,8 @@ class PlayerComponent {
         this.hideLoader();
         
         // Show slideshow when no channel is playing
-        if (!this.currentChannel) {
-            this.showSlideshow();
+        if (!this.currentChannel && this.slideshow) {
+            this.slideshow.showSlideshow();
         }
         
         const existingIframe = this.videoContainer?.querySelector('.embed-iframe');
@@ -785,7 +430,10 @@ class PlayerComponent {
     async loadEmbeddedContent(url, channel) {
         console.log("Loading embedded content:", channel.name);
         
-        this.hideSlideshow();
+        // Hide slideshow when playing content
+        if (this.slideshow) {
+            this.slideshow.hideSlideshow();
+        }
         
         const existingIframe = this.videoContainer?.querySelector('.embed-iframe');
         if (existingIframe) {
@@ -835,7 +483,10 @@ class PlayerComponent {
     async loadStream(url, drmConfig = null, headers = null, isRetry = false) {
         console.log("Loading stream:", url);
         
-        this.hideSlideshow();
+        // Hide slideshow when loading stream
+        if (this.slideshow) {
+            this.slideshow.hideSlideshow();
+        }
         
         await this.destroyPlayers();
         
@@ -1036,7 +687,10 @@ class PlayerComponent {
             return false;
         }
         
-        this.hideSlideshow();
+        // Hide slideshow when playing channel
+        if (this.slideshow) {
+            this.slideshow.hideSlideshow();
+        }
         
         if (channel.isEmbed === true) {
             console.log("Loading embedded content:", channel.name);
@@ -1122,7 +776,10 @@ class PlayerComponent {
             } else {
                 console.error("Failed to play channel:", channel.name);
                 this.hideRadioLogo();
-                this.showSlideshow();
+                // Show slideshow on failure
+                if (this.slideshow) {
+                    this.slideshow.showSlideshow();
+                }
             }
             
             return success;
@@ -1130,7 +787,10 @@ class PlayerComponent {
             console.error("Error in playChannel:", error);
             this.hideRadioLogo();
             this.hideLoader();
-            this.showSlideshow();
+            // Show slideshow on error
+            if (this.slideshow) {
+                this.slideshow.showSlideshow();
+            }
             return false;
         } finally {
             setTimeout(() => {
@@ -1141,8 +801,7 @@ class PlayerComponent {
     
     updateModeUI(mode) {
         // Mode toggling should NOT restart slideshow
-        // Slideshow state is managed separately by showSlideshow() and hideSlideshow()
-        // This method only updates visual styling, not the slideshow
+        // Slideshow state is managed separately
         
         if (this.videoContainer) {
             if (mode === "tv") {
@@ -1151,37 +810,39 @@ class PlayerComponent {
                 this.videoContainer.style.background = "linear-gradient(135deg, #1a1f2e 0%, #0f1222 100%)";
             }
         }
-        
-        // Slideshow continues playing if it was active
-        // No restart here
     }
     
-    setSlideshowImages(images) {
-        if (images && Array.isArray(images)) {
-            const wasPlaying = this.isSlideshowActive && this.slideshowEnabled;
-            this.slideshowImages = images;
-            this.totalSlides = images.length;
-            this.renderSlideshow();
-            if (wasPlaying) {
-                this.startSlideshow();
-            }
+    // Slideshow control methods for external access
+    showSlideshow() {
+        if (this.slideshow) {
+            this.slideshow.showSlideshow();
         }
     }
     
-    addSlide(image, title, channelName) {
-        const wasPlaying = this.isSlideshowActive && this.slideshowEnabled;
-        this.slideshowImages.push({
-            image: image,
-            title: title,
-            channelName: channelName
-        });
-        this.totalSlides = this.slideshowImages.length;
-        this.renderSlideshow();
-        if (wasPlaying) {
-            this.startSlideshow();
+    hideSlideshow() {
+        if (this.slideshow) {
+            this.slideshow.hideSlideshow();
+        }
+    }
+    
+    setSlideshowImages(images) {
+        if (this.slideshow) {
+            this.slideshow.setImages(images);
+        }
+    }
+    
+    addSlideshowSlide(image, title, channelName, channelType = 'TV') {
+        if (this.slideshow) {
+            this.slideshow.addSlide(image, title, channelName, channelType);
+        }
+    }
+    
+    destroy() {
+        if (this.slideshow) {
+            this.slideshow.destroy();
+            this.slideshow = null;
         }
     }
 }
 
 window.PlayerComponent = PlayerComponent;
-
