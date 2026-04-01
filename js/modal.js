@@ -318,3 +318,4 @@ class SettingsModal {
 }
 
 window.SettingsModal = SettingsModal;
+
