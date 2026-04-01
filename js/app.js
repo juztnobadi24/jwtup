@@ -1,5 +1,5 @@
 // ======================== VERSION MANAGEMENT ========================
-const APP_VERSION = '3.0.0'; // Update this version number with each release
+const APP_VERSION = '2.0.0'; // Update this version number with each release
 const STORAGE_VERSION_KEY = 'juzt_app_version';
 
 // Check and handle version updates
@@ -127,18 +127,27 @@ class PWAInstaller {
     }
 }
 
+// Add/modify these sections in app.js
+
 // ======================== SERVICE WORKER REGISTRATION ========================
 async function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         try {
-            // Add version parameter to force update
+            // Check if sw.js exists before registering
+            const swResponse = await fetch('/sw.js', { method: 'HEAD' });
+            if (!swResponse.ok) {
+                console.log('Service worker not found, skipping registration');
+                return false;
+            }
+            
             const registration = await navigator.serviceWorker.register(`/sw.js?v=${APP_VERSION}`);
             console.log('Service Worker registered with scope:', registration.scope);
             
             // Check for updates periodically
             setInterval(() => {
-                registration.update();
-                console.log('Checking for service worker updates...');
+                if (navigator.onLine) {
+                    registration.update().catch(e => console.log('Update check:', e));
+                }
             }, 3600000); // Check every hour
             
             registration.addEventListener('updatefound', () => {
@@ -156,7 +165,7 @@ async function registerServiceWorker() {
             
             return true;
         } catch (error) {
-            console.error('Service Worker registration failed:', error);
+            console.warn('Service Worker registration failed:', error);
             return false;
         }
     }
@@ -164,6 +173,43 @@ async function registerServiceWorker() {
     return false;
 }
 
+// ======================== INITIALIZE FIREBASE FEATURES ========================
+async function initFirebaseFeatures() {
+    // Wait for Firebase to be ready with timeout
+    let retries = 0;
+    const maxRetries = 20;
+    let ready = false;
+    
+    while (!window.firestore && retries < maxRetries && !ready) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        retries++;
+        if (window.firestore) ready = true;
+    }
+    
+    if (window.firestore) {
+        try {
+            firebaseChatInstance = initFirebaseChat();
+            console.log("Firebase Chat initialized successfully");
+            
+            // Request notification permission after user interaction
+            const requestNotificationPermission = () => {
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission();
+                }
+            };
+            
+            // Request after first user interaction
+            document.addEventListener('click', requestNotificationPermission, { once: true });
+            document.addEventListener('touchstart', requestNotificationPermission, { once: true });
+        } catch (error) {
+            console.warn("Failed to initialize Firebase Chat:", error);
+            firebaseChatInstance = null;
+        }
+    } else {
+        console.warn("Firestore not available after waiting, chat features disabled");
+        firebaseChatInstance = null;
+    }
+}
 // Load channels from JSON
 async function loadChannelsFromJson() {
     try {
@@ -611,4 +657,3 @@ window.getFirebaseChat = function() {
 console.log(`%cJUZT IPTV v${APP_VERSION}`, 'color: #f97316; font-size: 14px; font-weight: bold;');
 console.log('%c🔥 Firebase Chat & Announcements ready', 'color: #9aa2bf; font-size: 12px;');
 console.log('%c💬 Admin password: JUZT_ADMIN_2026', 'color: #9aa2bf; font-size: 12px;');
-
