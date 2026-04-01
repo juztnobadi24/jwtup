@@ -1,3 +1,43 @@
+// ======================== VERSION MANAGEMENT ========================
+const APP_VERSION = '3.0.0'; // Update this version number with each release
+const STORAGE_VERSION_KEY = 'juzt_app_version';
+
+// Check and handle version updates
+function checkAppVersion() {
+    const storedVersion = localStorage.getItem(STORAGE_VERSION_KEY);
+    
+    if (!storedVersion || storedVersion !== APP_VERSION) {
+        console.log(`Version update: ${storedVersion || 'none'} -> ${APP_VERSION}`);
+        
+        // Store new version
+        localStorage.setItem(STORAGE_VERSION_KEY, APP_VERSION);
+        
+        // Optional: Show update message
+        if (storedVersion) {
+            setTimeout(() => {
+                if (window.showToast) {
+                    window.showToast(`App updated to version ${APP_VERSION}! 🎉`);
+                }
+            }, 1000);
+        }
+        
+        // Clear any old caches if needed
+        if ('caches' in window) {
+            caches.keys().then(cacheNames => {
+                cacheNames.forEach(cacheName => {
+                    if (cacheName.includes('juzt') || cacheName.includes('iptv')) {
+                        console.log('Clearing old cache:', cacheName);
+                        caches.delete(cacheName);
+                    }
+                });
+            });
+        }
+        
+        return true;
+    }
+    return false;
+}
+
 // ======================== MAIN APPLICATION ========================
 
 let headerComponent;
@@ -5,6 +45,7 @@ let sidebarComponent;
 let playerComponent;
 let fullscreenManager;
 let gestureControls;
+let firebaseChatInstance;
 
 // ======================== PWA INSTALLER CLASS ========================
 class PWAInstaller {
@@ -90,8 +131,15 @@ class PWAInstaller {
 async function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         try {
-            const registration = await navigator.serviceWorker.register('/sw.js');
+            // Add version parameter to force update
+            const registration = await navigator.serviceWorker.register(`/sw.js?v=${APP_VERSION}`);
             console.log('Service Worker registered with scope:', registration.scope);
+            
+            // Check for updates periodically
+            setInterval(() => {
+                registration.update();
+                console.log('Checking for service worker updates...');
+            }, 3600000); // Check every hour
             
             registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
@@ -119,7 +167,8 @@ async function registerServiceWorker() {
 // Load channels from JSON
 async function loadChannelsFromJson() {
     try {
-        const response = await fetch('./channels.json');
+        // Add version parameter to bypass cache
+        const response = await fetch(`./channels.json?v=${APP_VERSION}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const jsonData = await response.json();
         window.channelsData = jsonData.map((ch, index) => ({ 
@@ -281,24 +330,89 @@ async function onChannelSelect(channel) {
     }
 }
 
-// Initialize Firebase Chat features
-function initFirebaseFeatures() {
-    setTimeout(() => {
-        if (typeof initFirebaseChat === 'function') {
-            try {
-                initFirebaseChat();
-                console.log("Firebase Chat initialized successfully");
-            } catch (error) {
-                console.error("Failed to initialize Firebase Chat:", error);
+// Initialize Firebase Chat
+async function initFirebaseFeatures() {
+    // Wait for Firebase to be ready
+    if (typeof initFirebaseChat === 'function') {
+        try {
+            // Wait for Firebase SDK to be ready
+            let retries = 0;
+            const maxRetries = 10;
+            
+            while (!window.firestore && retries < maxRetries) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                retries++;
             }
-        } else {
-            console.warn("Firebase Chat not available. Running without chat features.");
+            
+            if (window.firestore) {
+                firebaseChatInstance = initFirebaseChat();
+                console.log("Firebase Chat initialized successfully");
+                
+                // Request notification permission after user interaction
+                const requestNotificationPermission = () => {
+                    if ('Notification' in window && Notification.permission === 'default') {
+                        Notification.requestPermission();
+                    }
+                };
+                
+                // Request after first user interaction
+                document.addEventListener('click', requestNotificationPermission, { once: true });
+                document.addEventListener('touchstart', requestNotificationPermission, { once: true });
+            } else {
+                console.warn("Firestore not available, chat features disabled");
+            }
+        } catch (error) {
+            console.error("Failed to initialize Firebase Chat:", error);
         }
-    }, 1000);
+    } else {
+        console.log("Firebase chat module not loaded yet, will retry...");
+        // Retry after a delay
+        setTimeout(() => initFirebaseFeatures(), 2000);
+    }
+}
+
+// Check for network connectivity and handle offline mode
+function setupNetworkHandlers() {
+    window.addEventListener('online', () => {
+        console.log('App is online');
+        if (window.showToast) {
+            window.showToast('Connection restored! 🎉');
+        }
+        
+        // Reload channels when coming back online
+        if (window.channelsData) {
+            loadChannelsFromJson().then(() => {
+                if (sidebarComponent) {
+                    sidebarComponent.updateCategoriesDropdown();
+                    sidebarComponent.renderChannelList();
+                }
+            });
+        }
+        
+        // Retry playing current channel if needed
+        if (playerComponent && playerComponent.currentChannel) {
+            setTimeout(() => {
+                playerComponent.playChannel(playerComponent.currentChannel);
+            }, 1000);
+        }
+    });
+    
+    window.addEventListener('offline', () => {
+        console.log('App is offline');
+        if (window.showToast) {
+            window.showToast('You are offline. Check your internet connection.', 5000);
+        }
+    });
 }
 
 // Initialize application
 async function initApp() {
+    // Check version first
+    const versionUpdated = checkAppVersion();
+    if (versionUpdated) {
+        console.log(`App version ${APP_VERSION} initialized`);
+    }
+    
     console.log("Initializing JUZT IPTV App...");
     
     // Create components
@@ -354,8 +468,11 @@ async function initApp() {
     // Initialize PWA Installer
     window.pwaInstaller = new PWAInstaller();
     
-    // Initialize Firebase features
-    initFirebaseFeatures();
+    // Initialize Firebase features (chat and announcements)
+    await initFirebaseFeatures();
+    
+    // Setup network handlers
+    setupNetworkHandlers();
     
     // Listen for orientation changes
     window.addEventListener('orientationchange', () => {
@@ -375,46 +492,50 @@ async function initApp() {
     console.log(`📺 TV Channels: ${window.channelsData.filter(ch => ch.type === "TV").length}`);
     console.log(`🎵 Radio Stations: ${window.channelsData.filter(ch => ch.type === "Radio").length}`);
     console.log(`🎬 Movies: ${window.channelsData.filter(ch => ch.type === "Movies").length}`);
+    console.log(`📱 App Version: ${APP_VERSION}`);
     
     const pwaStatus = window.pwaInstaller.getInstallStatus();
     console.log(`📱 PWA Status: ${pwaStatus.isInstalled ? 'Installed' : 'Not Installed'}, Can Install: ${pwaStatus.canInstall}`);
+    
+    // Hide splash screen if still visible
+    const splashElement = document.getElementById('splashScreen');
+    if (splashElement && splashElement.style.opacity !== '0') {
+        setTimeout(() => {
+            if (splashElement) {
+                splashElement.classList.add('fade-out');
+                setTimeout(() => {
+                    if (splashElement && splashElement.parentNode) {
+                        splashElement.remove();
+                    }
+                    document.body.classList.remove('splash-active');
+                }, 500);
+            }
+        }, 500);
+    }
 }
 
 // Handle page visibility changes
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        console.log("App hidden - notifications will still work");
+        console.log("App hidden - background state");
     } else {
         console.log("App visible - refreshing UI");
         if (sidebarComponent) {
             sidebarComponent.renderChannelList();
         }
+        // Check for updates when returning to page
+        if (window.navigator && window.navigator.serviceWorker) {
+            window.navigator.serviceWorker.getRegistration().then(registration => {
+                if (registration) {
+                    registration.update();
+                }
+            });
+        }
     }
-});
-
-// Handle online/offline status
-window.addEventListener('online', () => {
-    showError("Connection restored! 🎉");
-    console.log("App is online");
-    
-    if (playerComponent && playerComponent.currentChannel) {
-        setTimeout(() => {
-            playerComponent.playChannel(playerComponent.currentChannel);
-        }, 1000);
-    }
-});
-
-window.addEventListener('offline', () => {
-    showError("You're offline. Check your internet connection.");
-    console.log("App is offline");
 });
 
 // Handle before unload
 window.addEventListener('beforeunload', () => {
-    if (window.firebaseChat && window.firebaseChat.destroy) {
-        window.firebaseChat.destroy();
-    }
-    
     if (gestureControls && gestureControls.destroy) {
         gestureControls.destroy();
     }
@@ -426,6 +547,11 @@ window.addEventListener('beforeunload', () => {
     if (window.channelSwitchTimeout) {
         clearTimeout(window.channelSwitchTimeout);
     }
+    
+    // Clean up Firebase if needed
+    if (firebaseChatInstance && firebaseChatInstance.destroy) {
+        firebaseChatInstance.destroy();
+    }
 });
 
 // Start application
@@ -433,3 +559,56 @@ initApp().catch(err => {
     console.error("Init error:", err);
     showError("Failed to initialize app: " + err.message);
 });
+
+// ======================== CACHE CLEAR UTILITY ========================
+window.clearAppCache = async function() {
+    if ('caches' in window) {
+        try {
+            const cacheNames = await caches.keys();
+            await Promise.all(
+                cacheNames.map(cacheName => {
+                    console.log('Deleting cache:', cacheName);
+                    return caches.delete(cacheName);
+                })
+            );
+            console.log('All caches cleared');
+            
+            // Clear version storage to force full reload
+            localStorage.removeItem(STORAGE_VERSION_KEY);
+            
+            if (window.showToast) {
+                window.showToast('Cache cleared! Refreshing...');
+            }
+            
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 1000);
+            
+            return true;
+        } catch (error) {
+            console.error('Error clearing cache:', error);
+            if (window.showToast) {
+                window.showToast('Failed to clear cache');
+            }
+            return false;
+        }
+    }
+    return false;
+};
+
+// ======================== FORCE REFRESH UTILITY ========================
+window.forceRefresh = function() {
+    localStorage.removeItem(STORAGE_VERSION_KEY);
+    window.location.reload(true);
+};
+
+// ======================== EXPORT FIREBASE CHAT INSTANCE ========================
+window.getFirebaseChat = function() {
+    return firebaseChatInstance;
+};
+
+// Log version on console
+console.log(`%cJUZT IPTV v${APP_VERSION}`, 'color: #f97316; font-size: 14px; font-weight: bold;');
+console.log('%c🔥 Firebase Chat & Announcements ready', 'color: #9aa2bf; font-size: 12px;');
+console.log('%c💬 Admin password: JUZT_ADMIN_2026', 'color: #9aa2bf; font-size: 12px;');
+
