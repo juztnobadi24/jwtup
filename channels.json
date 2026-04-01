@@ -1,5 +1,105 @@
 [
   {
+  "name": "GMA 7",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723126306082.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1093/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
+  "drm": {
+    "31363231383438333031323033393138": "38694e34324d543478316b7455753437"
+  }
+},
+{
+  "name": "GTV",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723126332757.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1143/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
+  "drm": {
+    "31363232353335323435353337353331": "35416a68643065697575493337566135"
+  }
+},
+{
+  "name": "ALL TV",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723136602348.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1179/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0MzkzMzI3LCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.mn8mBhboj_k17Ms5o_HU9qcW88tJR9SLmnYTn11vcBo",
+  "drm": {
+    "31363233323238353336303333363036": "367662564c69425947353948374f4553"
+  }
+},
+{
+  "name": "TV5",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723134335547.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1088/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363231383438303333323033373730": "375a684a31357647653565574b363076"
+  }
+},
+{
+  "name": "KAPAMILYA HD",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723129013828.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1286/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363331363737343637333533323837": "71347339457958556439543650426e74"
+  }
+},
+{
+  "name": "A2Z",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723125016586.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1087/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363231383437383231323033353237": "583130656f6d3267777a6d7235487858"
+  }
+},
+{
+  "name": "RPTV",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723133873954.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1094/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363231383439313133323034313530": "78645370476a496d5756385231474332"
+  }
+},
+{
+  "name": "CELESTIAL MOVIES PINOY",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723219252241.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1077/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0NTk5MDMzLCJleHAiOjE3NzU2ODkzMjcsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NTY4OTMyNywiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly8zcnNyYWRpbzIucGFnZXMuZGV2IiwiaHR0cHM6Ly9pd2F0Y2h0di5pdHVuZXJ3b3JsZHdpZGUud29ya2Vycy5kZXYiLCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20iXX0.p_kNp5mZ9ZBV6NxdKRL6M0VZrS_49pgfXLkMoBLyQz0",
+  "drm": {
+    "31363230383933303132303032303231": "6b5058557254355845335a6e63737030"
+  }
+},
+{
+  "name": "VIVA CINEMA",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723134481136.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1079/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363230393830353534303039353831": "506e354374394938446439344b6f3741"
+  }
+},
+{
+  "name": "CINEMO",
+  "type": "TV",
+  "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723219276891.png",
+  "category": "Mixed",
+  "streamUrl": "https://converse.nathcreqtives.com/1254/manifest.mpd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJtb29uIiwiaWF0IjoxNzc0ODQ5NzEwLCJleHAiOjE3NzYxNDU3MTAsImFjY291bnRFeHBpcmVkIjpmYWxzZSwiYWNjb3VudEV4cGlyZXNBdCI6MTc3NjE0NTcxMCwiYWxsb3dlZE9yaWdpbnMiOlsiaHR0cHM6Ly8zcnNuZXcucGFnZXMuZGV2IiwiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tIiwiaHR0cHM6Ly9pd2F0Y2h0dnJhZGlvLndlZWJseS5jb20iXX0.puMdVXS0jSfvCewi2hS6k63MySZeEOUQx0jfXfgryas",
+  "drm": {
+    "31363331363735393833333531383134": "4a4f75336e6e30764575624855326937"
+  }
+},
+  {
     "name": "Abante Radyo",
     "type": "TV",
     "logo": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
