@@ -1,4 +1,123 @@
 [
+   {
+    "name": "SINE PLUS",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://sineplus_hd.vonnhost.workers.dev/mono.ts.m3u8"
+  },
+  {
+    "name": "SDTV Network",
+    "type": "TV",
+    "logo": "",
+    "category": "Religious",
+    "streamUrl": "https://aps13.playlist.live-video.net/v1/playlist/Cv4FWto-oChPJXfNYaD4JzNf4QKEBMiCKVzoC72MxjDtvi5059T1LmJvWaYTnYmO_cX8bta5ABHQU5niskTUtGo02kX7e7KsQIO9fM_6ZmCQN91aZeXvXzkHMTiV6FLRgELuptKCFOo6IuKdXSAWARoIXLwv6NvHAgGSQk6UAtEIo-YUt3REH1gz3U2iM-jS1OrnuGQ76HY7RBl3iomBgxl_5ARSvr56zFiK8TGw1wWEdxeDo_B0mbDp-YzgaWtwhkGMSGU7Bm0ec33TinvV_Bwa5iwU0rJi6jrg1jR0WhH7YXs8ceAKJZJUCtIXmCkb4WTg6k47QIbsHEUFblHpki9BKlLi5PrmnB3_ax8ILU6kz8UrMPpBObbWKO0dfgc47YCWysZqESvwiKNkxxdJf1o_bfJLlk4DrejCBV-GWvF-Y-uSqKlTFbhIzIFSpuphaeK9DUppuqvAZJR-WrRN2yVzHenjONIYjRqWprbEqZYLPkLj8eWNSs9oC0U9vXHwJ3ZV3mfEtkYd4i5aXse7JLmNuSQPjTvAIzQoLYuvthQ8s5Wv4t-nfCL8saF8wSHba00MqU0zvrqDltBlwqR1tI5R61H7RJ1hASeDfloFP1aGhF3eLYIJzL3yJMB1wfYChe4GFh5C0BC7WfVMpi5ELt-9j06tPbnT8VtQyUyYXalcxZpO53S_dQ3O-3Xa8Jp156NPqwwablGIxe5rHdLdhnWFdlPzIYg0boaronvWVizm1M0E0AAd0reb6IARIBIkfxkSbtCHskXEoh7fmyD5atnDiNXV91dGk7jhLX-1rt6qIHaL05M045BAAuzMK6VHzpNmzAQySv5JkxbhnmMXS-fYl72EkVhu_W-EXON8If1a1pclpmUJwIBSZ7mEZCb0ApOhtYHXTUPiVkke4L3MQIPm7BeVjLYhP-U6XwrPoKpPWWPmrTTLjqi6bwZGykyFvhYyudQqxmSpR0Zhj2O1tKwOQkjS9KbPUgZUqqx6pI42VNRCaXoGutwnBAX605CK_xoMzU4yxeeErk1flBvJIAEqCXVzLXdlc3QtMjDlDg.m3u8"
+  },
+  {
+    "name": "&FLIX",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "http://116229191157.rsc.cdn77.cc/58eab44776cce29a3ffa1c245c855ada33117dbedb62c443c2bf7b9cfc5f902ecf/mono.m3u8?token=fe8443d3da7f70e5a43c8b02a918e050"
+  },
+  {
+    "name": "SONY PIX",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "http://116229191157.rsc.cdn77.cc/58eab44776cce29a3ffa1c244e8450e50f315dbedb62c443c2bf7b9cfc5f902ecf/mono.m3u8?token=19424863f39e0aa40ead7a1846d52ae5"
+  },
+  {
+    "name": "&XPLOR HD",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "http://116229191157.rsc.cdn77.cc/58eab44776cce29a3ffa1c245c855ac42f146a84d717a129b1bd7390f95f9129c882b8a659/mono.m3u8?token=1235431b00d722d9ea81455d6056d060"
+  },
+  {
+    "name": "COLORS CINEPLEX",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "http://103.213.31.109:90/ColorsCineplexSuperHit/playlist.m3u8"
+  },
+  {
+    "name": "ASIAN TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Asian",
+    "streamUrl": "https://playztv-apps.pages.dev/asian-tv/index.m3u8"
+  },
+  {
+    "name": "Aliwko",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://inoxi-tv.hf.space/arayko.m3u8"
+  },
+  {
+    "name": "COLORS BANGLA",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "http://103.180.212.191:3500/live/756.m3u8"
+  },
+  {
+    "name": "T Series",
+    "type": "TV",
+    "logo": "",
+    "category": "Music",
+    "streamUrl": "http://45.148.145.57/TSER247/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Walk Talk",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "http://163.61.227.29:8000/play/a03b/index.m3u8"
+  },
+  {
+    "name": "Nitro TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-NITRO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3265a84f-1238-4439-bb40-cc0b716719f7/manifest.m3u8"
+  },
+  {
+    "name": "Mama Benz TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-MAMA-BENZ-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/65f99e10-8d57-460a-a6be-731d90cfe7b1/manifest.m3u8"
+  },
+  {
+    "name": "Colour Blind",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-COLOUR-BLIND-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7e58f6fd-62bc-49bc-9ec6-2766ed521743/manifest.m3u8"
+  },
+  {
+    "name": "Edgy TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-EDGY-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/49f275ac-7129-4492-93c0-854b3c3138f0/manifest.m3u8"
+  },
+  {
+    "name": "Chrono TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-CHRONO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d375ebca-9cd0-475e-ad4d-0cde6634de9c/manifest.m3u8"
+  },
+  {
+    "name": "HYPE TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://hypetv_hd.vonnhost.workers.dev/mono.ts.m3u8"
+  },
   {
     "name": "Abante Radyo",
     "type": "TV",
