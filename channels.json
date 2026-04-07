@@ -1,4 +1,501 @@
 [
+    {
+    "name": "A2Z",
+    "type": "TV",
+    "logo": "https://i.imgur.com/ftwsljN.png",
+    "category": "Entertainment",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_a2z/default/index.mpd"
+  },
+  {
+    "name": "Kapamilya Channel",
+    "type": "TV",
+    "logo": "https://i.imgur.com/fRETRXx.png",
+    "category": "Converge",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/03766e7f-d597-4469-a48d-edc1db598855/index.mpd"
+  },
+  {
+    "name": "TV5",
+    "type": "TV",
+    "logo": "https://i.imgur.com/U5L67WD.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/tv5_hd/default1/index.mpd"
+  },
+  {
+    "name": "One PH",
+    "type": "TV",
+    "logo": "https://i.imgur.com/U9QwJSE.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/oneph_sd/default/index.mpd"
+  },
+  {
+    "name": "SDTV Network PH",
+    "type": "TV",
+    "logo": "https://imgur.com/w8GErfi",
+    "category": "Philippines",
+    "streamUrl": "https://sdtvnetworkph.sanmateocable.workers.dev/playlist.m3u8"
+  },
+  {
+    "name": "GMA 7",
+    "type": "TV",
+    "logo": "https://encrypted-tbn0.gstatic.com/...IHnRah1LJmuHRA3X73pfRgq2mNvpD8015eifvg-4&s=10",
+    "category": "PINOY",
+    "streamUrl": "https://gsattv.akamaized.net/live/media0/gma7/Fairplay/gma7.m3u8"
+  },
+  {
+    "name": "Dreamworks Tagalog",
+    "type": "TV",
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Cignal",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_dreamworktag/default/index.mpd"
+  },
+  {
+    "name": "DreamWorks HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Cignal",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_dreamworks_hd1/default/index.mpd"
+  },
+  {
+    "name": "PBO",
+    "type": "TV",
+    "logo": "https://i.imgur.com/r3PUF9p.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/pbo_sd/default/index.mpd"
+  },
+  {
+    "name": "Viva Cinema",
+    "type": "TV",
+    "logo": "https://i.imgur.com/hBb2Fh9.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/viva_sd/default/index.mpd"
+  },
+  {
+    "name": "TMC (Tagalized Movie Channel)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/550RYpJ.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_tagalogmovie/default/index.mpd"
+  },
+  {
+    "name": "Celestial Movies Pinoy",
+    "type": "TV",
+    "logo": "https://i.imgur.com/e5IZsv3.png",
+    "category": "Movies",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/celmovie_pinoy_sd/default/index.mpd"
+  },
+  {
+    "name": "Tap Movies",
+    "type": "TV",
+    "logo": "https://i.imgur.com/lVNcCFq.png",
+    "category": "Movies",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_tapmovies_hd1/default/index.mpd"
+  },
+  {
+    "name": "HBO",
+    "type": "TV",
+    "logo": "https://i.imgur.com/6uN52OW.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_hbohd/default/index.mpd"
+  },
+  {
+    "name": "HBO Hits",
+    "type": "TV",
+    "logo": "https://i.imgur.com/tGSLZWz.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_hbohits/default1/index.mpd"
+  },
+  {
+    "name": "HBO Family",
+    "type": "TV",
+    "logo": "https://i.imgur.com/SefoKAw.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_hbofam/default/index.mpd"
+  },
+  {
+    "name": "HBO Signature",
+    "type": "TV",
+    "logo": "https://i.imgur.com/3L9QRDw.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_hbosign/default/index.mpd"
+  },
+  {
+    "name": "HITS Movies",
+    "type": "TV",
+    "logo": "https://i.imgur.com/xjyDTMr.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_hitsmovies/default/index.mpd"
+  },
+  {
+    "name": "Tap Action Flix",
+    "type": "TV",
+    "logo": "https://i.imgur.com/pjeTzag.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_tapactionflix_hd1/default/index.mpd"
+  },
+  {
+    "name": "Cinemax",
+    "type": "TV",
+    "logo": "https://i.imgur.com/9LNJXe3.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_cinemax/default/index.mpd"
+  },
+  {
+    "name": "Miramax Movies Channel",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/mystery75/logo/main/Miramax.png",
+    "category": "ᴴᴰ",
+    "streamUrl": "https://raw.githubusercontent.com/mystery75/m3u8/main/MIRAMAX.m3u8"
+  },
+  {
+    "name": "MovieSphere By Lionsgate",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/mystery75/logo/main/MovieSphereByLionsgate.png",
+    "category": "ᴴᴰ",
+    "streamUrl": "https://raw.githubusercontent.com/mystery75/m3u8/main/MSPHERE.m3u8"
+  },
+  {
+    "name": "OuterSphere by Lionsgate",
+    "type": "TV",
+    "logo": "https://raw.githubusercontent.com/mystery75/logo/main/OuterSphereByLionsgate.png",
+    "category": "ᴴᴰ",
+    "streamUrl": "https://raw.githubusercontent.com/mystery75/m3u8/main/OUTERSPHERE.m3u8"
+  },
+  {
+    "name": "3RsTV",
+    "type": "TV",
+    "logo": "https://i.ibb.co/nN0VGRY8/Chat-GPT-Image-Oct-4-2025-05-05-12-AM-1.png",
+    "category": "3rstv",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210631/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "3rsSinePinoy",
+    "type": "TV",
+    "logo": "https://i.ibb.co/2Y83j9Dx/3rs-Sine-Pinoy.png",
+    "category": "3rstv",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210267/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "3rsMovieBoxPh",
+    "type": "TV",
+    "logo": "https://i.ibb.co/35FTnG31/moviebox.png",
+    "category": "3rstv",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210731/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "315 NEW KMOVIES",
+    "type": "TV",
+    "logo": "https://cdn88-accio.its-newid.net/channel/newid_219/lg_channels/img/channel_logo/default/channel_logo.png",
+    "category": "LGTV AU",
+    "streamUrl": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=newkmovies&channel_id=newid_219&mpf=adfc204d-39af1962-103f07e6&apikey=48230e6b-1cea0097-15975f93-39af1962&auth=b62c2c8b-8316a771-295eba28-f4663ddd&ads.live=[CONTENT_LIVE]&ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.us_privacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+  },
+  {
+    "name": "GMA Pinoy TV",
+    "type": "TV",
+    "logo": "https://i.imgur.com/ZOqMJfw.png",
+    "category": "World TV",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-abscbn-gma-x7-dash-abscbnono/7c693236-e0c1-40a3-8bd0-bb25e43f5bfc/index.mpd"
+  },
+  {
+    "name": "Bilyonaryo Channel",
+    "type": "TV",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxvjeBIthYiEaZHeVeYpDicIlOTdv3G6lzoal3VM2xVzWu_J7XxM657oz&s=10",
+    "category": "Cignal",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/bilyonaryoch/default1/index.mpd"
+  },
+  {
+    "name": "Buko",
+    "type": "TV",
+    "logo": "https://i.imgur.com/BxQvEil.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_buko_sd/default/index.mpd"
+  },
+  {
+    "name": "Sari-Sari",
+    "type": "TV",
+    "logo": "https://i.imgur.com/25CGN9g.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_sarisari/default/index.mpd"
+  },
+  {
+    "name": "Lotus Macau",
+    "type": "TV",
+    "logo": "https://i.imgur.com/5G72qjx.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/lotusmacau_prd/default/index.mpd"
+  },
+  {
+    "name": "tvUP",
+    "type": "TV",
+    "logo": "https://i.imgur.com/OHLO5Hz.png",
+    "category": "Entertainment",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/tvup_prd/default/index.mpd"
+  },
+  {
+    "name": "Thrill",
+    "type": "TV",
+    "logo": "https://i.imgur.com/kgqsalZ.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_thrill_sd/default/index.mpd"
+  },
+  {
+    "name": "AXN",
+    "type": "TV",
+    "logo": "https://i.imgur.com/OuaLV7f.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_axn_sd/default/index.mpd"
+  },
+  {
+    "name": "Hits HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/CxqHKUO.png",
+    "category": "Entertainment",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/hits_hd1/default/index.mpd"
+  },
+  {
+    "name": "Hits Now",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Ck0ad9b.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_hitsnow/default/index.mpd"
+  },
+  {
+    "name": "IBC 13",
+    "type": "TV",
+    "logo": "https://i.imgur.com/CTHhr3Q.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/ibc13_sd_new/default1/index.mpd"
+  },
+  {
+    "name": "TrueTV",
+    "type": "TV",
+    "logo": "https://i.imgur.com/i0xetYa.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/truefm_tv/default/index.mpd"
+  },
+  {
+    "name": "TVN Premium",
+    "type": "TV",
+    "logo": "https://i.imgur.com/qEPJE1t.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_tvnpre/default/index.mpd"
+  },
+  {
+    "name": "KBS World",
+    "type": "TV",
+    "logo": "https://i.imgur.com/aFDRmtm.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/kbsworld/default/index.mpd"
+  },
+  {
+    "name": "Tap TV",
+    "type": "TV",
+    "logo": "https://i.imgur.com/vDvLPda.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_taptv_sd/default/index.mpd"
+  },
+  {
+    "name": "Global Trekker",
+    "type": "TV",
+    "logo": "https://accion.com.ph/wp-content/uploads/2023/02/GT-Thumbnail-New.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_tapedge/default/index.mpd"
+  },
+  {
+    "name": "NAT GEO SHARK",
+    "type": "TV",
+    "logo": "https://imgur.com/a/KHWQGDr",
+    "category": "Entertainment",
+    "streamUrl": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/c9sshqw4lf/out/v1/6173f88d0c4e440bb3071a1e89d3a541/cenc.mpd"
+  },
+  {
+    "name": "Rock Action",
+    "type": "TV",
+    "logo": "https://i.imgur.com/T70dbrM.png",
+    "category": "Entertainment",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_rockextreme/default/index.mpd"
+  },
+  {
+    "name": "Rock Entertainment",
+    "type": "TV",
+    "logo": "https://i.imgur.com/BuKajCb.png",
+    "category": "Entertainment",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/dr_rockentertainment/default/index.mpd"
+  },
+  {
+    "name": "TVN Movies Pinoy",
+    "type": "TV",
+    "logo": "https://i.imgur.com/8YhI91e.png",
+    "category": "Movies",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_tvnmovie/default/index.mpd"
+  },
+  {
+    "name": "Blast Movie",
+    "type": "TV",
+    "logo": "https://i.imgur.com/3KXnFQK.png",
+    "category": "Movie Action",
+    "streamUrl": "https://amg19223-amg19223c7-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c7-amgplt0351/playlist.m3u8"
+  },
+  {
+    "name": "NBA TV Philippines",
+    "type": "TV",
+    "logo": "https://i.imgur.com/RcxNoIC.png",
+    "category": "Sports",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cgnl_nba/default/index.mpd"
+  },
+  {
+    "name": "PBA Rush",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Z7oMGiI.png",
+    "category": "Sports",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_pbarush_hd1/default/index.mpd"
+  },
+  {
+    "name": "One Sports HD Cignal",
+    "type": "TV",
+    "logo": "https://i.imgur.com/imI97L2.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_onesports_hd/default/index.mpd"
+  },
+  {
+    "name": "One Sports Plus",
+    "type": "TV",
+    "logo": "https://i.imgur.com/RnDeKOj.png",
+    "category": "Sports",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_onesportsplus_hd1/default/index.mpd"
+  },
+  {
+    "name": "UAAP Varsity Channel",
+    "type": "TV",
+    "logo": "https://i.imgur.com/POFK8tM.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_uaap_cplay_sd/default/index.mpd"
+  },
+  {
+    "name": "TAP Sports",
+    "type": "TV",
+    "logo": "https://i.imgur.com/HWbSPI9.png",
+    "category": "Sports",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/dr_tapsports/default/index.mpd"
+  },
+  {
+    "name": "Premier Sports",
+    "type": "TV",
+    "logo": "https://i.imgur.com/GTfUEnU.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_ps_hd1/default/index.mpd"
+  },
+  {
+    "name": "Premier Sports 2",
+    "type": "TV",
+    "logo": "https://i.imgur.com/OWVR172.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/premiersports2hd/default/index.mpd"
+  },
+  {
+    "name": "SpoTV HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/QExPfsT.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_spotvhd/default/index.mpd"
+  },
+  {
+    "name": "SpoTV 2 HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/7mY1Zxg.png",
+    "category": "Sports",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_spotv2hd/default/index.mpd"
+  },
+  {
+    "name": "Animax",
+    "type": "TV",
+    "logo": "https://i.imgur.com/5gJTEHT.png",
+    "category": "Kids",
+    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_animax_sd_new/default/index.mpd"
+  },
+  {
+    "name": "DreamWorks HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_dreamworks_hd1/default/index.mpd"
+  },
+  {
+    "name": "Dreamworks Tagalog",
+    "type": "TV",
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_dreamworktag/default/index.mpd"
+  },
+  {
+    "name": "Moonbug Kids",
+    "type": "TV",
+    "logo": "https://i.imgur.com/ILaPSzA.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_moonbug_kids_sd/default/index.mpd"
+  },
+  {
+    "name": "Cartoon Network (Cignal)",
+    "type": "TV",
+    "logo": "https://poster.starhubgo.com/Linear_channels2/316_1920x1080_HTV.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cartoonnetworkhd/default/index.mpd"
+  },
+  {
+    "name": "Nickelodeon",
+    "type": "TV",
+    "logo": "https://i.imgur.com/4o5dNZA.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_nickelodeon/default/index.mpd"
+  },
+  {
+    "name": "Nick Jr",
+    "type": "TV",
+    "logo": "https://i.imgur.com/iIVYdZP.png",
+    "category": "Kids",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/dr_nickjr/default/index.mpd"
+  },
+  {
+    "name": "PTV",
+    "type": "TV",
+    "logo": "https://i.imgur.com/jRvEV4E.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/cg_ptv4_sd/default/index.mpd"
+  },
+  {
+    "name": "RPTV",
+    "type": "TV",
+    "logo": "https://cms.cignal.tv/Upload/Thumbnails/rptv%20logo%20final-02.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cnn_rptv_prod_hd/default/index.mpd"
+  },
+  {
+    "name": "Bilyonaryo Channel",
+    "type": "TV",
+    "logo": "https://i.imgur.com/FxHmXYU.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/bilyonaryoch/default1/index.mpd"
+  },
+  {
+    "name": "CNN International",
+    "type": "TV",
+    "logo": "http://115.146.176.131:80/images/2acf9495fde07739914e7a7bb3ffee94.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_cnnhd/default/index.mpd"
+  },
+  {
+    "name": "BBC World News",
+    "type": "TV",
+    "logo": "https://i.imgur.com/CTf7nGs.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/bbcworld_news_sd/default/index.mpd"
+  },
+  {
+    "name": "Bloomberg",
+    "type": "TV",
+    "logo": "https://i.imgur.com/2WGEb3V.png",
+    "category": "News",
+    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/bloomberg_sd/default/index.mpd"
+  },
    {
     "name": "SINE PLUS",
     "type": "TV",
