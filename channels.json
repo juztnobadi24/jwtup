@@ -1,11 +1,11 @@
 [
  
  {
-    "name": "PTVs",
+    "name": "PTV",
     "type": "TV",
     "logo": "",
     "category": "Entertainment",
-    "streamUrl": "https://streams.comclark.com/pknsd/ptv/chunks.m3u8?nimblesessionid=65227636"
+    "streamUrl": "https://streams.comclark.com/pknsd/ptv/chunks.m3u8"
 },
 {
     "name": "DepEd TV",
