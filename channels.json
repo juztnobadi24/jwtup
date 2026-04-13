@@ -1,11 +1,11 @@
 [
  
  {
-    "name": "PTV",
+    "name": "PTVe",
     "type": "TV",
     "logo": "",
     "category": "Entertainment",
-    "streamUrl": "https://streams.comclark.com/pknsd/ptv/chunks.m3u8"
+    "streamUrl": "https://streams.comclark.com/pknsd/ptv/chunks/playlist.m3u8"
 },
 {
     "name": "DepEd TV",
